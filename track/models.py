@@ -9,7 +9,7 @@ class Music(models.Model):
     artist = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     release_date = models.DateField(auto_now_add=True)
     is_deleted=models.BooleanField(default=False)
-    cover = models.CharField(default="image.png")  
+    image = models.CharField(max_length=100,default="image.png")  
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     
 
