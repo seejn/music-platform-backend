@@ -22,4 +22,18 @@ class CustomUser(AbstractUser):
         db_table = "c_users"
 
     def __str__(self):
-        return self.email
+        return f"[{self.id}: {self.email}]"
+
+class ArtistDetail(models.Model):
+    artist = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=True)
+    stagename = models.CharField(null=True, unique=True, max_length=50)
+    biography = models.TextField(null=True, max_length=250)
+    dob = models.DateField(null=True)
+    gender = models.CharField(default="male", max_length=10)
+    nationality = models.CharField(null=True, max_length=50)
+    twitter_link = models.CharField(null=True, max_length=100)
+    facebook_link = models.CharField(null=True, max_length=100)
+    instagram_link = models.CharField(null=True, max_length=100)
+
+    def __str__(self):
+        return f"Detail: {super().email}"
