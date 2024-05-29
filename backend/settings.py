@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'Cusers.CustomUser'
 
 # Application definition
 
@@ -41,6 +42,8 @@ INSTALLED_APPS = [
     "genre",
     "track",
     "album",
+    "Cusers",
+    "Roles",
 ]
 
 MIDDLEWARE = [
