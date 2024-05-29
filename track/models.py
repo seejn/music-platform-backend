@@ -1,5 +1,5 @@
 from django.db import models
-from CustomUser.models import CustomUser
+from Cusers.models import CustomUser
 from django.utils import timezone
 from genre.models import Genre
 
