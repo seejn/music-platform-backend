@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'Cusers.CustomUser'
 
 # Application definition
 
@@ -39,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "genre",
+    "Cusers",
+    "Roles",
 ]
 
 MIDDLEWARE = [
