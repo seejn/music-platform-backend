@@ -4,7 +4,6 @@ from .managers import CustomUserManager
 
 from Roles.models import Role
 
-# Create your models here.
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(max_length=50, unique=True)
@@ -14,7 +13,6 @@ class CustomUser(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-    
 
     objects = CustomUserManager()
 
@@ -23,6 +21,10 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return f"[{self.id}: {self.email}]"
+    
+    def soft_delete(self):
+        self.is_deleted = True
+        self.save()
 
 class ArtistDetail(models.Model):
     artist = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=True)
@@ -37,3 +39,7 @@ class ArtistDetail(models.Model):
 
     def __str__(self):
         return f"Detail: {super().email}"
+    
+    def soft_delete(self):
+        self.is_deleted = True
+        self.save()

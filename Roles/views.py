@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.exceptions import NotFound
 from django.http import JsonResponse
 from .models import Role
-from .serializers import UserSerializer
+from .serializers import RoleSerializer
 from Cusers.models import CustomUser
 
 
@@ -12,7 +12,7 @@ from Cusers.models import CustomUser
 def get_all_artist(request):
         artist_role = Role.objects.get(pk=2)
         all_artist = artist_role.user.all()
-        serializer = UserSerializer(all_artist, many=True)
+        serializer = RoleSerializer(all_artist, many=True)
         return JsonResponse(serializer.data, safe=False)
 
 
@@ -23,6 +23,6 @@ def get_current_artist(request, pk):
         except CustomUser.DoesNotExist:
             raise NotFound(detail="Artist not found")
 
-        serializer = UserSerializer(artist)
+        serializer = RoleSerializer(artist)
         return JsonResponse(serializer.data, status=status.HTTP_200_OK)
 
