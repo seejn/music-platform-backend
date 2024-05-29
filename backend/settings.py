@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'Cusers.CustomUser'
 
 # Application definition
 
@@ -38,6 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "genre",
+    "track",
+    "album",
+    "Cusers",
+    "Roles",
 ]
 
 MIDDLEWARE = [
