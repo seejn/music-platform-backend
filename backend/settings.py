@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "album",
     "Cusers",
     "Roles",
+    
 ]
 
 MIDDLEWARE = [
