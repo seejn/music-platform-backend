@@ -8,6 +8,8 @@ class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(max_length=50, unique=True)
     image = models.CharField(default="https://via.placeholder.com/150", max_length=50)
+    dob = models.DateField(null=True)
+    gender = models.CharField(default="male", max_length=10)
     role = models.ForeignKey(Role, null=True, on_delete=models.SET_NULL, related_name="user")
     is_deleted = models.BooleanField(default=False)
 
@@ -30,8 +32,7 @@ class ArtistDetail(models.Model):
     artist = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=True)
     stagename = models.CharField(null=True, unique=True, max_length=50)
     biography = models.TextField(null=True, max_length=250)
-    dob = models.DateField(null=True)
-    gender = models.CharField(default="male", max_length=10)
+    
     nationality = models.CharField(null=True, max_length=50)
     twitter_link = models.CharField(null=True, max_length=100)
     facebook_link = models.CharField(null=True, max_length=100)

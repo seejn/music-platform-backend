@@ -1,9 +1,7 @@
  
 from rest_framework import serializers
-from Cusers.models import CustomUser
+from .models import Role
 
-class RoleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomUser
-        exclude = ['is_staff', 'is_superuser','password','user_permissions','groups']
-
+class RoleSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    role = serializers.CharField()

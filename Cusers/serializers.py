@@ -13,7 +13,17 @@ class CustomUserSerializer(serializers.ModelSerializer):
 class ArtistDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = ArtistDetail
-        fields = ['artist', 'stagename', 'biography', 'dob', 'gender', 'nationality', 'twitter_link', 'facebook_link', 'instagram_link','is_deleted']
+        fields = '__all__'
 
-
-  
+class ArtistSerializer(serializers.ModelSerializer):
+    detail = ArtistDetailSerializer(source="artistdetail", read_only=True)
+    role = RoleSerializer(read_only=True)
+    class Meta:
+        model = CustomUser
+        exclude = [
+            'password',
+            'is_superuser',
+            'is_staff',
+            'groups', 
+            'user_permissions'
+        ]

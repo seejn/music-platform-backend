@@ -1,10 +1,9 @@
-
-
 from rest_framework import status
 from rest_framework.exceptions import NotFound
 from django.http import JsonResponse
 from .models import Role
 from .serializers import RoleSerializer
+from Cusers.serializers import ArtistSerializer
 from Cusers.models import CustomUser
 
 
@@ -12,7 +11,7 @@ from Cusers.models import CustomUser
 def get_all_artist(request):
         artist_role = Role.objects.get(pk=2)
         all_artist = artist_role.user.all()
-        serializer = RoleSerializer(all_artist, many=True)
+        serializer = ArtistSerializer(all_artist, many=True)
         return JsonResponse(serializer.data, safe=False)
 
 
