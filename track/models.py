@@ -7,8 +7,9 @@ class Music(models.Model):
     title = models.CharField(max_length=100)
     duration = models.CharField(max_length=10)
     artist = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    release_date = models.DateField(auto_now_add=True)
+    release_date = models.DateField(null=True)
     is_deleted=models.BooleanField(default=False)
+    deleted_at = models.DateTimeField(null=True)
     image = models.CharField(max_length=100,default="image.png")  
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     
