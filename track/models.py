@@ -11,7 +11,7 @@ class Music(models.Model):
     is_deleted=models.BooleanField(default=False)
     deleted_at = models.DateTimeField(null=True)
     image = models.CharField(max_length=100,default="image.png")  
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, null=True)
     
 
     def __str__(self):
