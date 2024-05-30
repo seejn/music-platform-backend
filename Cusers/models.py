@@ -36,6 +36,7 @@ class ArtistDetail(models.Model):
     twitter_link = models.CharField(null=True, max_length=100)
     facebook_link = models.CharField(null=True, max_length=100)
     instagram_link = models.CharField(null=True, max_length=100)
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Detail: {super().email}"

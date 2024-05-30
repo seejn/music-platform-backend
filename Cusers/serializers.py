@@ -13,7 +13,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 class ArtistDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = ArtistDetail
-        fields = ['artist', 'stagename', 'biography', 'dob', 'gender', 'nationality', 'twitter_link', 'facebook_link', 'instagram_link']
+        fields = ['artist', 'stagename', 'biography', 'dob', 'gender', 'nationality', 'twitter_link', 'facebook_link', 'instagram_link','is_deleted']
 
 
   
