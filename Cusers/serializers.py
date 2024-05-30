@@ -16,7 +16,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         fields = ['id', 'email', 'image', 'role', 'is_deleted']
 
 class ArtistSerializer(serializers.ModelSerializer):
-    detail = ArtistDetailSerializer(source="artistdetail", read_only=True)
+    detail = ArtistDetailSerializer(read_only=True)
     class Meta:
         model = CustomUser
         exclude = [
