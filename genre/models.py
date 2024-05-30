@@ -7,4 +7,4 @@ class Genre(models.Model):
         db_table = "genre"
 
     def __str__(self):
-        return "Genre"
+        return self.name
