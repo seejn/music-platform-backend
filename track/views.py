@@ -9,8 +9,6 @@ from .serializers import TrackSerializer
 from .models import Music
 from Cusers.models import CustomUser
 from genre.models import Genre
-from .serializers import PlayListSerializer
-from .models import Playlist
 
 def get_track(request, track_id):
     track = Music.objects.get(pk=track_id)
@@ -63,63 +61,3 @@ def delete_track(request, track_id):
     deleted_track = TrackSerializer(track).data
 
     return JsonResponse({"message": "Track Deleted Successfully", "data": deleted_track}, status=200)
-
-
-
-
-#PLaylist view
-
-
-def get_playlist(request, playlist_id):
-    playlist = Playlist.objects.get(pk=playlist_id)
-    serializer = PlayListSerializer(playlist)
-
-    return JsonResponse({"message": f"Playlist {playlist_id}", "data": serializer.data}, status=200)    
-
-def get_all_playlists(request):
-    all_playlists = Playlist.objects.all()
-    serializer = PlayListSerializer(all_playlists, many=True)
-
-    return JsonResponse({"message": f"All Playlists", "data": serializer.data}, status=200)    
-
-@csrf_exempt
-def create_playlist(request):
-    dict_data = json.loads(request.body)
-
-    user_id = dict_data.get('user')
-    track_ids = dict_data.get('track')
-
-    del dict_data['user']
-    del dict_data['track']
-
-    user = CustomUser.objects.get(pk=user_id)
-
-    new_playlist = Playlist.objects.create(**dict_data, user=user)
-    
-    new_playlist.track.add(*track_ids)
-    new_playlist.save()
-    
-    new_playlist = PlayListSerializer(new_playlist).data
-
-    return JsonResponse({"message": "New Playlist Added Successfully", "data": new_playlist}, status=200)
-
-@csrf_exempt
-def update_playlist(request, playlist_id):
-    dict_data = json.loads(request.body)
-
-    playlist = Playlist.objects.get(pk=playlist_id)
-    
-    playlist.__dict__.update(dict_data)
-    playlist.save()
-    playlist = Playlist.objects.get(pk=playlist_id)
-    updated_playlist = PlayListSerializer(playlist).data
-    
-    return JsonResponse({"message": "Playlist Updated Successfully", "data": updated_playlist}, status=200)
-    
-@csrf_exempt
-def delete_playlist(request, playlist_id):
-    playlist = Playlist.objects.get(pk=playlist_id)
-    playlist.soft_delete()
-    playlist = Playlist.objects.get(pk=playlist_id)
-    deleted_playlist = PlayListSerializer(playlist).data
-    return JsonResponse({"message": "Playlist Deleted Successfully", "data": deleted_playlist}, status=200)
