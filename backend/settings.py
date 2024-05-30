@@ -39,11 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "Roles",
     "genre",
+    "Cusers",
     "track",
     "album",
-    "Cusers",
-    "Roles",
     
 ]
 
