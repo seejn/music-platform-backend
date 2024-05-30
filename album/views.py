@@ -8,6 +8,7 @@ from rest_framework.parsers import JSONParser
 from .serializers import AlbumSerializer
 from .models import Album
 from Cusers.models import CustomUser
+from track.models import Music
 
 
 def get_album(request, album_id):
@@ -25,14 +26,20 @@ def get_all_albums(request):
 @csrf_exempt
 def create_album(request):
     dict_data = json.loads(request.body)
-    artist_id = dict_data.get('artist')
-    del dict_data['artist']
 
-    
+    artist_id = dict_data.get('artist')
+    track_ids = dict_data.get('track')
+
+    del dict_data['artist']
+    del dict_data['track']
+
     artist = CustomUser.objects.get(pk=artist_id)
 
-
     new_album = Album.objects.create(**dict_data, artist=artist)
+    
+    new_album.track.add(*track_ids)
+    new_album.save()
+    
     new_album = AlbumSerializer(new_album).data
 
     return JsonResponse({"message": "New Album Added Successfully", "data": new_album}, status=200)
@@ -42,6 +49,7 @@ def update_album(request, album_id):
     dict_data = json.loads(request.body)
 
     album = Album.objects.get(pk=album_id)
+    
     album.__dict__.update(dict_data)
     album.save()
     album = Album.objects.get(pk=album_id)

@@ -11,4 +11,8 @@ class TrackSerializer(serializers.ModelSerializer):
         model = Music
         fields = "__all__"
 
-    
+class TrackOnlySerializer(serializers.ModelSerializer):
+    genre = GenreSerializer(read_only=True)
+    class Meta:
+        model = Music
+        fields = "__all__"
