@@ -22,6 +22,6 @@ def get_current_artist(request, pk):
         except CustomUser.DoesNotExist:
             raise NotFound(detail="Artist not found")
 
-        serializer = RoleSerializer(artist)
+        serializer = ArtistSerializer(artist)
         return JsonResponse(serializer.data, status=status.HTTP_200_OK)
 
