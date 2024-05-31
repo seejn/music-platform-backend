@@ -16,7 +16,8 @@ def get_all_artist(request):
         return JsonResponse({"message": "No artists available"}, status=404)
 
     serializer = ArtistSerializer(all_artist, many=True)
-    return JsonResponse(serializer.data, status=200)
+    print(serializer.data)
+    return JsonResponse({"message": "All Artists", "data": serializer.data}, status=200)
 
 
 
@@ -27,5 +28,5 @@ def get_current_artist(request, pk):
         return JsonResponse({"message": "Artist not available"}, status=404)
 
     serializer = ArtistSerializer(artist)
-    return JsonResponse(serializer.data, status=200)
+    return JsonResponse({"message": "Artist's Data", "data": serializer.data}, status=200)
 
