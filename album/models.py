@@ -15,8 +15,27 @@ class Album(models.Model):
         db_table = "album"
 
     def __str__(self):
-        return "album"
+        return f"{self.id} {self.title}"
     
+    def soft_delete(self):
+        self.is_deleted = True
+        self.deleted_at = timezone.now()
+        self.save()
+
+
+class FavouriteAlbum(models.Model):
+    album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name="favourite_by")
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="favourite_album")
+    created_at = models.DateTimeField(default=timezone.now)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+    is_deleted = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = "favourite_album"
+
+    def __str__(self):
+        return f"{self.id} {self.album.title}"
+
     def soft_delete(self):
         self.is_deleted = True
         self.deleted_at = timezone.now()
