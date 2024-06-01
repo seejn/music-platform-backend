@@ -6,8 +6,8 @@ from Roles.serializers import RoleSerializer
 
 class ArtistDetailSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ArtistDetail
-        fields = '__all__'
+        model = CustomUser
+        fields = ['id', 'email', 'image', 'role', 'is_deleted']
 
 class CustomUserSerializer(serializers.ModelSerializer):
     role = RoleSerializer(read_only=True)
@@ -16,13 +16,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
         fields = ['id', 'email', 'image', 'role', 'is_deleted']
 
 class ArtistSerializer(serializers.ModelSerializer):
-    detail = ArtistDetailSerializer(read_only=True)
+    artist = ArtistDetailSerializer(read_only=True)
     class Meta:
-        model = CustomUser
-        exclude = [
-            'password',
-            'is_superuser',
-            'is_staff',
-            'groups', 
-            'user_permissions'
-        ]
+        model = ArtistDetail
+        fields = '__all__'
+        
