@@ -34,7 +34,7 @@ class Playlist(models.Model):
 
 
     def __str__(self):
-        return self.title
+        return f"{self.id} {self.title}"
 
     def soft_delete(self):
         self.is_deleted = True
@@ -42,7 +42,7 @@ class Playlist(models.Model):
         self.save()
 
 class FavouritePlaylist(models.Model):
-    playlist = models.ManyToManyField(Playlist, related_name="favourite_by")
+    playlists = models.ManyToManyField(Playlist, related_name="favourite_by")
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="favourite_playlist")
     created_at = models.DateTimeField(default=timezone.now)
     deleted_at = models.DateTimeField(null=True, blank=True)
@@ -52,7 +52,7 @@ class FavouritePlaylist(models.Model):
         db_table = "favourite_playlist"
 
     def __str__(self):
-        return f"{self.id} {self.album.title}"
+        return f"{self.id} {self.user.email}"
 
     def soft_delete(self):
         self.is_deleted = True
