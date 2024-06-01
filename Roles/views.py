@@ -43,7 +43,7 @@ def create_user(request):
 
     if not check_required_fields(input_fields,required_fields ):
         return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)  
-    user_role=Role.objects.get(pk=3)
+    user_role=Role.objects.get(pk=1)
 
     new_user=user_role.user.create(**dict_data)
     serializer=CustomUserSerializer(new_user)
