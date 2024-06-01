@@ -107,7 +107,6 @@ def delete_track(request, track_id):
         return JsonResponse({"message": "Track not Available"}, status=404) 
 
     track.soft_delete()
-    track = Music.objects.get(pk=track_id)
     deleted_track = TrackSerializer(track).data
 
     return JsonResponse({"message": "Track Deleted Successfully", "data": deleted_track}, status=200)
@@ -168,7 +167,6 @@ def update_playlist(request, playlist_id):
 def delete_playlist(request, playlist_id):
     playlist = Playlist.objects.get(pk=playlist_id)
     playlist.soft_delete()
-    playlist = Playlist.objects.get(pk=playlist_id)
     deleted_playlist = PlayListSerializer(playlist).data
     return JsonResponse({"message": "Playlist Deleted Successfully", "data": deleted_playlist}, status=200)
 
@@ -225,7 +223,6 @@ def delete_favourite_playlist(request, favourite_playlist_id):
         return JsonResponse({"message": "Favourite playlist not Found"}, status=404)  
 
     favourite_playlist.soft_delete()
-    favourite_playlist = FavouritePlaylist.objects.get(pk=favourite_playlist_id)
 
     favourite_playlist = FavouritePlaylistSerializer(favourite_playlist).data
     return JsonResponse({"message": "Favourite playlist deleted successfully", "data": favourite_playlist}, status=200)

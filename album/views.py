@@ -63,7 +63,6 @@ def update_album(request, album_id):
 def delete_album(request, album_id):
     album = Album.objects.get(pk=album_id)
     album.soft_delete()
-    album = Album.objects.get(pk=album_id)
     deleted_album = AlbumSerializer(album).data
     return JsonResponse({"message": "Album Deleted Successfully", "data": deleted_album}, status=200)
 
@@ -120,7 +119,6 @@ def delete_favourite_album(request, favourite_album_id):
         return JsonResponse({"message": "Favourite Album not Found"}, status=404)  
 
     favourite_album.soft_delete()
-    favourite_album = FavouriteAlbum.objects.get(pk=favourite_album_id)
 
     favourite_album = FavouriteAlbumSerializer(favourite_album).data
     return JsonResponse({"message": "Favourite Album deleted successfully", "data": favourite_album}, status=200)
