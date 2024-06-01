@@ -2,6 +2,8 @@ from django.db import models
 from Cusers.models import CustomUser
 from django.utils import timezone
 from track.models import Music
+from managers.FilterDeleted import FilterDeletedManager
+
 class Album(models.Model):
     title= models.CharField(max_length=20,unique=True)
     artist=models.ForeignKey(CustomUser,on_delete=models.CASCADE)
@@ -10,6 +12,8 @@ class Album(models.Model):
     image=models.CharField(max_length=200,default="image.png")
     is_deleted= models.BooleanField(default=False)
     deleted_at=models.DateTimeField(null=True)
+
+    objects = FilterDeletedManager()
 
     class Meta:
         db_table = "album"
@@ -29,6 +33,8 @@ class FavouriteAlbum(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     deleted_at = models.DateTimeField(null=True, blank=True)
     is_deleted = models.BooleanField(default=False)
+
+    objects = FilterDeletedManager()
 
     class Meta:
         db_table = "favourite_album"
