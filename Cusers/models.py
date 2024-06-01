@@ -9,8 +9,9 @@ class CustomUser(AbstractUser):
     email = models.EmailField(max_length=50, unique=True)
     image = models.CharField(default="https://via.placeholder.com/150", max_length=50)
     dob = models.DateField(null=True)
-    gender = models.CharField(default="male", max_length=10)
+    gender = models.CharField( default="male",max_length=10)
     role = models.ForeignKey(Role, null=True, on_delete=models.SET_NULL, related_name="user")
+    deleted_at=models.DateTimeField(null=True)
     is_deleted = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
@@ -37,11 +38,13 @@ class ArtistDetail(models.Model):
     twitter_link = models.CharField(null=True, max_length=100)
     facebook_link = models.CharField(null=True, max_length=100)
     instagram_link = models.CharField(null=True, max_length=100)
-    is_deleted = models.BooleanField(default=False)
+ 
 
     def __str__(self):
-        return f"Detail: {super().email}"
+        return f"Detail: {self.artist.email}"
     
     def soft_delete(self):
         self.is_deleted = True
         self.save()
+
+
