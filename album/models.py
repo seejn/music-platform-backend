@@ -34,7 +34,7 @@ class FavouriteAlbum(models.Model):
         db_table = "favourite_album"
 
     def __str__(self):
-        return f"{self.id} {self.album.title}"
+        return f"{self.id} {self.user.email}"
 
     def soft_delete(self):
         self.is_deleted = True
