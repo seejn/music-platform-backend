@@ -10,13 +10,13 @@ from .models import Album
 from Cusers.models import CustomUser
 from track.models import Music
 
-
+@csrf_exempt
 def get_album(request, album_id):
     album = Album.objects.get(pk=album_id)
     serializer = AlbumSerializer(album)
 
     return JsonResponse({"message": f"Album {album_id}", "data": serializer.data}, status=200)    
-
+@csrf_exempt
 def get_all_albums(request):
     all_albums = Album.objects.all()
     serializer = AlbumSerializer(all_albums, many=True)

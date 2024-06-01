@@ -1,8 +1,7 @@
 from django.urls import path
-from .views import user_list_create, user_detail
+from .views import get_all_users,get_user
 
 urlpatterns = [
-    path('users/', user_list_create, name='user-list-create'),
-    path('users/<int:pk>/', user_detail, name='user-detail'),
-
+    path('get_all_users/', get_all_users, name="get_all_users"),
+    path('<int:user_id>/', get_user, name="get_user")
 ]
