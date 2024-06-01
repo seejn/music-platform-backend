@@ -87,19 +87,27 @@ def create_favourite_album(request):
 
     dict_data = json.loads(request.body)
     user_id = dict_data.get("user_id")
-    album_id = dict_data.get("album_id")
+    album_ids = dict_data.get("albums")
+
+    del dict_data["albums"]
 
     try:
         user = CustomUser.objects.get(pk=user_id)
     except CustomUser.DoesNotExist:
         return JsonResponse({"message": "User not Found"}, status=404)  
 
-    try:
-        album = Album.objects.get(pk=album_id)
-    except Album.DoesNotExist:
-        return JsonResponse({"message": "Album not Available"}, status=404)  
-
     new_favourite_album = FavouriteAlbum.objects.create(**dict_data)
+
+    for album_id in album_ids:
+        try:
+            Album.objects.get(pk=album_id)
+        except Album.DoesNotExist:
+            return JsonResponse({"message": "Album not Available"}, status=404)  
+
+    print(album_ids)
+    new_favourite_album.albums.set(album_ids)
+    new_favourite_album.save()
+
     serializer = FavouriteAlbumSerializer(new_favourite_album)
 
     return JsonResponse({"message": f"create favourite album for user", "data": serializer.data}, status=200)

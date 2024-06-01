@@ -14,7 +14,7 @@ class AlbumSerializer(serializers.ModelSerializer):
 
 class FavouriteAlbumSerializer(serializers.ModelSerializer):
     user = CustomUserSerializer(read_only = True)
-    album = AlbumSerializer(read_only=True)
+    albums = AlbumSerializer(read_only=True, many=True)
     class Meta:
         model = FavouriteAlbum
         fields = '__all__'
