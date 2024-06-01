@@ -27,7 +27,7 @@ class Playlist(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     track = models.ManyToManyField(Music)
-    created_at = models.DateTimeField(default=timezone.now())
+    created_at = models.DateTimeField(default=timezone.now)
     is_deleted=models.BooleanField(default=False)
     deleted_at = models.DateTimeField(null=True,blank=True)
     image = models.CharField(max_length=100,default="image.png")  
