@@ -8,17 +8,17 @@ from django.db import IntegrityError
 
 from rest_framework.parsers import JSONParser 
 from .serializers import TrackSerializer
-from .models import Music
+from .models import Music, Playlist, FavouritePlaylist
 from Cusers.models import CustomUser
 from genre.models import Genre
-from .serializers import PlayListSerializer
-from .models import Playlist
+from .serializers import PlayListSerializer, FavouritePlaylistSerializer
 
 from utils.fields import check_required_fields, does_field_exist
 
 def get_track(request, track_id):
     try:
         track = Music.objects.get(pk=track_id)
+        
     except Music.DoesNotExist:
         return JsonResponse({"message": "Track not Available"}, status=404)    
 
@@ -42,9 +42,9 @@ def create_track(request):
     dict_data = json.loads(request.body)
     
     input_fields = list(dict_data.keys())
-    required_fields = ["title", "duration", "artist"]
+    required_fields = ["title", "duration", "artist", "genre", "release_date"]
 
-    if not check_required_fields(required_fields, input_fields):
+    if not check_required_fields(input_fields, required_fields):
         return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)    
    
     artist_id = dict_data.get('artist')
@@ -108,7 +108,6 @@ def delete_track(request, track_id):
         return JsonResponse({"message": "Track not Available"}, status=404) 
 
     track.soft_delete()
-    track = Music.objects.get(pk=track_id)
     deleted_track = TrackSerializer(track).data
 
     return JsonResponse({"message": "Track Deleted Successfully", "data": deleted_track}, status=200)
@@ -169,6 +168,62 @@ def update_playlist(request, playlist_id):
 def delete_playlist(request, playlist_id):
     playlist = Playlist.objects.get(pk=playlist_id)
     playlist.soft_delete()
-    playlist = Playlist.objects.get(pk=playlist_id)
     deleted_playlist = PlayListSerializer(playlist).data
     return JsonResponse({"message": "Playlist Deleted Successfully", "data": deleted_playlist}, status=200)
+
+
+# favourite playlist
+
+def get_all_users_favourite_playlists(request):
+    all_users_favourite_playlists = FavouritePlaylist.objects.all()
+    
+    if not all_users_favourite_playlists:
+        return JsonResponse({"message": "No Favourite Playlists Found"}, status=404)  
+
+    all_users_favourite_playlists = FavouritePlaylistSerializer(all_users_favourite_playlists, many=True).data
+
+    return JsonResponse({"message": "Favourite Playlists", "data": all_users_favourite_playlists}, status=200)
+
+
+@csrf_exempt
+def create_favourite_playlist(request):
+
+    dict_data = json.loads(request.body)
+    user_id = dict_data.get("user_id")
+    playlist_ids = dict_data.get("playlists")
+
+    del dict_data["playlists"]
+
+    try:
+        user = CustomUser.objects.get(pk=user_id)
+    except CustomUser.DoesNotExist:
+        return JsonResponse({"message": "User not Found"}, status=404)  
+
+    print("dict_data", dict_data)
+    new_favourite_playlist = FavouritePlaylist.objects.create(**dict_data)
+
+    for playlist_id in playlist_ids:
+        try:
+            Playlist.objects.get(pk=playlist_id)
+        except Playlist.DoesNotExist:
+            return JsonResponse({"message": "Playlist not Available"}, status=404)  
+
+    print(playlist_ids)
+    new_favourite_playlist.playlists.set(playlist_ids)
+    new_favourite_playlist.save()
+
+    serializer = FavouritePlaylistSerializer(new_favourite_playlist)
+
+    return JsonResponse({"message": f"create favourite playlist for user", "data": serializer.data}, status=200)
+
+@csrf_exempt
+def delete_favourite_playlist(request, favourite_playlist_id):
+    try:
+        favourite_playlist = FavouritePlaylist.objects.get(pk=favourite_playlist_id)
+    except FavouritePlaylist.DoesNotExist:
+        return JsonResponse({"message": "Favourite playlist not Found"}, status=404)  
+
+    favourite_playlist.soft_delete()
+
+    favourite_playlist = FavouritePlaylistSerializer(favourite_playlist).data
+    return JsonResponse({"message": "Favourite playlist deleted successfully", "data": favourite_playlist}, status=200)
