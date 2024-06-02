@@ -19,7 +19,7 @@ def get_all_artist(request):
     if not all_artist:
         return JsonResponse({"message": "No artists available"}, status=404)
 
-    serializer = ArtistSerializer(all_artist, many=True)
+    serializer = ArtistDetailSerializer(all_artist, many=True)
     print(serializer.data)
     return JsonResponse({"message": "All Artists", "data": serializer.data}, status=200)
 
@@ -31,7 +31,7 @@ def get_current_artist(request, artist_id):
     except ArtistDetail.DoesNotExist:
         return JsonResponse({"message": "Artist not available"}, status=404)
 
-    serializer = ArtistSerializer(artist)
+    serializer = ArtistDetailSerializer(artist)
     return JsonResponse({"message": "Artist's Data", "data": serializer.data}, status=200)
 
 @csrf_exempt
@@ -76,7 +76,7 @@ def create_artist(request):
                 instagram_link=dict_data.get('instagram_link', '')
             )
 
-            serializer = ArtistSerializer(artist_detail)
+            serializer = ArtistDetailSerializer(artist_detail)
             return JsonResponse({"message": "New Artist Created Successfully.", "data": serializer.data}, status=200)
         except Role.DoesNotExist:
             return JsonResponse({"message": "Artist role does not exist."}, status=400)
@@ -172,7 +172,7 @@ def update_artist_info(request, artist_id):
         return JsonResponse({"message": "Already Exists"}, status=400)
 
     artist = ArtistDetail.objects.get(pk=artist_id)
-    updated_artist = ArtistSerializer(artist).data
+    updated_artist = ArtistDetailSerializer(artist).data
 
     return JsonResponse({"message": "Artist Updated Successfully", "data": updated_artist}, status=200)
 

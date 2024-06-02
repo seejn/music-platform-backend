@@ -11,7 +11,7 @@ class CustomUser(AbstractUser):
     dob = models.DateField(null=True)
     gender = models.CharField( default="male",max_length=10)
     role = models.ForeignKey(Role, null=True, on_delete=models.SET_NULL, related_name="user")
-    deleted_at=models.DateTimeField(null=True)
+    deleted_at=models.DateTimeField(null=True,blank=True)
     is_deleted = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
