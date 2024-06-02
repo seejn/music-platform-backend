@@ -19,6 +19,7 @@ from utils.fields import check_required_fields, does_field_exist
 def get_track(request, track_id):
     try:
         track = Music.objects.get(pk=track_id)
+        
     except Music.DoesNotExist:
         return JsonResponse({"message": "Track not Available"}, status=404)    
 
@@ -42,9 +43,9 @@ def create_track(request):
     dict_data = json.loads(request.body)
     
     input_fields = list(dict_data.keys())
-    required_fields = ["title", "duration", "artist"]
+    required_fields = ["title", "duration", "artist", "genre", "release_date"]
 
-    if not check_required_fields(required_fields, input_fields):
+    if not check_required_fields(input_fields, required_fields):
         return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)    
    
     artist_id = dict_data.get('artist')
