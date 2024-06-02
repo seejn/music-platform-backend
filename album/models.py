@@ -2,7 +2,7 @@ from django.db import models
 from Cusers.models import CustomUser
 from django.utils import timezone
 from track.models import Music
-from managers.FilterDeleted import FilterDeletedManager
+from managers.SoftDelete import SoftDeleteManager
 
 class Album(models.Model):
     title= models.CharField(max_length=20,unique=True)
@@ -13,7 +13,7 @@ class Album(models.Model):
     is_deleted= models.BooleanField(default=False)
     deleted_at=models.DateTimeField(null=True)
 
-    objects = FilterDeletedManager()
+    objects = SoftDeleteManager()
 
     class Meta:
         db_table = "album"
@@ -34,7 +34,7 @@ class FavouriteAlbum(models.Model):
     deleted_at = models.DateTimeField(null=True, blank=True)
     is_deleted = models.BooleanField(default=False)
 
-    objects = FilterDeletedManager()
+    objects = SoftDeleteManager()
 
     class Meta:
         db_table = "favourite_album"
