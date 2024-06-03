@@ -6,6 +6,7 @@ import io, json
 from django.utils import timezone
 from django.db import IntegrityError
 
+
 from rest_framework.parsers import JSONParser 
 from .serializers import TrackSerializer
 from .models import Music, Playlist, FavouritePlaylist
@@ -39,10 +40,15 @@ def get_all_tracks(request):
 def create_track(request):
     # stream = io.BytesIO(request.body)
     # dict_data = JSONParser().parse(stream)
-    dict_data = json.loads(request.body)
-    
+    # dict_data = json.loads(request.body)
+
+    dict_data = request.POST.dict()
     input_fields = list(dict_data.keys())
-    required_fields = ["title", "duration", "artist", "genre", "release_date"]
+    image = request.FILES.get("image")
+
+    print(dict_data)
+
+    required_fields = ["title", "duration", "artist", "genre"]
 
     if not check_required_fields(input_fields, required_fields):
         return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)    
@@ -63,9 +69,8 @@ def create_track(request):
             genre = Genre.objects.get(pk=genre_id)
         except Genre.DoesNotExist:
             return JsonResponse({"message": "Genre not Available"}, status=404)    
-    
-
-    new_track = Music.objects.create(**dict_data, artist=artist, genre=genre)
+    print("before creating: ", image)
+    new_track = Music.objects.create(**dict_data, artist=artist, genre=genre, image=image)
     new_track = TrackSerializer(new_track).data
 
     return JsonResponse({"message": "New Track Added Successfully", "data": new_track}, status=200)
