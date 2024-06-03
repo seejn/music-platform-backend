@@ -15,11 +15,11 @@ class ArtistSerializer(serializers.ModelSerializer):
     details = ArtistDetailSerializer(read_only=True)
     class Meta:
         model = CustomUser
-        fields = ['id', 'email', 'image', 'role', 'is_deleted', 'details']
+        fields = ['id','first_name','last_name' ,'email', 'image', 'date_joined','role', 'is_deleted', 'details']
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
     role = RoleSerializer(read_only=True)
     class Meta:
         model = CustomUser
-        fields = ['id', 'email', 'image', 'role', 'is_deleted']
+        fields = ['id','first_name','last_name' ,'email', 'image', 'date_joined','role', 'is_deleted', 'details']
