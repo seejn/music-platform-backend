@@ -67,15 +67,29 @@ def create_artist(request):
             dict_data['role'] = artist_role
 
             new_artist = CustomUser.objects.create(**{key: dict_data[key] for key in ['email', 'dob', 'gender', 'role']})
+
+            """
+            biography = dict_data.get('biography')
+            Behavior: If the key 'biography' exists in dict_data, its corresponding value is returned and assigned to biography. If the key does not exist, None is returned and assigned to biography.
+
+
+            biography = dict_data.get('biography', '')
+            Behavior: If the key 'biography' exists in dict_data, its corresponding value is returned and assigned to biography. If the key does not exist, an empty string '' is returned and assigned to biography.
+            """
             artist_detail = ArtistDetail.objects.create(
                 artist=new_artist,
-                stagename=dict_data['stagename'],
+                stagename=dict_data.get('stagename'),
+                # stagename=dict_data.get('stagename',''),
                 biography=dict_data.get('biography'),
-                biography=dict_data.get('biography', ''),
-                nationality=dict_data['nationality'],
-                twitter_link=dict_data.get('twitter_link', ''),
-                facebook_link=dict_data.get('facebook_link', ''),
-                instagram_link=dict_data.get('instagram_link', '')
+                # biography=dict_data.get('biography', ''),
+                nationality=dict_data.get('nationality'),
+                # nationality=dict_data.get('nationality',''),
+                twitter_link=dict_data.get('twitter_link'),
+                # twitter_link=dict_data.get('twitter_link', ''),
+                facebook_link=dict_data.get('facebook_link'),
+                # facebook_link=dict_data.get('facebook_link', ''),
+                instagram_link=dict_data.get('instagram_link')
+                # instagram_link=dict_data.get('instagram_link', '')
             )
             artist_detail.save()
 
