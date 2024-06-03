@@ -2,11 +2,11 @@ from rest_framework import serializers
 from .models import Music
 from .models import Playlist, FavouritePlaylist
 
-from Cusers.serializers import ArtistDetailSerializer,CustomUserSerializer
+from Cusers.serializers import ArtistSerializer, ArtistDetailSerializer, CustomUserSerializer
 from genre.serializers import GenreSerializer
 
 class TrackSerializer(serializers.ModelSerializer):
-    artist = ArtistDetailSerializer(read_only=True)
+    artist = ArtistSerializer(read_only=True)
     genre = GenreSerializer(read_only=True)
     class Meta:
         model = Music

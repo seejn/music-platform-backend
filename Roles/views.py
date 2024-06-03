@@ -13,13 +13,13 @@ from django.db import IntegrityError
 @csrf_exempt
 def get_all_artist(request):
     artist_role = Role.objects.get(pk=2)
-    # all_artist = artist_role.user.all()
-    all_artist = ArtistDetail.objects.all()
+    all_artist = artist_role.user.all()
+    # all_artist = ArtistDetail.objects.all()
     
     if not all_artist:
         return JsonResponse({"message": "No artists available"}, status=404)
 
-    serializer = ArtistDetailSerializer(all_artist, many=True)
+    serializer = ArtistSerializer(all_artist, many=True)
     print(serializer.data)
     return JsonResponse({"message": "All Artists", "data": serializer.data}, status=200)
 
@@ -27,11 +27,12 @@ def get_all_artist(request):
 @csrf_exempt
 def get_current_artist(request, artist_id):
     try:
-        artist = ArtistDetail.objects.get(artist_id=artist_id)
+        artist_role = Role.objects.get(pk=2)
+        all_artist = artist_role.user.all()
     except ArtistDetail.DoesNotExist:
         return JsonResponse({"message": "Artist not available"}, status=404)
 
-    serializer = ArtistDetailSerializer(artist)
+    serializer = ArtistSerializer(all_artist)
     return JsonResponse({"message": "Artist's Data", "data": serializer.data}, status=200)
 
 @csrf_exempt
@@ -69,14 +70,16 @@ def create_artist(request):
             artist_detail = ArtistDetail.objects.create(
                 artist=new_artist,
                 stagename=dict_data['stagename'],
+                biography=dict_data.get('biography'),
                 biography=dict_data.get('biography', ''),
                 nationality=dict_data['nationality'],
                 twitter_link=dict_data.get('twitter_link', ''),
                 facebook_link=dict_data.get('facebook_link', ''),
                 instagram_link=dict_data.get('instagram_link', '')
             )
+            artist_detail.save()
 
-            serializer = ArtistDetailSerializer(artist_detail)
+            serializer = ArtistSerializer(artist_detail)
             return JsonResponse({"message": "New Artist Created Successfully.", "data": serializer.data}, status=200)
         except Role.DoesNotExist:
             return JsonResponse({"message": "Artist role does not exist."}, status=400)
