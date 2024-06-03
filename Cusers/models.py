@@ -16,7 +16,7 @@ class ArtistDetail(models.Model):
  
 
     def __str__(self):
-        return f"Detail: {self.artist.email}"
+        return f"Detail: {self.stagename}"
     
     def soft_delete(self):
         self.is_deleted = True
