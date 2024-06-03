@@ -6,7 +6,7 @@ from managers.SoftDelete import SoftDeleteManager
 
 class Album(models.Model):
     title= models.CharField(max_length=20,unique=True)
-    artist=models.ForeignKey(ArtistDetail,on_delete=models.CASCADE)
+    artist=models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     track=models.ManyToManyField(Music)
     released_date=models.DateField(null=True)
     image=models.CharField(max_length=200,default="image.png")
