@@ -5,7 +5,7 @@ from Cusers.serializers import ArtistSerializer, CustomUserSerializer, ArtistDet
 from track.serializers import TrackOnlySerializer
 
 class AlbumSerializer(serializers.ModelSerializer):
-    artist = ArtistDetailSerializer(read_only=True)
+    artist = ArtistSerializer(read_only=True)
     track = TrackOnlySerializer(read_only=True, many=True)
     
     class Meta:

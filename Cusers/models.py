@@ -4,6 +4,25 @@ from .managers import CustomUserManager
 
 from Roles.models import Role
 
+
+class ArtistDetail(models.Model):
+    stagename = models.CharField(null=True, unique=True, max_length=50)
+    biography = models.TextField(null=True, blank=True, max_length=250)
+    
+    nationality = models.CharField(null=True, blank=True, max_length=50)
+    twitter_link = models.CharField(null=True, blank=True, max_length=100)
+    facebook_link = models.CharField(null=True, blank=True, max_length=100)
+    instagram_link = models.CharField(null=True, blank=True, max_length=100)
+ 
+
+    def __str__(self):
+        return f"Detail: {self.artist.email}"
+    
+    def soft_delete(self):
+        self.is_deleted = True
+        self.save()
+
+
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(max_length=50, unique=True)
@@ -13,6 +32,9 @@ class CustomUser(AbstractUser):
     role = models.ForeignKey(Role, null=True, on_delete=models.SET_NULL, related_name="user")
     deleted_at=models.DateTimeField(null=True,blank=True)
     is_deleted = models.BooleanField(default=False)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+
+    detail = models.OneToOneField(ArtistDetail, on_delete=models.SET_NULL, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -29,22 +51,5 @@ class CustomUser(AbstractUser):
         self.is_deleted = True
         self.save()
 
-class ArtistDetail(models.Model):
-    artist = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=True)
-    stagename = models.CharField(null=True, unique=True, max_length=50)
-    biography = models.TextField(null=True, max_length=250)
-    
-    nationality = models.CharField(null=True, max_length=50)
-    twitter_link = models.CharField(null=True, max_length=100)
-    facebook_link = models.CharField(null=True, max_length=100)
-    instagram_link = models.CharField(null=True, max_length=100)
- 
-
-    def __str__(self):
-        return f"Detail: {self.artist.email}"
-    
-    def soft_delete(self):
-        self.is_deleted = True
-        self.save()
 
 
