@@ -34,7 +34,7 @@ class CustomUser(AbstractUser):
     is_deleted = models.BooleanField(default=False)
     deleted_at = models.DateTimeField(null=True, blank=True)
 
-    artist = models.OneToOneField(ArtistDetail, on_delete=models.SET_NULL, null=True)
+    detail = models.OneToOneField(ArtistDetail, on_delete=models.SET_NULL, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
