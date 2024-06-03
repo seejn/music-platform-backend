@@ -4,6 +4,8 @@ from django.utils import timezone
 from genre.models import Genre
 from managers.SoftDelete import SoftDeleteManager
 
+from utils.save_image import save_to_track_media, save_to_playlist_media
+
 class Music(models.Model):
     title = models.CharField(max_length=100)
     duration = models.CharField(max_length=10)
@@ -11,7 +13,7 @@ class Music(models.Model):
     release_date = models.DateField(null=True)
     is_deleted=models.BooleanField(default=False)
     deleted_at = models.DateTimeField(null=True,blank=True)
-    image = models.CharField(max_length=100,default="image.png")  
+    image = models.ImageField(upload_to=save_to_track_media, blank=True, null=True)  
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE, null=True)
     
     objects = SoftDeleteManager()
@@ -32,7 +34,7 @@ class Playlist(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     is_deleted=models.BooleanField(default=False)
     deleted_at = models.DateTimeField(null=True,blank=True)
-    image = models.CharField(max_length=100,default="image.png")  
+    image=models.ImageField(null=True, blank=True, upload_to=save_to_playlist_media)
 
     objects = SoftDeleteManager()
 

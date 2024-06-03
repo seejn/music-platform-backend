@@ -37,13 +37,12 @@ def create_album(request):
             dict_data = json.loads(request.body)
             
             artist_id = dict_data.get('artist')
-            track_ids = dict_data.get('track')
+            track_ids = dict_data.get('tracks')
             
             del dict_data['artist']
-            del dict_data['track']
+            del dict_data['tracks']
             
             artist = CustomUser.objects.get(pk=artist_id)
-            
  
             for track_id in track_ids:
                 track = Music.objects.get(pk=track_id)

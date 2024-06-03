@@ -4,12 +4,15 @@ from django.utils import timezone
 from track.models import Music
 from managers.SoftDelete import SoftDeleteManager
 
+from utils.save_image import save_to_album_media
+
+
 class Album(models.Model):
     title= models.CharField(max_length=20,unique=True)
     artist=models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     track=models.ManyToManyField(Music)
     released_date=models.DateField(null=True)
-    image=models.CharField(max_length=200,default="image.png")
+    image=models.ImageField(null=True, blank=True, upload_to=save_to_album_media)
     is_deleted= models.BooleanField(default=False)
     deleted_at=models.DateTimeField(null=True,blank=True)
 

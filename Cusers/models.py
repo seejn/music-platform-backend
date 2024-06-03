@@ -4,6 +4,7 @@ from .managers import CustomUserManager
 
 from Roles.models import Role
 
+from utils.save_image import save_to_user_media
 
 class ArtistDetail(models.Model):
     stagename = models.CharField(null=True, unique=True, max_length=50)
@@ -26,7 +27,7 @@ class ArtistDetail(models.Model):
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(max_length=50, unique=True)
-    image = models.CharField(default="https://via.placeholder.com/150", max_length=50)
+    image=models.ImageField(null=True, blank=True, upload_to=save_to_user_media)
     dob = models.DateField(null=True)
     gender = models.CharField( default="male",max_length=10)
     role = models.ForeignKey(Role, null=True, on_delete=models.SET_NULL, related_name="user")
