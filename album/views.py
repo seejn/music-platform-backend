@@ -42,7 +42,7 @@ def create_album(request):
             del dict_data['artist']
             del dict_data['track']
             
-            artist = ArtistDetail.objects.get(artist_id=artist_id)
+            artist = CustomUser.objects.get(pk=artist_id)
             
  
             for track_id in track_ids:

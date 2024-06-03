@@ -12,10 +12,10 @@ class ArtistDetailSerializer(serializers.ModelSerializer):
 
 
 class ArtistSerializer(serializers.ModelSerializer):
-    detail = ArtistDetailSerializer(read_only=True)
+    details = ArtistDetailSerializer(read_only=True)
     class Meta:
         model = CustomUser
-        fields = ['id', 'email', 'image', 'role', 'is_deleted']
+        fields = ['id', 'email', 'image', 'role', 'is_deleted', 'details']
 
 
 class CustomUserSerializer(serializers.ModelSerializer):

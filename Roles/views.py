@@ -29,7 +29,7 @@ def get_current_artist(request, artist_id):
     try:
         artist_role = Role.objects.get(pk=2)
         all_artist = artist_role.user.all()
-    except ArtistDetail.DoesNotExist:
+    except CustomUser.DoesNotExist:
         return JsonResponse({"message": "Artist not available"}, status=404)
 
     serializer = ArtistSerializer(all_artist)
@@ -55,6 +55,7 @@ def create_user(request):
 @csrf_exempt
 def create_artist(request):
     if request.method == 'POST':
+
         dict_data = json.loads(request.body)
         input_fields = list(dict_data.keys())
         required_fields = ["email", "dob", "gender", "stagename", "nationality"]
@@ -63,11 +64,6 @@ def create_artist(request):
             return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)
         
         try:
-            artist_role = Role.objects.get(pk=2)  
-            dict_data['role'] = artist_role
-
-            new_artist = CustomUser.objects.create(**{key: dict_data[key] for key in ['email', 'dob', 'gender', 'role']})
-
             """
             biography = dict_data.get('biography')
             Behavior: If the key 'biography' exists in dict_data, its corresponding value is returned and assigned to biography. If the key does not exist, None is returned and assigned to biography.
@@ -77,7 +73,6 @@ def create_artist(request):
             Behavior: If the key 'biography' exists in dict_data, its corresponding value is returned and assigned to biography. If the key does not exist, an empty string '' is returned and assigned to biography.
             """
             artist_detail = ArtistDetail.objects.create(
-                artist=new_artist,
                 stagename=dict_data.get('stagename'),
                 # stagename=dict_data.get('stagename',''),
                 biography=dict_data.get('biography'),
@@ -93,7 +88,15 @@ def create_artist(request):
             )
             artist_detail.save()
 
-            serializer = ArtistSerializer(artist_detail)
+
+            artist_role = Role.objects.get(pk=2)  
+            dict_data['role'] = artist_role
+
+            new_artist = CustomUser.objects.create(**{key: dict_data[key] for key in ['email', 'dob', 'gender', 'role']},details=artist_detail)
+
+            
+
+            serializer = ArtistSerializer(new_artist)
             return JsonResponse({"message": "New Artist Created Successfully.", "data": serializer.data}, status=200)
         except Role.DoesNotExist:
             return JsonResponse({"message": "Artist role does not exist."}, status=400)
@@ -164,32 +167,32 @@ def update_personal_artist_info(request, artist_id):
 
     return JsonResponse({"message": "Artist Updated Successfully", "data": updated_artist}, status=200)
 
-@csrf_exempt
-def update_artist_info(request, artist_id):
+# @csrf_exempt
+# def update_artist_info(request, artist_id):
 
-    dict_data = json.loads(request.body)
-    input_fields = list(dict_data.keys())
+#     dict_data = json.loads(request.body)
+#     input_fields = list(dict_data.keys())
 
-    try:
-        artist = ArtistDetail.objects.get(artist_id=artist_id)
-    except ArtistDetail.DoesNotExist:
-        return JsonResponse({"message": "Artist not Available"}, status=404)
+#     try:
+#         artist = ArtistDetail.objects.get(artist_id=artist_id)
+#     except ArtistDetail.DoesNotExist:
+#         return JsonResponse({"message": "Artist not Available"}, status=404)
 
-    required_fields = list(artist.__dict__.keys())
+#     required_fields = list(artist.__dict__.keys())
 
-    print(input_fields)
-    print(required_fields)
-    if not does_field_exist(input_fields, required_fields):
-        return JsonResponse({"message": "Field not Available"}, status=404)
+#     print(input_fields)
+#     print(required_fields)
+#     if not does_field_exist(input_fields, required_fields):
+#         return JsonResponse({"message": "Field not Available"}, status=404)
 
-    artist.__dict__.update(dict_data)
-    try:
-        artist.save()
-    except IntegrityError:
-        return JsonResponse({"message": "Already Exists"}, status=400)
+#     artist.__dict__.update(dict_data)
+#     try:
+#         artist.save()
+#     except IntegrityError:
+#         return JsonResponse({"message": "Already Exists"}, status=400)
 
-    artist = ArtistDetail.objects.get(pk=artist_id)
-    updated_artist = ArtistDetailSerializer(artist).data
+#     artist = ArtistDetail.objects.get(pk=artist_id)
+#     updated_artist = ArtistDetailSerializer(artist).data
 
-    return JsonResponse({"message": "Artist Updated Successfully", "data": updated_artist}, status=200)
+#     return JsonResponse({"message": "Artist Updated Successfully", "data": updated_artist}, status=200)
 
