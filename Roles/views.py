@@ -10,6 +10,73 @@ from utils.fields import check_required_fields, does_field_exist
 import json
 from django.db import IntegrityError
 
+
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
+from rest_framework.decorators import api_view, permission_classes
+from backend.permission import IsAdmin, IsAdminOrArtist,IsArtist,IsUser
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.exceptions import NotFound, PermissionDenied
+from Cusers.models import Token
+from django.utils import timezone
+from backend.settings import SIMPLE_JWT
+
+@csrf_exempt
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def login(request):
+    email = request.data.get('email')
+    password = request.data.get('password')
+
+    if not email or not password:
+        return Response({'error': 'Both email and password are required'}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        user = CustomUser.objects.get(email=email, is_deleted=False)
+    except CustomUser.DoesNotExist:
+        return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+    if not user.check_password(password):
+        return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+    if not user.is_active:
+        return Response({'error': 'Inactive account'}, status=status.HTTP_403_FORBIDDEN)
+
+    serializer = CustomUserSerializer(user)
+
+    tokens = Token.objects.filter(user=user).first()
+
+    if tokens and tokens.expired_at > timezone.now():
+
+        refresh = RefreshToken.for_user(user)
+        access_token = str(refresh.access_token)
+
+
+        tokens.refresh_token = str(refresh)
+        tokens.access_token = access_token
+        tokens.expired_at = timezone.now() + SIMPLE_JWT['REFRESH_TOKEN_LIFETIME']
+        tokens.save()
+    else:
+
+        refresh = RefreshToken.for_user(user)
+        access_token = str(refresh.access_token)
+
+  
+        Token.objects.create(
+            user=user,
+            refresh_token=str(refresh),
+            access_token=access_token,
+            expired_at=timezone.now() + SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'],
+        )
+
+    return Response({
+        'refresh': str(refresh),
+        'access': access_token,
+        'user': serializer.data
+    }, status=status.HTTP_200_OK)
+
+
 @csrf_exempt
 def get_all_artist(request):
     artist_role = Role.objects.get(pk=2)
@@ -20,22 +87,22 @@ def get_all_artist(request):
         return JsonResponse({"message": "No artists available"}, status=404)
 
     serializer = ArtistSerializer(all_artist, many=True)
-    print(serializer.data)
     return JsonResponse({"message": "All Artists", "data": serializer.data}, status=200)
 
 
 @csrf_exempt
 def get_current_artist(request, artist_id):
     try:
-        artist_role = Role.objects.get(pk=2)
-        all_artist = artist_role.user.all()
+        artist = CustomUser.objects.get(pk=artist_id)
     except CustomUser.DoesNotExist:
         return JsonResponse({"message": "Artist not available"}, status=404)
 
-    serializer = ArtistSerializer(all_artist)
+    serializer = ArtistSerializer(artist)
     return JsonResponse({"message": "Artist's Data", "data": serializer.data}, status=200)
 
 @csrf_exempt
+@api_view(['POST'])
+@permission_classes([AllowAny])
 def create_user(request):
     dict_data=json.loads(request.body)
     input_fields = list(dict_data.keys())
@@ -45,14 +112,17 @@ def create_user(request):
     if not check_required_fields(input_fields,required_fields ):
         return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)  
     user_role=Role.objects.get(pk=1)
-
     new_user=user_role.user.create(**dict_data)
+    if dict_data.get("password"):
+        new_user.set_password(dict_data.get("password"))
+        new_user.save()
     serializer=CustomUserSerializer(new_user)
     return JsonResponse({"message":"New User Created Successfully.","data":serializer.data},status=200)
 
 
 
 @csrf_exempt
+@permission_classes([IsArtist])
 def create_artist(request):
     if request.method == 'POST':
 
@@ -93,7 +163,9 @@ def create_artist(request):
             dict_data['role'] = artist_role
 
             new_artist = CustomUser.objects.create(**{key: dict_data[key] for key in ['email', 'dob', 'gender', 'role']},details=artist_detail)
-
+            if dict_data.get("password"):
+                new_artist.set_password(dict_data.get("password"))
+                new_artist.save()
             
 
             serializer = ArtistSerializer(new_artist)
@@ -108,6 +180,7 @@ def create_artist(request):
 
 
 @csrf_exempt
+@permission_classes([IsUser])
 def update_user(request, user_id):
 
     dict_data = json.loads(request.body)
@@ -123,8 +196,7 @@ def update_user(request, user_id):
 
     if not does_field_exist(input_fields, required_fields):
         return JsonResponse({"message": "Field not Available"}, status=404)
-
-
+    
     user.__dict__.update(dict_data)
     try:
         user.save()
@@ -138,8 +210,9 @@ def update_user(request, user_id):
 
 
 @csrf_exempt
+@api_view(['PUT'])
+@permission_classes([IsArtist])
 def update_personal_artist_info(request, artist_id):
-
     dict_data = json.loads(request.body)
     input_fields = list(dict_data.keys())
 
@@ -150,22 +223,42 @@ def update_personal_artist_info(request, artist_id):
 
     required_fields = list(artist.__dict__.keys())
 
-    print(input_fields)
-    print(required_fields)
-
     if not does_field_exist(input_fields, required_fields):
         return JsonResponse({"message": "Field not Available"}, status=404)
-    print(artist.__dict__)
+        
+    if request.user != artist:
+        raise PermissionDenied("You do not have permission to perform this action.")
+
     artist.__dict__.update(dict_data)
     try:
         artist.save()
     except IntegrityError:
         return JsonResponse({"message": "Already Exists"}, status=400)
 
-    artist = CustomUser.objects.get(pk=artist_id)
     updated_artist = CustomUserSerializer(artist).data
-
     return JsonResponse({"message": "Artist Updated Successfully", "data": updated_artist}, status=200)
+
+from rest_framework.permissions import IsAuthenticated
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def logout(request):
+    try:
+        refresh_token = request.data.get('refresh_token')  # Assuming refresh_token is sent in the request body
+
+        if not refresh_token:
+            return Response({"error": "No refresh token provided"}, status=status.HTTP_400_BAD_REQUEST)
+
+        token = RefreshToken(refresh_token)
+        token.blacklist()
+
+        Token.objects.filter(refresh_token=refresh_token).delete()
+
+        return Response({"message": "Logout successful"}, status=status.HTTP_200_OK)
+
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 # @csrf_exempt
 # def update_artist_info(request, artist_id):
@@ -195,4 +288,9 @@ def update_personal_artist_info(request, artist_id):
 #     updated_artist = ArtistDetailSerializer(artist).data
 
 #     return JsonResponse({"message": "Artist Updated Successfully", "data": updated_artist}, status=200)
+
+
+
+
+
 

@@ -1,9 +1,11 @@
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .managers import CustomUserManager
-
 from Roles.models import Role
-
+from backend.settings import SIMPLE_JWT
+from datetime import timedelta
+from django.utils import timezone
 
 class ArtistDetail(models.Model):
     stagename = models.CharField(null=True, unique=True, max_length=50)
@@ -52,4 +54,15 @@ class CustomUser(AbstractUser):
         self.save()
 
 
+
+
+class Token(models.Model):
+    refresh_token = models.CharField(max_length=500)
+    access_token = models.CharField(max_length=500)
+    user = models.ForeignKey('CustomUser', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expired_at = models.DateTimeField(default=timezone.now() + SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'])
+
+    class Meta:
+        unique_together = ('refresh_token', 'user')
 

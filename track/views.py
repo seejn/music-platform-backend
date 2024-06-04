@@ -12,9 +12,13 @@ from .models import Music, Playlist, FavouritePlaylist
 from Cusers.models import CustomUser
 from genre.models import Genre
 from .serializers import PlayListSerializer, FavouritePlaylistSerializer
-
+from rest_framework.decorators import api_view, permission_classes
 from utils.fields import check_required_fields, does_field_exist
-
+from rest_framework.permissions import AllowAny,IsAuthenticated
+from Cusers.decoraters import admin_required,artist_required,user_required
+from django.contrib.auth.decorators import login_required
+@csrf_exempt
+@api_view(['GET'])
 def get_track(request, track_id):
     try:
         track = Music.objects.get(pk=track_id)
@@ -26,6 +30,8 @@ def get_track(request, track_id):
 
     return JsonResponse({"message": f"Track {track_id}", "data": serializer.data}, status=200)    
 
+@csrf_exempt
+@api_view(['GET'])
 def get_all_tracks(request):
     all_tracks = Music.objects.all()
     if not all_tracks:
@@ -36,6 +42,8 @@ def get_all_tracks(request):
     return JsonResponse({"message": f"All Tracks", "data": serializer.data}, status=200)    
 
 @csrf_exempt
+@api_view(['POST'])
+@permission_classes([AllowAny])
 def create_track(request):
     # stream = io.BytesIO(request.body)
     # dict_data = JSONParser().parse(stream)
@@ -71,6 +79,8 @@ def create_track(request):
     return JsonResponse({"message": "New Track Added Successfully", "data": new_track}, status=200)
 
 @csrf_exempt
+@api_view(['PUT'])
+@permission_classes([AllowAny])
 def update_track(request, track_id):
     dict_data = json.loads(request.body)
     input_fields = list(dict_data.keys())
@@ -101,6 +111,8 @@ def update_track(request, track_id):
     return JsonResponse({"message": "Track Updated Successfully", "data": updated_track}, status=200)
     
 @csrf_exempt
+@api_view(['DELETE'])
+@permission_classes([AllowAny])
 def delete_track(request, track_id):
     try:
         track = Music.objects.get(pk=track_id)
@@ -195,6 +207,7 @@ def create_favourite_playlist(request):
     del dict_data["playlists"]
 
     try:
+        print(user_id)
         user = CustomUser.objects.get(pk=user_id)
     except CustomUser.DoesNotExist:
         return JsonResponse({"message": "User not Found"}, status=404)  

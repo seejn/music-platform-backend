@@ -37,20 +37,26 @@ def create_album(request):
             dict_data = json.loads(request.body)
             
             artist_id = dict_data.get('artist')
-            track_ids = dict_data.get('track')
+            track_ids = dict_data.get('tracks')
             
             del dict_data['artist']
-            del dict_data['track']
+            del dict_data['tracks']
             
             artist = CustomUser.objects.get(pk=artist_id)
-            
- 
+            print(artist_id)
+            print(track_ids)
+            print(type(artist))
+         
             for track_id in track_ids:
                 track = Music.objects.get(pk=track_id)
+                print(track.artist)
                 if track.artist.id != artist.id:
                     return JsonResponse({"message": f"Track ID {track_id} does not belong to the artist"}, status=400)
-            
+            print("before creating album")
+            print(dict_data)
             new_album = Album.objects.create(**dict_data, artist=artist)
+            print("after creating album")
+
             new_album.track.add(*track_ids)
             new_album.save()
             
