@@ -14,11 +14,10 @@ from rest_framework.decorators import api_view, permission_classes
 from utils.fields import check_required_fields, does_field_exist
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from backend.permission import IsArtist, IsAdmin,IsAdminOrArtist,IsUser,IsAdminOrArtistOrUser,IsUserOrArtist
-
-
+from rest_framework.exceptions import PermissionDenied
 
 @api_view(['GET'])
-@permission_classes([IsAdminOrArtistOrUser])
+@permission_classes([AllowAny])
 def get_track(request, track_id):
     try:
         track = Music.objects.get(pk=track_id)
@@ -33,7 +32,7 @@ def get_track(request, track_id):
 
 
 @api_view(['GET'])
-@permission_classes([IsAdminOrArtistOrUser])
+@permission_classes([AllowAny])
 def get_all_tracks(request):
     all_tracks = Music.objects.all()
     if not all_tracks:
@@ -87,12 +86,14 @@ def create_track(request):
 
 
 
+
+
 @api_view(['PUT'])
-@permission_classes([IsArtist])
+@permission_classes([IsAuthenticated])
 def update_track(request, track_id):
     dict_data = json.loads(request.body)
     input_fields = list(dict_data.keys())
-
+    
     try:
         track = Music.objects.get(pk=track_id)
     except Music.DoesNotExist:
@@ -103,10 +104,13 @@ def update_track(request, track_id):
     print(input_fields)
     print(required_fields)
 
-
     if not does_field_exist(input_fields, required_fields):
-        return JsonResponse({"message": "Field not Available"}, status=400)    
-        
+        return JsonResponse({"message": "Field not Available"}, status=400)  
+    
+  
+    if request.user.id != track.artist.id:
+        raise PermissionDenied("You do not have permission to perform this action.")  
+    
     track.__dict__.update(dict_data)
     try:
         track.save()
@@ -117,6 +121,10 @@ def update_track(request, track_id):
     updated_track = TrackSerializer(track).data
     
     return JsonResponse({"message": "Track Updated Successfully", "data": updated_track}, status=200)
+
+def does_field_exist(input_fields, required_fields):
+    return all(field in required_fields for field in input_fields)
+
     
 
 
@@ -128,7 +136,8 @@ def delete_track(request, track_id):
         track = Music.objects.get(pk=track_id)
     except Music.DoesNotExist:
         return JsonResponse({"message": "Track not Available"}, status=404) 
-
+    if request.user.id != track.artist.id:
+        raise PermissionDenied("You do not have permission to perform this action.")  
     track.soft_delete()
     deleted_track = TrackSerializer(track).data
 
@@ -139,7 +148,7 @@ def delete_track(request, track_id):
 #PLaylist view
 
 @api_view(['GET'])
-@permission_classes([IsAdminOrArtistOrUser])
+@permission_classes([AllowAny])
 def get_playlist(request, playlist_id):
     playlist = Playlist.objects.get(pk=playlist_id)
     serializer = PlayListSerializer(playlist)
@@ -149,7 +158,7 @@ def get_playlist(request, playlist_id):
 
 
 @api_view(['GET'])
-@permission_classes([IsAdminOrArtistOrUser])
+@permission_classes([AllowAny])
 def get_all_playlists(request):
     all_playlists = Playlist.objects.all()
     serializer = PlayListSerializer(all_playlists, many=True)
@@ -188,7 +197,8 @@ def update_playlist(request, playlist_id):
     dict_data = json.loads(request.body)
 
     playlist = Playlist.objects.get(pk=playlist_id)
-    
+    if request.user.id != playlist.user.id:
+        raise PermissionDenied("You do not have permission to perform this action.") 
     playlist.__dict__.update(dict_data)
     playlist.save()
     playlist = Playlist.objects.get(pk=playlist_id)
@@ -202,6 +212,8 @@ def update_playlist(request, playlist_id):
 @permission_classes([IsUserOrArtist])
 def delete_playlist(request, playlist_id):
     playlist = Playlist.objects.get(pk=playlist_id)
+    if request.user.id != playlist.user.id:
+        raise PermissionDenied("You do not have permission to perform this action.") 
     playlist.soft_delete()
     deleted_playlist = PlayListSerializer(playlist).data
     return JsonResponse({"message": "Playlist Deleted Successfully", "data": deleted_playlist}, status=200)
@@ -222,6 +234,16 @@ def get_all_users_favourite_playlists(request):
     all_users_favourite_playlists = FavouritePlaylistSerializer(all_users_favourite_playlists, many=True).data
 
     return JsonResponse({"message": "Favourite Playlists", "data": all_users_favourite_playlists}, status=200)
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAdminOrArtistOrUser])
+def get_specific_favourite_playlist(request, favouriteplaylist_id):
+    favourit_playlist = FavouritePlaylist.objects.get(pk=favouriteplaylist_id)
+    serializer = FavouritePlaylistSerializer(favourit_playlist)
+
+    return JsonResponse({"message": f"Playlist {favouriteplaylist_id}", "data": serializer.data}, status=200)    
 
 
 
@@ -267,7 +289,8 @@ def delete_favourite_playlist(request, favourite_playlist_id):
         favourite_playlist = FavouritePlaylist.objects.get(pk=favourite_playlist_id)
     except FavouritePlaylist.DoesNotExist:
         return JsonResponse({"message": "Favourite playlist not Found"}, status=404)  
-
+    if request.user.id != favourite_playlist.user.id:
+        raise PermissionDenied("You do not have permission to perform this action.") 
     favourite_playlist.soft_delete()
 
     favourite_playlist = FavouritePlaylistSerializer(favourite_playlist).data

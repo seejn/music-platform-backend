@@ -10,11 +10,11 @@ from track.models import Music
 from utils.fields import check_required_fields
 from rest_framework.decorators import api_view,permission_classes
 from backend.permission import IsAdmin,IsAdminOrArtist,IsArtist,IsUser,IsAdminOrArtistOrUser,IsUserOrArtist
-
-
+from rest_framework.exceptions import PermissionDenied
+from rest_framework.permissions import AllowAny
 
 @api_view(['GET'])
-@permission_classes([IsAdminOrArtistOrUser])
+@permission_classes([AllowAny])
 def get_album(request, album_id):
     try:
         album = Album.objects.get(pk=album_id)
@@ -26,7 +26,7 @@ def get_album(request, album_id):
 
 
 @api_view(['GET'])
-@permission_classes([IsAdminOrArtistOrUser])
+@permission_classes([AllowAny])
 def get_all_albums(request):
     all_albums = Album.objects.all()
     serializer = AlbumSerializer(all_albums, many=True)
@@ -85,7 +85,8 @@ def update_album(request, album_id):
     dict_data = json.loads(request.body)
 
     album = Album.objects.get(pk=album_id)
-    
+    if request.user.id != album.artist.id:
+        raise PermissionDenied("You do not have permission to perform this action.") 
     album.__dict__.update(dict_data)
     album.save()
     album = Album.objects.get(pk=album_id)
@@ -99,6 +100,8 @@ def update_album(request, album_id):
 @permission_classes([IsArtist])
 def delete_album(request, album_id):
     album = Album.objects.get(pk=album_id)
+    if request.user.id != album.artist.id:
+        raise PermissionDenied("You do not have permission to perform this action.") 
     album.soft_delete()
     deleted_album = AlbumSerializer(album).data
     return JsonResponse({"message": "Album Deleted Successfully", "data": deleted_album}, status=200)
@@ -115,6 +118,8 @@ def update_tracks_in_album(request, album_id):
 
             album = Album.objects.get(pk=album_id)
             artist = album.artist
+            if request.user.id != artist.id:
+                raise PermissionDenied("You do not have permission to perform this action.") 
 
             for track_id in track_ids:
                 track = Music.objects.get(pk=track_id)
@@ -147,6 +152,8 @@ def delete_tracks_from_album(request, album_id):
 
             album = Album.objects.get(pk=album_id)
             artist = album.artist
+            if request.user.id != artist.id:
+                raise PermissionDenied("You do not have permission to perform this action.") 
 
             for track_id in track_ids:
                 track = Music.objects.get(pk=track_id)
@@ -197,7 +204,10 @@ def create_favourite_album(request):
         user = CustomUser.objects.get(pk=user_id)
     except CustomUser.DoesNotExist:
         return JsonResponse({"message": "User not Found"}, status=404)  
-
+    
+    if request.user.id != user.id:
+        raise PermissionDenied("You do not have permission to perform this action.") 
+    
     new_favourite_album = FavouriteAlbum.objects.create(**dict_data)
 
     for album_id in album_ids:
@@ -218,13 +228,16 @@ def create_favourite_album(request):
 
 @api_view(['DELETE'])
 @permission_classes([IsUserOrArtist])
-def delete_favourite_album(request, favourite_album_id):
+def delete_favourite_album(request, favouritealbum_id):
     try:
-        favourite_album = FavouriteAlbum.objects.get(pk=favourite_album_id)
+        favouritealbum = FavouriteAlbum.objects.get(pk=favouritealbum_id)
+        if request.user.id != favouritealbum.user.id:
+            raise PermissionDenied("You do not have permission to perform this action.") 
     except FavouriteAlbum.DoesNotExist:
         return JsonResponse({"message": "Favourite Album not Found"}, status=404)  
 
-    favourite_album.soft_delete()
+    favouritealbum.soft_delete()
 
-    favourite_album = FavouriteAlbumSerializer(favourite_album).data
-    return JsonResponse({"message": "Favourite Album deleted successfully", "data": favourite_album}, status=200)
+    favouritealbum = FavouriteAlbumSerializer(favouritealbum).data
+    return JsonResponse({"message": "Favourite Album deleted successfully", "data": favouritealbum}, status=200)
+

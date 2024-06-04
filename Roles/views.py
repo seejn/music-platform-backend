@@ -50,7 +50,7 @@ def login(request):
 
 
 @api_view(['GET'])
-@permission_classes([IsAdminOrArtistOrUser])
+@permission_classes([AllowAny])
 def get_all_artist(request):
     artist_role = Role.objects.get(pk=2)
     all_artist = artist_role.user.all()
@@ -65,7 +65,7 @@ def get_all_artist(request):
 
 
 @api_view(['GET'])
-@permission_classes([IsAdminOrArtistOrUser])
+@permission_classes([AllowAny])
 def get_current_artist(request, artist_id):
     try:
         artist = CustomUser.objects.get(pk=artist_id)
