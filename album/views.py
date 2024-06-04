@@ -1,20 +1,20 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 import io, json
-# Create your views here.
 from django.utils import timezone
 from rest_framework.parsers import JSONParser 
-
 from .serializers import AlbumSerializer, FavouriteAlbumSerializer
 from .models import Album, FavouriteAlbum
 from Cusers.models import CustomUser,ArtistDetail
-
 from track.models import Music
-
 from utils.fields import check_required_fields
+from rest_framework.decorators import api_view,permission_classes
+from backend.permission import IsAdmin,IsAdminOrArtist,IsArtist,IsUser,IsAdminOrArtistOrUser,IsUserOrArtist
 
-@csrf_exempt
+
+
+@api_view(['GET'])
+@permission_classes([IsAdminOrArtistOrUser])
 def get_album(request, album_id):
     try:
         album = Album.objects.get(pk=album_id)
@@ -23,14 +23,18 @@ def get_album(request, album_id):
     except Album.DoesNotExist:
         return JsonResponse({"message": "Album not found"}, status=404)
 
-@csrf_exempt
+
+
+@api_view(['GET'])
+@permission_classes([IsAdminOrArtistOrUser])
 def get_all_albums(request):
     all_albums = Album.objects.all()
     serializer = AlbumSerializer(all_albums, many=True)
     return JsonResponse({"message": "All Albums", "data": serializer.data}, status=200)
 
 
-@csrf_exempt
+@api_view(['POST'])
+@permission_classes([IsArtist])
 def create_album(request):
     if request.method == 'POST':
         try:
@@ -74,7 +78,9 @@ def create_album(request):
         return JsonResponse({"message": "Invalid request method"}, status=405)
 
 
-@csrf_exempt
+
+@api_view(['PUT'])
+@permission_classes([IsArtist])
 def update_album(request, album_id):
     dict_data = json.loads(request.body)
 
@@ -87,7 +93,10 @@ def update_album(request, album_id):
     
     return JsonResponse({"message": "Album Updated Successfully", "data": updated_album}, status=200)
     
-@csrf_exempt
+
+
+@api_view(['DELETE'])
+@permission_classes([IsArtist])
 def delete_album(request, album_id):
     album = Album.objects.get(pk=album_id)
     album.soft_delete()
@@ -96,7 +105,8 @@ def delete_album(request, album_id):
 
 
 
-@csrf_exempt
+@api_view(['PUT'])
+@permission_classes([IsArtist])
 def update_tracks_in_album(request, album_id):
     if request.method == 'PUT':
         try:
@@ -125,7 +135,10 @@ def update_tracks_in_album(request, album_id):
     else:
         return JsonResponse({"message": "Invalid request method"}, status=405)
 
-@csrf_exempt
+
+
+@api_view(['DELETE'])
+@permission_classes([IsArtist])
 def delete_tracks_from_album(request, album_id):
     if request.method == 'DELETE':
         try:
@@ -153,8 +166,12 @@ def delete_tracks_from_album(request, album_id):
             return JsonResponse({"message": str(e)}, status=400)
     else:
         return JsonResponse({"message": "Invalid request method"}, status=405)
-# Favourite Albums
+    
 
+
+# Favourite Albums
+@api_view(['GET'])
+@permission_classes([IsAdminOrArtistOrUser])
 def get_all_users_favourite_albums(request):
     all_users_favourite_albums = FavouriteAlbum.objects.all()
     
@@ -162,11 +179,12 @@ def get_all_users_favourite_albums(request):
         return JsonResponse({"message": "No Album Found"}, status=404)  
 
     all_users_favourite_albums = FavouriteAlbumSerializer(all_users_favourite_albums, many=True).data
-
     return JsonResponse({"message": "Favourite Albums", "data": all_users_favourite_albums}, status=200)
 
 
-@csrf_exempt
+
+@api_view(['POST'])
+@permission_classes([IsUserOrArtist])
 def create_favourite_album(request):
 
     dict_data = json.loads(request.body)
@@ -196,7 +214,10 @@ def create_favourite_album(request):
 
     return JsonResponse({"message": f"create favourite album for user", "data": serializer.data}, status=200)
 
-@csrf_exempt
+
+
+@api_view(['DELETE'])
+@permission_classes([IsUserOrArtist])
 def delete_favourite_album(request, favourite_album_id):
     try:
         favourite_album = FavouriteAlbum.objects.get(pk=favourite_album_id)

@@ -13,11 +13,12 @@ from .serializers import PlayListSerializer, FavouritePlaylistSerializer
 from rest_framework.decorators import api_view, permission_classes
 from utils.fields import check_required_fields, does_field_exist
 from rest_framework.permissions import AllowAny,IsAuthenticated
-from backend.permission import IsArtist, IsAdmin,IsAdminOrArtist,IsUser
+from backend.permission import IsArtist, IsAdmin,IsAdminOrArtist,IsUser,IsAdminOrArtistOrUser,IsUserOrArtist
+
 
 
 @api_view(['GET'])
-@permission_classes([AllowAny])
+@permission_classes([IsAdminOrArtistOrUser])
 def get_track(request, track_id):
     try:
         track = Music.objects.get(pk=track_id)
@@ -29,9 +30,10 @@ def get_track(request, track_id):
 
     return JsonResponse({"message": f"Track {track_id}", "data": serializer.data}, status=200)    
 
-@csrf_exempt
+
+
 @api_view(['GET'])
-@permission_classes([AllowAny])
+@permission_classes([IsAdminOrArtistOrUser])
 def get_all_tracks(request):
     all_tracks = Music.objects.all()
     if not all_tracks:
@@ -41,9 +43,10 @@ def get_all_tracks(request):
 
     return JsonResponse({"message": f"All Tracks", "data": serializer.data}, status=200)    
 
-@csrf_exempt
+
+
 @api_view(['POST'])
-@permission_classes([AllowAny])
+@permission_classes([IsArtist])
 def create_track(request):
     # stream = io.BytesIO(request.body)
     # dict_data = JSONParser().parse(stream)
@@ -76,15 +79,16 @@ def create_track(request):
             genre = Genre.objects.get(pk=genre_id)
         except Genre.DoesNotExist:
             return JsonResponse({"message": "Genre not Available"}, status=404)    
-    print("before creating: ", image)
+
     new_track = Music.objects.create(**dict_data, artist=artist, genre=genre, image=image)
     new_track = TrackSerializer(new_track).data
 
     return JsonResponse({"message": "New Track Added Successfully", "data": new_track}, status=200)
 
-@csrf_exempt
+
+
 @api_view(['PUT'])
-@permission_classes([AllowAny])
+@permission_classes([IsArtist])
 def update_track(request, track_id):
     dict_data = json.loads(request.body)
     input_fields = list(dict_data.keys())
@@ -114,9 +118,11 @@ def update_track(request, track_id):
     
     return JsonResponse({"message": "Track Updated Successfully", "data": updated_track}, status=200)
     
-@csrf_exempt
+
+
+
 @api_view(['DELETE'])
-@permission_classes([AllowAny])
+@permission_classes([IsArtist])
 def delete_track(request, track_id):
     try:
         track = Music.objects.get(pk=track_id)
@@ -130,23 +136,30 @@ def delete_track(request, track_id):
 
 
 
-
 #PLaylist view
 
-
+@api_view(['GET'])
+@permission_classes([IsAdminOrArtistOrUser])
 def get_playlist(request, playlist_id):
     playlist = Playlist.objects.get(pk=playlist_id)
     serializer = PlayListSerializer(playlist)
 
     return JsonResponse({"message": f"Playlist {playlist_id}", "data": serializer.data}, status=200)    
 
+
+
+@api_view(['GET'])
+@permission_classes([IsAdminOrArtistOrUser])
 def get_all_playlists(request):
     all_playlists = Playlist.objects.all()
     serializer = PlayListSerializer(all_playlists, many=True)
 
     return JsonResponse({"message": f"All Playlists", "data": serializer.data}, status=200)    
 
-@csrf_exempt
+
+
+@api_view(['POST'])
+@permission_classes([IsUserOrArtist])
 def create_playlist(request):
     dict_data = json.loads(request.body)
 
@@ -167,7 +180,10 @@ def create_playlist(request):
 
     return JsonResponse({"message": "New Playlist Added Successfully", "data": new_playlist}, status=200)
 
-@csrf_exempt
+
+
+@api_view(['PUT'])
+@permission_classes([IsUserOrArtist])
 def update_playlist(request, playlist_id):
     dict_data = json.loads(request.body)
 
@@ -180,7 +196,10 @@ def update_playlist(request, playlist_id):
     
     return JsonResponse({"message": "Playlist Updated Successfully", "data": updated_playlist}, status=200)
     
-@csrf_exempt
+
+
+@api_view(['DELETE'])
+@permission_classes([IsUserOrArtist])
 def delete_playlist(request, playlist_id):
     playlist = Playlist.objects.get(pk=playlist_id)
     playlist.soft_delete()
@@ -188,8 +207,12 @@ def delete_playlist(request, playlist_id):
     return JsonResponse({"message": "Playlist Deleted Successfully", "data": deleted_playlist}, status=200)
 
 
+
 # favourite playlist
 
+
+@api_view(['GET'])
+@permission_classes([IsAdminOrArtist])
 def get_all_users_favourite_playlists(request):
     all_users_favourite_playlists = FavouritePlaylist.objects.all()
     
@@ -201,7 +224,9 @@ def get_all_users_favourite_playlists(request):
     return JsonResponse({"message": "Favourite Playlists", "data": all_users_favourite_playlists}, status=200)
 
 
-@csrf_exempt
+
+@api_view(['POST'])
+@permission_classes([IsUserOrArtist])
 def create_favourite_playlist(request):
 
     dict_data = json.loads(request.body)
@@ -233,7 +258,10 @@ def create_favourite_playlist(request):
 
     return JsonResponse({"message": f"create favourite playlist for user", "data": serializer.data}, status=200)
 
-@csrf_exempt
+
+
+@api_view(['DELETE'])
+@permission_classes([IsUserOrArtist])
 def delete_favourite_playlist(request, favourite_playlist_id):
     try:
         favourite_playlist = FavouritePlaylist.objects.get(pk=favourite_playlist_id)

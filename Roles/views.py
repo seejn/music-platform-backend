@@ -5,14 +5,13 @@ from .models import Role
 from .serializers import RoleSerializer
 from Cusers.serializers import ArtistSerializer,CustomUserSerializer,ArtistDetailSerializer
 from Cusers.models import CustomUser,ArtistDetail
-from django.views.decorators.csrf import csrf_exempt
 from utils.fields import check_required_fields, does_field_exist
 from django.db import IntegrityError
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view, permission_classes
-from backend.permission import IsAdmin, IsAdminOrArtist,IsArtist,IsUser
+from backend.permission import IsAdmin, IsAdminOrArtist,IsArtist,IsUser,IsUserOrArtist,IsAdminOrArtistOrUser
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.exceptions import PermissionDenied
 import json
@@ -51,7 +50,7 @@ def login(request):
 
 
 @api_view(['GET'])
-@permission_classes([AllowAny])
+@permission_classes([IsAdminOrArtistOrUser])
 def get_all_artist(request):
     artist_role = Role.objects.get(pk=2)
     all_artist = artist_role.user.all()
@@ -66,10 +65,11 @@ def get_all_artist(request):
 
 
 @api_view(['GET'])
-@permission_classes([AllowAny])
+@permission_classes([IsAdminOrArtistOrUser])
 def get_current_artist(request, artist_id):
     try:
         artist = CustomUser.objects.get(pk=artist_id)
+        
     except CustomUser.DoesNotExist:
         return JsonResponse({"message": "Artist not available"}, status=404)
 
@@ -84,7 +84,7 @@ def create_user(request):
     dict_data=json.loads(request.body)
     input_fields = list(dict_data.keys())
 
-    required_fields = ["email", "image", "dob","gender"]
+    required_fields = ["email","dob","gender"]
 
     if not check_required_fields(input_fields,required_fields ):
         return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)  
@@ -185,7 +185,6 @@ def update_user(request, user_id):
 
     updated_user = CustomUserSerializer(user).data
     return JsonResponse({"message": "User Updated Successfully", "data": updated_user}, status=200)
-
 
 
 @api_view(['PUT'])
