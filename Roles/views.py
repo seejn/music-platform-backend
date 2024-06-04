@@ -7,10 +7,7 @@ from Cusers.serializers import ArtistSerializer,CustomUserSerializer,ArtistDetai
 from Cusers.models import CustomUser,ArtistDetail
 from django.views.decorators.csrf import csrf_exempt
 from utils.fields import check_required_fields, does_field_exist
-import json
 from django.db import IntegrityError
-
-
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
@@ -18,8 +15,10 @@ from rest_framework.decorators import api_view, permission_classes
 from backend.permission import IsAdmin, IsAdminOrArtist,IsArtist,IsUser
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.exceptions import PermissionDenied
+import json
 
-@csrf_exempt
+
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login(request):
@@ -50,7 +49,9 @@ def login(request):
     }, status=status.HTTP_200_OK)
 
 
-@csrf_exempt
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def get_all_artist(request):
     artist_role = Role.objects.get(pk=2)
     all_artist = artist_role.user.all()
@@ -63,7 +64,9 @@ def get_all_artist(request):
     return JsonResponse({"message": "All Artists", "data": serializer.data}, status=200)
 
 
-@csrf_exempt
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def get_current_artist(request, artist_id):
     try:
         artist = CustomUser.objects.get(pk=artist_id)
@@ -73,7 +76,8 @@ def get_current_artist(request, artist_id):
     serializer = ArtistSerializer(artist)
     return JsonResponse({"message": "Artist's Data", "data": serializer.data}, status=200)
 
-@csrf_exempt
+
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def create_user(request):
@@ -94,8 +98,8 @@ def create_user(request):
 
 
 
-@csrf_exempt
-@permission_classes([IsArtist])
+@api_view(['POST'])
+@permission_classes([AllowAny])
 def create_artist(request):
     if request.method == 'POST':
 
@@ -152,8 +156,6 @@ def create_artist(request):
 
 
 
-
-
 @api_view(['PUT'])
 @permission_classes([IsUser])
 def update_user(request, user_id):
@@ -186,7 +188,6 @@ def update_user(request, user_id):
 
 
 
-@csrf_exempt
 @api_view(['PUT'])
 @permission_classes([IsArtist])
 def update_personal_artist_info(request, artist_id):
@@ -217,7 +218,9 @@ def update_personal_artist_info(request, artist_id):
 
 from rest_framework.permissions import IsAuthenticated
 
-@csrf_exempt
+
+
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def logout(request):

@@ -2,11 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import io, json
-# Create your views here.
 from django.utils import timezone
 from django.db import IntegrityError
-
-
 from rest_framework.parsers import JSONParser 
 from .serializers import TrackSerializer
 from .models import Music, Playlist, FavouritePlaylist
@@ -16,10 +13,11 @@ from .serializers import PlayListSerializer, FavouritePlaylistSerializer
 from rest_framework.decorators import api_view, permission_classes
 from utils.fields import check_required_fields, does_field_exist
 from rest_framework.permissions import AllowAny,IsAuthenticated
+from backend.permission import IsArtist, IsAdmin,IsAdminOrArtist,IsUser
 
-from django.contrib.auth.decorators import login_required
-@csrf_exempt
+
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def get_track(request, track_id):
     try:
         track = Music.objects.get(pk=track_id)
@@ -33,6 +31,7 @@ def get_track(request, track_id):
 
 @csrf_exempt
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def get_all_tracks(request):
     all_tracks = Music.objects.all()
     if not all_tracks:
