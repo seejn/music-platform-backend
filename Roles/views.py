@@ -17,10 +17,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view, permission_classes
 from backend.permission import IsAdmin, IsAdminOrArtist,IsArtist,IsUser
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.exceptions import NotFound, PermissionDenied
-from Cusers.models import Token
-from django.utils import timezone
-from backend.settings import SIMPLE_JWT
+from rest_framework.exceptions import PermissionDenied
 
 @csrf_exempt
 @api_view(['POST'])
@@ -44,35 +41,11 @@ def login(request):
         return Response({'error': 'Inactive account'}, status=status.HTTP_403_FORBIDDEN)
 
     serializer = CustomUserSerializer(user)
-
-    tokens = Token.objects.filter(user=user).first()
-
-    if tokens and tokens.expired_at > timezone.now():
-
-        refresh = RefreshToken.for_user(user)
-        access_token = str(refresh.access_token)
-
-
-        tokens.refresh_token = str(refresh)
-        tokens.access_token = access_token
-        tokens.expired_at = timezone.now() + SIMPLE_JWT['REFRESH_TOKEN_LIFETIME']
-        tokens.save()
-    else:
-
-        refresh = RefreshToken.for_user(user)
-        access_token = str(refresh.access_token)
-
-  
-        Token.objects.create(
-            user=user,
-            refresh_token=str(refresh),
-            access_token=access_token,
-            expired_at=timezone.now() + SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'],
-        )
+    refresh = RefreshToken.for_user(user)
 
     return Response({
         'refresh': str(refresh),
-        'access': access_token,
+        'access': str(refresh.access_token),
         'user': serializer.data
     }, status=status.HTTP_200_OK)
 
@@ -180,7 +153,7 @@ def create_artist(request):
 
 
 
-@csrf_exempt
+
 @api_view(['PUT'])
 @permission_classes([IsUser])
 def update_user(request, user_id):
@@ -244,25 +217,22 @@ def update_personal_artist_info(request, artist_id):
 
 from rest_framework.permissions import IsAuthenticated
 
-
+@csrf_exempt
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def logout(request):
     try:
-        refresh_token = request.data.get('refresh_token') 
-
+        refresh_token = request.data.get('refresh_token')
         if not refresh_token:
-            return Response({"error": "No refresh token provided"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'Refresh token is required'}, status=status.HTTP_400_BAD_REQUEST)
 
         token = RefreshToken(refresh_token)
         token.blacklist()
 
-        Token.objects.filter(refresh_token=refresh_token).delete()
-
-        return Response({"message": "Logout successful"}, status=status.HTTP_200_OK)
-
+        return Response({'message': 'Logout successful'}, status=status.HTTP_205_RESET_CONTENT)
     except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
 
 # @csrf_exempt
 # def update_artist_info(request, artist_id):
@@ -292,9 +262,6 @@ def logout(request):
 #     updated_artist = ArtistDetailSerializer(artist).data
 
 #     return JsonResponse({"message": "Artist Updated Successfully", "data": updated_artist}, status=200)
-
-
-
 
 
 

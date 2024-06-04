@@ -57,14 +57,3 @@ class CustomUser(AbstractUser):
 
 
 
-
-class Token(models.Model):
-    refresh_token = models.CharField(max_length=500)
-    access_token = models.CharField(max_length=500)
-    user = models.ForeignKey('CustomUser', on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    expired_at = models.DateTimeField(default=timezone.now() + SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'])
-
-    class Meta:
-        unique_together = ('refresh_token', 'user')
-
