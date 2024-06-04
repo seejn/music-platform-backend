@@ -16,7 +16,7 @@ from .serializers import PlayListSerializer, FavouritePlaylistSerializer
 from rest_framework.decorators import api_view, permission_classes
 from utils.fields import check_required_fields, does_field_exist
 from rest_framework.permissions import AllowAny,IsAuthenticated
-from Cusers.decoraters import admin_required,artist_required,user_required
+
 from django.contrib.auth.decorators import login_required
 @csrf_exempt
 @api_view(['GET'])

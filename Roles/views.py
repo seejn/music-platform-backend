@@ -179,10 +179,11 @@ def create_artist(request):
 
 
 
+
 @csrf_exempt
+@api_view(['PUT'])
 @permission_classes([IsUser])
 def update_user(request, user_id):
-
     dict_data = json.loads(request.body)
     input_fields = list(dict_data.keys())
 
@@ -193,20 +194,23 @@ def update_user(request, user_id):
 
     required_fields = list(user.__dict__.keys())
 
-
-    if not does_field_exist(input_fields, required_fields):
+    if not all(field in required_fields for field in input_fields):
         return JsonResponse({"message": "Field not Available"}, status=404)
+
+    if request.user.id != user.id:
+        raise PermissionDenied("You do not have permission to perform this action.")
+
+    for key, value in dict_data.items():
+        setattr(user, key, value)
     
-    user.__dict__.update(dict_data)
     try:
         user.save()
     except IntegrityError:
         return JsonResponse({"message": "Already Exists"}, status=400)
 
-    user = CustomUser.objects.get(pk=user_id)
     updated_user = CustomUserSerializer(user).data
-
     return JsonResponse({"message": "User Updated Successfully", "data": updated_user}, status=200)
+
 
 
 @csrf_exempt
@@ -245,7 +249,7 @@ from rest_framework.permissions import IsAuthenticated
 @permission_classes([IsAuthenticated])
 def logout(request):
     try:
-        refresh_token = request.data.get('refresh_token')  # Assuming refresh_token is sent in the request body
+        refresh_token = request.data.get('refresh_token') 
 
         if not refresh_token:
             return Response({"error": "No refresh token provided"}, status=status.HTTP_400_BAD_REQUEST)
