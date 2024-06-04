@@ -13,5 +13,5 @@ urlpatterns = [
   
     path('favourite_album/get_all/', views.get_all_users_favourite_albums, name="get_all_users_favourite_albums"),
     path('favourite_album/create/', views.create_favourite_album, name="create_favourite_album"),
-    path('favourite_album/delete/<int:favourite_album_id>/', views.delete_favourite_album, name="delete_favourite_album"),
+    path('favourite_album/delete/<int:favouritealbum_id>/', views.delete_favourite_album, name="delete_favourite_album"),
 ]

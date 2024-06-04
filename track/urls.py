@@ -15,5 +15,7 @@ urlpatterns = [
     path('delete_playlist/<int:playlist_id>/', views.delete_playlist, name="delete_playlist"),
 
     path('favourite_playlist/get_all/', views.get_all_users_favourite_playlists, name="get_all_users_favourite_playlists"),
+    path('specific_favourite_playlist/<int:favouriteplaylist_id>/', views.get_specific_favourite_playlist, name="get_specific_favourite_playlists"),
     path('favourite_playlist/create/', views.create_favourite_playlist, name="create_favourite_playlist"),
+    path('favourite_playlist/delete/<int:favourite_playlist_id>/', views.delete_favourite_playlist, name="delete_favourite_playlist"),
 ]
