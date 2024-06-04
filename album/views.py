@@ -47,6 +47,7 @@ def create_album(request):
             print(track_ids)
             print(type(artist))
          
+ 
             for track_id in track_ids:
                 track = Music.objects.get(pk=track_id)
                 print(track.artist)
