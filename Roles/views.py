@@ -84,15 +84,20 @@ def create_user(request):
     dict_data=json.loads(request.body)
     input_fields = list(dict_data.keys())
 
-    required_fields = ["email","dob","gender"]
+    required_fields = ["email","dob","gender","password"]
+
 
     if not check_required_fields(input_fields,required_fields ):
         return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)  
+
+    password = dict_data.get("password")
+    del dict_data["password"]
+
     user_role=Role.objects.get(pk=1)
     new_user=user_role.user.create(**dict_data)
-    if dict_data.get("password"):
-        new_user.set_password(dict_data.get("password"))
-        new_user.save()
+    new_user.set_password(dict_data.get("password"))
+    new_user.save()
+    
     serializer=CustomUserSerializer(new_user)
     return JsonResponse({"message":"New User Created Successfully.","data":serializer.data},status=200)
 
@@ -105,7 +110,7 @@ def create_artist(request):
 
         dict_data = json.loads(request.body)
         input_fields = list(dict_data.keys())
-        required_fields = ["email", "dob", "gender"]
+        required_fields = ["email", "dob", "gender", "first_name", "last_name", "password"]
 
         if not check_required_fields(input_fields, required_fields):
             return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)
@@ -140,9 +145,10 @@ def create_artist(request):
             dict_data['role'] = artist_role
 
             new_artist = CustomUser.objects.create(**{key: dict_data[key] for key in ['email', 'dob', 'gender', 'role']},details=artist_detail)
-            if dict_data.get("password"):
-                new_artist.set_password(dict_data.get("password"))
-                new_artist.save()
+            
+            password = dict_data.get("password")
+            new_artist.set_password(password)
+            new_artist.save()
             
 
             serializer = ArtistSerializer(new_artist)
