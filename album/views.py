@@ -38,10 +38,12 @@ def get_all_albums(request):
 def create_album(request):
     if request.method == 'POST':
         try:
-            dict_data = json.loads(request.body)
-            
+            # dict_data = json.loads(request.body)
+            dict_data = request.POST.dict()
+
             artist_id = dict_data.get('artist')
             track_ids = dict_data.get('tracks')
+            image = request.FILES.get("image")
             
             del dict_data['artist']
             del dict_data['tracks']
@@ -59,7 +61,7 @@ def create_album(request):
                     return JsonResponse({"message": f"Track ID {track_id} does not belong to the artist"}, status=400)
             print("before creating album")
             print(dict_data)
-            new_album = Album.objects.create(**dict_data, artist=artist)
+            new_album = Album.objects.create(**dict_data, artist=artist, image=image)
             print("after creating album")
 
             new_album.track.add(*track_ids)
