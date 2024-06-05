@@ -29,7 +29,7 @@ class PlayListSerializer(serializers.ModelSerializer):
 
 class FavouritePlaylistSerializer(serializers.ModelSerializer):
     user = CustomUserSerializer(read_only = True)
-    playlists = PlayListSerializer(read_only=True, many=True)
+    playlist = PlayListSerializer(read_only=True, many=True)
     class Meta:
         model = FavouritePlaylist
         fields = '__all__'

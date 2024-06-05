@@ -32,7 +32,7 @@ class Album(models.Model):
 
 class FavouriteAlbum(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="favourite_album")
-    albums = models.ManyToManyField(Album, related_name="favourite_by")
+    album = models.ManyToManyField(Album, related_name="favourite_by")
     created_at = models.DateTimeField(default=timezone.now)
     deleted_at = models.DateTimeField(null=True, blank=True)
     is_deleted = models.BooleanField(default=False)

@@ -47,7 +47,7 @@ class Playlist(models.Model):
         self.save()
 
 class FavouritePlaylist(models.Model):
-    playlists = models.ManyToManyField(Playlist, related_name="favourite_by")
+    playlist = models.ManyToManyField(Playlist, related_name="favourite_by")
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="favourite_playlist")
     created_at = models.DateTimeField(default=timezone.now)
     deleted_at = models.DateTimeField(null=True, blank=True)

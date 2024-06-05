@@ -253,9 +253,9 @@ def create_favourite_playlist(request):
 
     dict_data = json.loads(request.body)
     user_id = dict_data.get("user_id")
-    playlist_ids = dict_data.get("playlists")
+    playlist_id = dict_data.get("playlist")
 
-    del dict_data["playlists"]
+    del dict_data["playlist"]
 
     try:
         print(user_id)
@@ -265,15 +265,13 @@ def create_favourite_playlist(request):
 
     print("dict_data", dict_data)
     new_favourite_playlist = FavouritePlaylist.objects.create(**dict_data)
+    try:
+        Playlist.objects.get(pk=playlist_id)
+    except Playlist.DoesNotExist:
+        return JsonResponse({"message": "Playlist not Available"}, status=404)  
 
-    for playlist_id in playlist_ids:
-        try:
-            Playlist.objects.get(pk=playlist_id)
-        except Playlist.DoesNotExist:
-            return JsonResponse({"message": "Playlist not Available"}, status=404)  
-
-    print(playlist_ids)
-    new_favourite_playlist.playlists.set(playlist_ids)
+    print(playlist_id)
+    new_favourite_playlist.playlist.add(playlist_id)
     new_favourite_playlist.save()
 
     serializer = FavouritePlaylistSerializer(new_favourite_playlist)
