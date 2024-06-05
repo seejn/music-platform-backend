@@ -19,7 +19,6 @@ class ArtistSerializer(serializers.ModelSerializer):
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
-    role = RoleSerializer(read_only=True)
     class Meta:
         model = CustomUser
         fields = ['id','first_name','last_name' ,'email', 'image', 'date_joined','role', 'is_deleted', 'details']
