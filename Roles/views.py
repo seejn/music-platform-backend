@@ -27,8 +27,10 @@ def login(request):
     if not email or not password:
         return Response({'error': 'Both email and password are required'}, status=status.HTTP_400_BAD_REQUEST)
 
+
     try:
-        user = CustomUser.objects.get(email=email, is_deleted=False)
+        user = CustomUser.objects.get(email=email)
+        print(user)
     except CustomUser.DoesNotExist:
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
@@ -84,7 +86,7 @@ def create_user(request):
     dict_data=json.loads(request.body)
     input_fields = list(dict_data.keys())
 
-    required_fields = ["email","dob","gender","password"]
+    required_fields = ["email", "dob", "gender", "first_name", "last_name", "password"]
 
 
     if not check_required_fields(input_fields,required_fields ):
@@ -95,7 +97,7 @@ def create_user(request):
 
     user_role=Role.objects.get(pk=1)
     new_user=user_role.user.create(**dict_data)
-    new_user.set_password(dict_data.get("password"))
+    new_user.set_password(password)
     new_user.save()
     
     serializer=CustomUserSerializer(new_user)
@@ -110,6 +112,10 @@ def create_artist(request):
 
         dict_data = json.loads(request.body)
         input_fields = list(dict_data.keys())
+
+        print(dict_data)
+        print(input_fields)
+
         required_fields = ["email", "dob", "gender", "first_name", "last_name", "password"]
 
         if not check_required_fields(input_fields, required_fields):
@@ -144,7 +150,7 @@ def create_artist(request):
             artist_role = Role.objects.get(pk=2)  
             dict_data['role'] = artist_role
 
-            new_artist = CustomUser.objects.create(**{key: dict_data[key] for key in ['email', 'dob', 'gender', 'role']},details=artist_detail)
+            new_artist = CustomUser.objects.create(**{key: dict_data[key] for key in ['first_name', 'last_name', 'email', 'dob', 'gender', 'role']},details=artist_detail)
             
             password = dict_data.get("password")
             new_artist.set_password(password)
