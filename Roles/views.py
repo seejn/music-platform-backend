@@ -105,7 +105,7 @@ def create_artist(request):
 
         dict_data = json.loads(request.body)
         input_fields = list(dict_data.keys())
-        required_fields = ["email", "dob", "gender", "stagename", "nationality"]
+        required_fields = ["email", "dob", "gender"]
 
         if not check_required_fields(input_fields, required_fields):
             return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)

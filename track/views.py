@@ -55,6 +55,7 @@ def create_track(request):
     input_fields = list(dict_data.keys())
     image = request.FILES.get("image")
 
+
     print(dict_data)
 
     required_fields = ["title", "duration", "artist", "genre"]
@@ -170,17 +171,20 @@ def get_all_playlists(request):
 @api_view(['POST'])
 @permission_classes([IsUserOrArtist])
 def create_playlist(request):
-    dict_data = json.loads(request.body)
+    dict_data = request.POST.dict()
+    image = request.FILES.get("image")
 
     user_id = dict_data.get('user')
     track_ids = dict_data.get('track')
+
+
 
     del dict_data['user']
     del dict_data['track']
 
     user = CustomUser.objects.get(pk=user_id)
 
-    new_playlist = Playlist.objects.create(**dict_data, user=user)
+    new_playlist = Playlist.objects.create(**dict_data, user=user,image=image)
     
     new_playlist.track.add(*track_ids)
     new_playlist.save()
