@@ -83,9 +83,8 @@ def get_current_artist(request, artist_id):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def create_user(request):
-    dict_data = request.POST.dict()
+    dict_data=json.loads(request.body)
     input_fields = list(dict_data.keys())
-    image = request.FILES.get("image")
 
     required_fields = ["email", "dob", "gender", "first_name", "last_name", "password"]
 
@@ -97,10 +96,10 @@ def create_user(request):
     del dict_data["password"]
 
     user_role=Role.objects.get(pk=1)
-    new_user=user_role.user.create(**dict_data,image=image)
-    if dict_data.get("password"):
-        new_user.set_password(dict_data.get("password"))
-        new_user.save()
+    new_user=user_role.user.create(**dict_data)
+    new_user.set_password(password)
+    new_user.save()
+    
     serializer=CustomUserSerializer(new_user)
     return JsonResponse({"message":"New User Created Successfully.","data":serializer.data},status=200)
 
@@ -111,10 +110,13 @@ def create_user(request):
 def create_artist(request):
     if request.method == 'POST':
 
-        dict_data = request.POST.dict()
+        dict_data = json.loads(request.body)
         input_fields = list(dict_data.keys())
-        image = request.FILES.get("image")
-        required_fields = ["email", "dob", "gender"]
+
+        print(dict_data)
+        print(input_fields)
+
+        required_fields = ["email", "dob", "gender", "first_name", "last_name", "password"]
 
         if not check_required_fields(input_fields, required_fields):
             return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)
@@ -148,10 +150,11 @@ def create_artist(request):
             artist_role = Role.objects.get(pk=2)  
             dict_data['role'] = artist_role
 
-            new_artist = CustomUser.objects.create(**{key: dict_data[key] for key in ['email', 'dob', 'gender', 'role']},details=artist_detail,image=image)
-            if dict_data.get("password"):
-                new_artist.set_password(dict_data.get("password"))
-                new_artist.save()
+            new_artist = CustomUser.objects.create(**{key: dict_data[key] for key in ['first_name', 'last_name', 'email', 'dob', 'gender', 'role']},details=artist_detail)
+            
+            password = dict_data.get("password")
+            new_artist.set_password(password)
+            new_artist.save()
             
 
             serializer = ArtistSerializer(new_artist)
