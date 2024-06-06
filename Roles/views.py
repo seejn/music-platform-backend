@@ -96,7 +96,7 @@ def create_user(request):
         return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)  
 
     password = dict_data.get("password")
-    del dict_data["password"]
+    dict_data.pop("password")
 
     user_role=Role.objects.get(pk=1)
     new_user=user_role.user.create(**dict_data)

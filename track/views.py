@@ -84,14 +84,14 @@ def create_track(request):
     genre_id = dict_data.get('genre')
     artist = genre = None
 
-    del dict_data['artist']
+    dict_data.pop('artist')
     try:
         artist = CustomUser.objects.get(pk=artist_id)
     except CustomUser.DoesNotExist:
         return JsonResponse({"message": "Artist not Available"}, status=404)    
 
     if genre_id:
-        del dict_data['genre']
+        dict_data.pop('genre')
         try:
             genre = Genre.objects.get(pk=genre_id)
         except Genre.DoesNotExist:
@@ -196,8 +196,8 @@ def create_playlist(request):
 
 
 
-    del dict_data['user']
-    del dict_data['track']
+    dict_data.pop('user')
+    dict_data.pop('track')
 
     user = CustomUser.objects.get(pk=user_id)
 
@@ -276,7 +276,7 @@ def create_favourite_playlist(request):
     user_id = dict_data.get("user_id")
     playlist_id = dict_data.get("playlist")
 
-    del dict_data["playlist"]
+    dict_data.pop("playlist")
 
     try:
         print(user_id)

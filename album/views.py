@@ -45,8 +45,8 @@ def create_album(request):
             track_ids = [int(id) for id in dict_data.get('tracks').split(',')]
             image = request.FILES.get("image")
             
-            del dict_data['artist']
-            del dict_data['tracks']
+            dict_data.pop('artist')
+            dict_data.pop('tracks')
             
             artist = CustomUser.objects.get(pk=artist_id)
             print(artist_id)
@@ -61,6 +61,7 @@ def create_album(request):
                     return JsonResponse({"message": f"Track ID {track_id} does not belong to the artist"}, status=400)
             print("before creating album")
             print(dict_data)
+
             new_album = Album.objects.create(**dict_data, artist=artist, image=image)
             print("after creating album")
 
@@ -201,7 +202,7 @@ def create_favourite_album(request):
     user_id = dict_data.get("user_id")
     album_id = dict_data.get("album")
 
-    del dict_data["album"]
+    dict_data.pop("album")
 
     try:
         user = CustomUser.objects.get(pk=user_id)
