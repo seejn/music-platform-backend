@@ -42,7 +42,7 @@ def create_album(request):
             dict_data = request.POST.dict()
 
             artist_id = dict_data.get('artist')
-            track_ids = dict_data.get('tracks')
+            track_ids = [int(id) for id in dict_data.get('tracks').split(',')]
             image = request.FILES.get("image")
             
             del dict_data['artist']
@@ -75,6 +75,7 @@ def create_album(request):
         except Music.DoesNotExist:
             return JsonResponse({"message": "One or more tracks not found"}, status=404)
         except Exception as e:
+            print(e)
             return JsonResponse({"message": str(e)}, status=400)
     else:
         return JsonResponse({"message": "Invalid request method"}, status=405)

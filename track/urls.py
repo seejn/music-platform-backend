@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+
+    path('get_artist_track/<int:artist_id>/', views.get_artist_track, name="get_artist_track"),
     path('get_all_tracks/', views.get_all_tracks, name="get_all_tracks"),
     path('<int:track_id>/', views.get_track, name="get_track"),
     path('create/', views.create_track, name="create_track"),

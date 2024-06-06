@@ -16,6 +16,23 @@ from rest_framework.permissions import AllowAny,IsAuthenticated
 from backend.permission import IsArtist, IsAdmin,IsAdminOrArtist,IsUser,IsAdminOrArtistOrUser,IsUserOrArtist
 from rest_framework.exceptions import PermissionDenied
 
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_artist_track(request, artist_id):
+    try:
+        artist = CustomUser.objects.get(pk=artist_id)
+        
+    except CustomUser.DoesNotExist:
+        return JsonResponse({"message": "Artist not Available"}, status=404)    
+
+    tracks = Music.objects.all().filter(artist_id=artist_id)
+
+    serializer = TrackSerializer(tracks, many=True)
+
+    return JsonResponse({"message": f"Artist {artist_id} Tracks", "data": serializer.data}, status=200)  
+
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_track(request, track_id):
@@ -52,11 +69,11 @@ def create_track(request):
     # dict_data = json.loads(request.body)
 
     dict_data = request.POST.dict()
+    print(dict_data)
     input_fields = list(dict_data.keys())
     image = request.FILES.get("image")
 
 
-    print(dict_data)
 
     required_fields = ["title", "duration", "artist", "genre"]
 
