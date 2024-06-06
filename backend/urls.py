@@ -22,9 +22,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    # path("track/",include('track.urls')),
     path("album/",include('album.urls')),
-    # path("genre/",include('genre.urls')),
+    path("genre/",include('genre.urls')),
     path("users/",include("Cusers.urls")),
     path("roles/",include("Roles.urls")),
     path("track/",include("track.urls")),
