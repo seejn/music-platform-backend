@@ -81,15 +81,16 @@ def get_current_artist(request, artist_id):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def create_user(request):
-    dict_data=json.loads(request.body)
+    dict_data = request.POST.dict()
     input_fields = list(dict_data.keys())
+    image = request.FILES.get("image")
 
     required_fields = ["email","dob","gender"]
 
     if not check_required_fields(input_fields,required_fields ):
         return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)  
     user_role=Role.objects.get(pk=1)
-    new_user=user_role.user.create(**dict_data)
+    new_user=user_role.user.create(**dict_data,image=image)
     if dict_data.get("password"):
         new_user.set_password(dict_data.get("password"))
         new_user.save()
@@ -103,8 +104,9 @@ def create_user(request):
 def create_artist(request):
     if request.method == 'POST':
 
-        dict_data = json.loads(request.body)
+        dict_data = request.POST.dict()
         input_fields = list(dict_data.keys())
+        image = request.FILES.get("image")
         required_fields = ["email", "dob", "gender"]
 
         if not check_required_fields(input_fields, required_fields):
@@ -139,7 +141,7 @@ def create_artist(request):
             artist_role = Role.objects.get(pk=2)  
             dict_data['role'] = artist_role
 
-            new_artist = CustomUser.objects.create(**{key: dict_data[key] for key in ['email', 'dob', 'gender', 'role']},details=artist_detail)
+            new_artist = CustomUser.objects.create(**{key: dict_data[key] for key in ['email', 'dob', 'gender', 'role']},details=artist_detail,image=image)
             if dict_data.get("password"):
                 new_artist.set_password(dict_data.get("password"))
                 new_artist.save()
