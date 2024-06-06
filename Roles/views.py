@@ -27,8 +27,10 @@ def login(request):
     if not email or not password:
         return Response({'error': 'Both email and password are required'}, status=status.HTTP_400_BAD_REQUEST)
 
+
     try:
-        user = CustomUser.objects.get(email=email, is_deleted=False)
+        user = CustomUser.objects.get(email=email)
+        print(user)
     except CustomUser.DoesNotExist:
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
@@ -85,10 +87,15 @@ def create_user(request):
     input_fields = list(dict_data.keys())
     image = request.FILES.get("image")
 
-    required_fields = ["email","dob","gender"]
+    required_fields = ["email", "dob", "gender", "first_name", "last_name", "password"]
+
 
     if not check_required_fields(input_fields,required_fields ):
         return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)  
+
+    password = dict_data.get("password")
+    del dict_data["password"]
+
     user_role=Role.objects.get(pk=1)
     new_user=user_role.user.create(**dict_data,image=image)
     if dict_data.get("password"):
