@@ -15,7 +15,7 @@ class SoftDeleteManager(models.Manager):
 
     def restore(self, id):
         try:
-            to_restore = self.deleted().get(pk=id)
+            to_restore = self.get_deleted().get(pk=id)
             to_restore.is_deleted = False
             to_restore.deleted_at = None
             to_restore.save()

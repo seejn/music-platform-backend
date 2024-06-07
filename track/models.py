@@ -19,7 +19,7 @@ class Music(models.Model):
     objects = SoftDeleteManager()
 
     def __str__(self):
-        return self.title
+        return f"{self.id} {self.title}"
 
     def soft_delete(self):
         self.is_deleted = True
