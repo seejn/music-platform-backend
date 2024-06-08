@@ -84,7 +84,7 @@ def create_track(request):
     genre_id = dict_data.get('genre')
     artist = genre = None
 
-    dict_data.pop['artist']
+    dict_data.pop('artist')
     try:
         artist = CustomUser.objects.get(pk=artist_id)
     except CustomUser.DoesNotExist:
@@ -224,6 +224,7 @@ def update_playlist(request, playlist_id):
         
     playlist.__dict__.update(dict_data)
     if dict_data.get("track"):
+        playlist.track.clear()
         playlist.track.add(*dict_data.get("track"))
     playlist.save()
     playlist = Playlist.objects.get(pk=playlist_id)
