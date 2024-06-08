@@ -223,10 +223,26 @@ def update_playlist(request, playlist_id):
         raise PermissionDenied("You do not have permission to perform this action.") 
         
     playlist.__dict__.update(dict_data)
-    if dict_data.get("track") == None or dict_data.get("track") == []:
-        playlist.track.clear()
-        print(playlist.track)
-        playlist.track.add(*dict_data.get("track"))
+    playlist.save()
+    playlist = Playlist.objects.get(pk=playlist_id)
+    updated_playlist = PlayListSerializer(playlist).data
+    
+    return JsonResponse({"message": "Playlist Updated Successfully", "data": updated_playlist}, status=200)
+    
+@api_view(['PUT','PATCH'])
+@permission_classes([IsUserOrArtist])
+def add_remove_track_to_playlist(request, playlist_id):
+    print("from update_playlist",request.body)
+    dict_data = json.loads(request.body)
+
+    playlist = Playlist.objects.get(pk=playlist_id)
+    if request.user.id != playlist.user.id:
+        raise PermissionDenied("You do not have permission to perform this action.") 
+        
+    playlist.track.clear()
+    playlist.track.add(*dict_data.get("track"))
+    print(playlist.track)
+    
     playlist.save()
     playlist = Playlist.objects.get(pk=playlist_id)
     updated_playlist = PlayListSerializer(playlist).data
