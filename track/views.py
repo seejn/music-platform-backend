@@ -223,8 +223,9 @@ def update_playlist(request, playlist_id):
         raise PermissionDenied("You do not have permission to perform this action.") 
         
     playlist.__dict__.update(dict_data)
-    if dict_data.get("track"):
+    if dict_data.get("track") == None or dict_data.get("track") == []:
         playlist.track.clear()
+        print(playlist.track)
         playlist.track.add(*dict_data.get("track"))
     playlist.save()
     playlist = Playlist.objects.get(pk=playlist_id)
