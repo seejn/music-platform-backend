@@ -204,7 +204,6 @@ def create_playlist(request):
     # Create playlist
     new_playlist = Playlist.objects.create(**dict_data, user=user)
     
-
     
     # Serialize playlist
     new_playlist_serialized = PlayListSerializer(new_playlist).data
@@ -216,12 +215,16 @@ def create_playlist(request):
 @api_view(['PUT','PATCH'])
 @permission_classes([IsUserOrArtist])
 def update_playlist(request, playlist_id):
+    print("from update_playlist",request.body)
     dict_data = json.loads(request.body)
 
     playlist = Playlist.objects.get(pk=playlist_id)
     if request.user.id != playlist.user.id:
         raise PermissionDenied("You do not have permission to perform this action.") 
+        
     playlist.__dict__.update(dict_data)
+    if dict_data.get("track"):
+        playlist.track.add(*dict_data.get("track"))
     playlist.save()
     playlist = Playlist.objects.get(pk=playlist_id)
     updated_playlist = PlayListSerializer(playlist).data
