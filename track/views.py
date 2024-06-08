@@ -84,14 +84,14 @@ def create_track(request):
     genre_id = dict_data.get('genre')
     artist = genre = None
 
-    dict_data.pop('artist')
+    dict_data.pop['artist']
     try:
         artist = CustomUser.objects.get(pk=artist_id)
     except CustomUser.DoesNotExist:
         return JsonResponse({"message": "Artist not Available"}, status=404)    
 
     if genre_id:
-        dict_data.pop('genre')
+        del dict_data['genre']
         try:
             genre = Genre.objects.get(pk=genre_id)
         except Genre.DoesNotExist:
@@ -185,34 +185,35 @@ def get_all_playlists(request):
 
 
 
+
+
 @api_view(['POST'])
-@permission_classes([IsUserOrArtist])
+@permission_classes([IsAuthenticated])  # Use IsAuthenticated for authentication
 def create_playlist(request):
-    dict_data = request.POST.dict()
-    image = request.FILES.get("image")
-
-    user_id = dict_data.get('user')
-    track_ids = dict_data.get('track')
-
-
-
-    dict_data.pop('user')
-    dict_data.pop('track')
-
-    user = CustomUser.objects.get(pk=user_id)
-
-    new_playlist = Playlist.objects.create(**dict_data, user=user,image=image)
+    dict_data = json.loads(request.body)
+   
+    print(dict_data)
+    # Get the authenticated user from the request
+    user = request.user
     
-    new_playlist.track.add(*track_ids)
-    new_playlist.save()
+  
+
+    # Remove track_ids from dict_data if it exists
+    dict_data.pop('track_ids', None)
+
+    # Create playlist
+    new_playlist = Playlist.objects.create(**dict_data, user=user)
     
-    new_playlist = PlayListSerializer(new_playlist).data
 
-    return JsonResponse({"message": "New Playlist Added Successfully", "data": new_playlist}, status=200)
+    
+    # Serialize playlist
+    new_playlist_serialized = PlayListSerializer(new_playlist).data
+
+    return JsonResponse({"message": "New Playlist Added Successfully", "data": new_playlist_serialized}, status=200)
 
 
 
-@api_view(['PUT'])
+@api_view(['PUT','PATCH'])
 @permission_classes([IsUserOrArtist])
 def update_playlist(request, playlist_id):
     dict_data = json.loads(request.body)
@@ -276,7 +277,7 @@ def create_favourite_playlist(request):
     user_id = dict_data.get("user_id")
     playlist_id = dict_data.get("playlist")
 
-    dict_data.pop("playlist")
+    del dict_data["playlist"]
 
     try:
         print(user_id)
