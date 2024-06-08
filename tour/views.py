@@ -4,12 +4,13 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import Tour,CustomUser
 from django.db import IntegrityError
 from .serializers import TourSerializer
+from utils.fields import check_required_fields, does_field_exist
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from backend.permission import IsArtist, IsAdmin,IsAdminOrArtist,IsUser,IsAdminOrArtistOrUser,IsUserOrArtist
 import json
 
 @api_view(['GET'])
-@permission_classes([AllowAny])
+@permission_classes([IsAdmin])
 def get_all_tours(request):
     all_tours=Tour.objects.all()
     if not all_tours:
@@ -36,10 +37,10 @@ def get_artist_tour(request,artist_id):
 @api_view(['POST'])
 @permission_classes([IsAdmin])
 def create_tour(request):
-    dict_data = request.POST.dict()
+    dict_data = json.loads(request.body)
     input_fields = list(dict_data.keys())
     
-    required_fields=['title','artist','date','time','location']
+    required_fields=['title','artist','date','time','location','venue']
 
     if not check_required_fields(input_fields, required_fields):
         return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)    
@@ -60,7 +61,7 @@ def create_tour(request):
 
 
 @api_view(['PUT'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAdmin])
 def update_tour(request,tour_id):
     dict_data=json.loads(request.body)
     input_fields = list(dict_data.keys())
@@ -87,7 +88,7 @@ def update_tour(request,tour_id):
     tour = Tour.objects.get(pk=tour_id)
     updated_tour= TourSerializer(tour).data
     
-    return JsonResponse({"message": "Track Updated Successfully", "data": updated_tour}, status=200)
+    return JsonResponse({"message": "Tour Updated Successfully", "data": updated_tour}, status=200)
 
 def does_field_exist(input_fields, required_fields):
     return all(field in required_fields for field in input_fields)
