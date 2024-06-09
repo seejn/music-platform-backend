@@ -7,5 +7,7 @@ urlpatterns = [
     path('get_reported_tracks_of_artist/<int:artist_id>/', views.get_reported_tracks_of_artist, name="get_reported_tracks_of_artist"),
     path('get_all_banned_tracks/', views.get_all_banned_tracks, name="get_all_banned_tracks"),
     path('get_banned_tracks_of_artist/<int:artist_id>/', views.get_banned_tracks_of_artist, name="get_banned_tracks_of_artist"),
-
+    
+    path('ban_track/<int:track_id>/', views.ban_track, name="ban_track"),
+    path('unban_track/<int:track_id>/', views.unban_track, name="unban_track"),
 ]
