@@ -36,11 +36,15 @@ def report_track(request, track_id):
     reported_track = RandBTrackSerializer(reported_track)
     return JsonResponse({"message": "Track reported Successfully", "data": reported_track.data}, status=200)
     
+
+
 def get_all_reported_tracks(request):
     all_reported_tracks = RandBTrack.objects.all()
 
     all_reported_tracks = RandBTrackSerializer(all_reported_tracks, many=True)
     return JsonResponse({"message": "All reported Tracks", "data": all_reported_tracks.data}, status=200)
+
+
 
 def get_artist_reported_tracks(request, artist_id):
     all_reported_tracks = RandDTrack.objects.all()    
@@ -53,6 +57,8 @@ def get_artist_reported_tracks(request, artist_id):
 
     return JsonResponse({"message": f"Reported songs of artist: {artist_id}", "data": reported_tracks_of_artist}, status=200)
 
+
+
 def get_all_banned_tracks(request):
     reported_tracks = RandBTrack.objects.all()
     all_banned_tracks = []
@@ -61,6 +67,7 @@ def get_all_banned_tracks(request):
             all_banned_tracks.append(RandBTrackSerializer(track))
 
     return JsonResponse({"message": f"All banned songs", "data": all_banned_tracks.data}, status=200)
+
 
 
 def get_banned_tracks_of_artist(request, artist_id):
