@@ -92,8 +92,11 @@ def get_banned_tracks_of_artist(request, artist_id):
 def ban_track(request, track_id):
     try:
         track_to_ban = RandBTrack.objects.get(track_id=track_id)
-    except: 
-        return JsonResponse({"message": f"Something went wrong while banning the track: {track_id}"}, status=500)
+    except:
+        try:
+            RandBTrack.objects.create(track_id=track_id)
+        except: 
+            return JsonResponse({"message": f"Something went wrong while banning the track: {track_id}"}, status=500)
     
     banned_track = ban(track_to_ban)
     banned_track = RandBTrackSerializer(banned_track)
