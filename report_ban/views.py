@@ -40,7 +40,7 @@ def report_track(request, track_id):
             return JsonResponse({"message": "Track is not Available"}, status=200)
     
     if reported_track.report_count >= 5:
-        banned_track = ban_track(reported_track)
+        banned_track = ban(reported_track)
 
         banned_track = RandBTrackSerializer(banned_track)
         return JsonResponse({"message": f"Track Banned for {DEFALULT_BAN_TIME_IN_HOURS} Hours", "data": banned_track.data}, status=200)
