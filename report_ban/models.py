@@ -1,5 +1,6 @@
 from django.db import models
 from track.models import Music
+import time
 # Create your models here.
 class RandBTrack(models.Model):
     track = models.OneToOneField(Music, on_delete=models.CASCADE, related_name="track")
