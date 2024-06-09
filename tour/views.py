@@ -35,9 +35,9 @@ def get_artist_tour(request,artist_id):
     return JsonResponse({"message":f"Artist {artist_id} Tours","data":serializer.data}, status=200)
 
 
-def format_time_to_12hr(time_str):
-    time_obj = datetime.strptime(time_str, '%H:%M')
-    return time_obj.strftime('%I:%M %p')
+# def format_time_to_12hr(time_str):
+#     time_obj = datetime.strptime(time_str, '%H:%M')
+#     return time_obj.strftime('%I:%M %p')
 
 
 @api_view(['POST'])
@@ -45,22 +45,23 @@ def format_time_to_12hr(time_str):
 def create_tour(request):
     dict_data = json.loads(request.body)
     input_fields = list(dict_data.keys())
+    print(dict_data)
     
     required_fields=['title','artist','date','time','location','venue']
 
-    if not check_required_fields(input_fields, required_fields):
-        return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)    
+    # if not check_required_fields(input_fields, required_fields):
+    #     return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)    
 
-    artist_id = dict_data.get('artist')
+    artist_id = dict_data.get('artist_id')
     artist=None
     
-    dict_data.pop('artist')
+    dict_data.pop('artist_id')
     try:
         artist =CustomUser.objects.get(pk=artist_id)
     except CustomUser.DoesNotExist:
         return JsonResponse({"message":"Artist not available"}, status=404)
     
-    dict_data['time'] = format_time_to_12hr(dict_data['time'])
+    # dict_data['time'] = format_time_to_12hr(dict_data['time'])
     new_tour = Tour.objects.create(**dict_data,artist=artist)
     new_tour = TourSerializer(new_tour).data
 
@@ -83,11 +84,11 @@ def update_tour(request,tour_id):
     print(input_fields)
     print(required_fields)
 
-    if not does_field_exist(input_fields,required_fields):
-        return JsonResponse({"message": "Field not Available"}, status=400)  
+    # if not does_field_exist(input_fields,required_fields):
+    #     return JsonResponse({"message": "Field not Available"}, status=400)  
     
-    if 'time' in dict_data:
-        dict_data['time'] = format_time_to_12hr(dict_data['time'])
+    # if 'time' in dict_data:
+    #     dict_data['time'] = format_time_to_12hr(dict_data['time'])
         
     tour.__dict__.update(dict_data)
     try:

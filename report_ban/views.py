@@ -62,15 +62,9 @@ def get_all_reported_tracks(request):
 
 
 def get_reported_tracks_of_artist(request, artist_id):
-    all_reported_tracks = RandBTrack.objects.all()    
-
-    reported_tracks_of_artist = []
-
-    for reported_track in all_reported_tracks:
-        if reported_track.track.artist.id == artist_id:
-            reported_tracks_of_artist.append(RandBTrackSerializer(reported_track))
-
-    return JsonResponse({"message": f"Reported songs of artist: {artist_id}", "data": reported_tracks_of_artist}, status=200)
+    reported_tracks = RandBTrack.objects.filter(track__artist_id=artist_id)
+    serialized_tracks = RandBTrackSerializer(reported_tracks, many=True).data
+    return JsonResponse({"message": f"Reported songs of artist: {artist_id}", "data": serialized_tracks}, status=200)
 
 
 
