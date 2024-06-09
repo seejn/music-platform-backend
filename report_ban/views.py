@@ -46,7 +46,7 @@ def get_all_reported_tracks(request):
 
 
 
-def get_artist_reported_tracks(request, artist_id):
+def get_reported_tracks_of_artist(request, artist_id):
     all_reported_tracks = RandBTrack.objects.all()    
 
     reported_tracks_of_artist = []
