@@ -321,8 +321,6 @@ def create_favourite_playlist(request):
 
     return JsonResponse({"message": f"create favourite playlist for user", "data": serializer.data}, status=200)
 
-
-
 @api_view(['DELETE'])
 @permission_classes([IsUserOrArtist])
 def delete_favourite_playlist(request, favourite_playlist_id):
