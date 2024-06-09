@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+
+    path('get_artist_albums/<int:artist_id>/', views.get_artist_albums, name="get_artist_albums"),
     path('get_all_albums/', views.get_all_albums, name="get_all_albums"),
     path('<int:album_id>/', views.get_album, name="get_album"),
     path('create/', views.create_album, name="create_album"),

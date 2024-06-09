@@ -168,12 +168,21 @@ def delete_track(request, track_id):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_playlist(request, playlist_id):
-    playlist = Playlist.objects.get(pk=playlist_id)
-    serializer = PlayListSerializer(playlist)
+    try:
+        playlist = Playlist.objects.get(pk=playlist_id)
+    except Playlist.DoesNotExist:
+        return JsonResponse({"message": f"No Playlist Available"}, status=404) 
 
+    serializer = PlayListSerializer(playlist)
     return JsonResponse({"message": f"Playlist {playlist_id}", "data": serializer.data}, status=200)    
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_user_playlists(request, user_id):
+    playlist = Playlist.objects.filter(user_id=user_id)
+    serializer = PlayListSerializer(playlist, many=True)
 
+    return JsonResponse({"message": f"User {user_id}", "data": serializer.data}, status=200)  
 
 @api_view(['GET'])
 @permission_classes([AllowAny])

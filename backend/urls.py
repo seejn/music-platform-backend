@@ -28,4 +28,5 @@ urlpatterns = [
     path("roles/",include("Roles.urls")),
     path("track/",include("track.urls")),
     path("tour/",include("tour.urls")),
+    path("report/",include("report_ban.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

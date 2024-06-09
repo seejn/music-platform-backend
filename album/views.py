@@ -32,6 +32,14 @@ def get_all_albums(request):
     serializer = AlbumSerializer(all_albums, many=True)
     return JsonResponse({"message": "All Albums", "data": serializer.data}, status=200)
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_artist_albums(request, artist_id):
+    artist_albums = Album.objects.filter(artist_id = artist_id)
+    
+    serializer = AlbumSerializer(artist_albums, many=True)
+    return JsonResponse({"message": "All Albums", "data": serializer.data}, status=200)
+
 
 @api_view(['POST'])
 @permission_classes([IsArtist])
