@@ -33,7 +33,7 @@ def report_track(request, track_id):
     reported_track.report_count += 1
     reported_track.save()
 
-    reported_track = RandBTrack.objects.get(track_id=track_id)
+    reported_track += 1
     reported_track = RandBTrackSerializer(reported_track)
     return JsonResponse({"message": "Track reported Successfully", "data": reported_track.data}, status=200)
     
