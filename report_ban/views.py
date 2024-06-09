@@ -6,11 +6,14 @@ from .models import RandBTrack
 from track.models import Music
 import time, math
 
-# Create your views here.
+
+CURR_TIME = time.time()
+DEFAULT_BAN_TIME = 60
+DEFALULT_BAN_TIME_IN_HOURS = 60/3600
+# Create y
+# our views here.
 def ban(track):
-    CURR_TIME = time.time()
-    DEFAULT_BAN_TIME = 60
-    DEFALULT_BAN_TIME_IN_HOURS = 60/3600
+   
     
     track.track.is_banned = True
     track.ban_time = math.floor(CURR_TIME) + DEFAULT_BAN_TIME
