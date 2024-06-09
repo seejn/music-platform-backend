@@ -10,6 +10,7 @@ urlpatterns = [
     path('update/<int:track_id>/', views.update_track, name="update_track"),
     path('delete/<int:track_id>/', views.delete_track, name="delete_track"),
     
+    path('get_user_playlists/<int:user_id>/', views.get_user_playlists, name="get_user_playlists"),
     path('get_all_playlist/', views.get_all_playlists, name="get_all_playlists"),
     path('playlist/<int:playlist_id>/', views.get_playlist, name="get_playlist"),
     path('create_playlist/', views.create_playlist, name="create_playlist"),
