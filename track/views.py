@@ -176,58 +176,105 @@ def get_playlist(request, playlist_id):
 
 
 @api_view(['GET'])
-@permission_classes([AllowAny])
+@permission_classes([AllowAny])  
 def get_all_playlists(request):
-    all_playlists = Playlist.objects.all()
-    serializer = PlayListSerializer(all_playlists, many=True)
+    try:
+        user = request.user
 
-    return JsonResponse({"message": f"All Playlists", "data": serializer.data}, status=200)    
+        if user.is_authenticated:
+            all_playlists = Playlist.objects.filter(user=user) 
+            # all_playlists = Playlist.objects.filter(user=user) | Playlist.objects.filter(playlist_type=Playlist.PUBLIC)
+        else:
 
+            all_playlists = Playlist.objects.filter(playlist_type=0)
+
+        serializer = PlayListSerializer(all_playlists, many=True)
+        return JsonResponse({"message": "All Playlists", "data": serializer.data}, status=200)
+
+    except Exception as e:
+        return JsonResponse({"message": str(e)}, status=500)
 
 
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])  # Use IsAuthenticated for authentication
+@permission_classes([IsUserOrArtist])  # Use IsAuthenticated for authentication
 def create_playlist(request):
-    dict_data = json.loads(request.body)
-   
-    print(dict_data)
-    # Get the authenticated user from the request
-    user = request.user
-    
-  
+    try:
+        dict_data = json.loads(request.body)
+        user = request.user
+        track_ids = dict_data.pop('track', [])
 
-    # Remove track_ids from dict_data if it exists
-    dict_data.pop('track_ids', None)
-
-    # Create playlist
-    new_playlist = Playlist.objects.create(**dict_data, user=user)
-    
-    
-    # Serialize playlist
-    new_playlist_serialized = PlayListSerializer(new_playlist).data
-
-    return JsonResponse({"message": "New Playlist Added Successfully", "data": new_playlist_serialized}, status=200)
+        dict_data.pop('user', None)
 
 
+        new_playlist = Playlist.objects.create(user=user, **dict_data)
 
-@api_view(['PUT','PATCH'])
+
+        if track_ids:
+            tracks = Music.objects.filter(pk__in=track_ids)
+            new_playlist.track.add(*tracks)
+
+
+        new_playlist_serialized = PlayListSerializer(new_playlist).data
+
+        return JsonResponse({"message": "New Playlist Added Successfully", "data": new_playlist_serialized}, status=200)
+
+    except Exception as e:
+        return JsonResponse({"message": str(e)}, status=500)
+
+
+@api_view(['PUT', 'PATCH'])
 @permission_classes([IsUserOrArtist])
 def update_playlist(request, playlist_id):
-    print("from update_playlist",request.body)
-    dict_data = json.loads(request.body)
+    try:
+        playlist = Playlist.objects.get(pk=playlist_id)
+    except Playlist.DoesNotExist:
+        return JsonResponse({"message": f"Playlist with id {playlist_id} does not exist"}, status=404)
 
-    playlist = Playlist.objects.get(pk=playlist_id)
     if request.user.id != playlist.user.id:
-        raise PermissionDenied("You do not have permission to perform this action.") 
-        
-    playlist.__dict__.update(dict_data)
-    playlist.save()
-    playlist = Playlist.objects.get(pk=playlist_id)
-    updated_playlist = PlayListSerializer(playlist).data
+        raise PermissionDenied("You do not have permission to perform this action.")
+
+    data = request.data.copy()
+
+    if 'image' in request.FILES:
+        image_file = request.FILES['image']
+        playlist.image.save(image_file.name, image_file, save=True)
     
-    return JsonResponse({"message": "Playlist Updated Successfully", "data": updated_playlist}, status=200)
+    # Handle updating playlist type
+    if 'playlist_type' in data:
+        playlist.playlist_type = data['playlist_type']
+
+    serializer = PlayListSerializer(playlist, data=data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return JsonResponse(serializer.data, status=200)
+    return JsonResponse(serializer.errors, status=400)
+
+
+
+@api_view(['PUT', 'PATCH'])
+@permission_classes([IsUserOrArtist])
+def change_playlist_type(request, playlist_id):
+    try:
+        playlist = Playlist.objects.get(pk=playlist_id)
+    except Playlist.DoesNotExist:
+        return JsonResponse({"message": f"Playlist with id {playlist_id} does not exist"}, status=404)
+
+    if request.user.id != playlist.user.id:
+        raise PermissionDenied("You do not have permission to perform this action.")
+
+    data = request.data.copy()
+
+    # Ensure only playlist_type is being updated
+    data = {'playlist_type': data.get('playlist_type', Playlist.PRIVATE)}
+
+    serializer = PlayListSerializer(playlist, data=data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return JsonResponse(serializer.data, status=200)
+    return JsonResponse(serializer.errors, status=400)
+
     
 @api_view(['PUT','PATCH'])
 @permission_classes([IsUserOrArtist])
@@ -283,11 +330,18 @@ def get_all_users_favourite_playlists(request):
 @api_view(['GET'])
 @permission_classes([IsAdminOrArtistOrUser])
 def get_specific_favourite_playlist(request, favouriteplaylist_id):
-    favourit_playlist = FavouritePlaylist.objects.get(pk=favouriteplaylist_id)
-    serializer = FavouritePlaylistSerializer(favourit_playlist)
+    favourite_playlist = FavouritePlaylist.objects.get(pk=favouriteplaylist_id)
+    serializer = FavouritePlaylistSerializer(favourite_playlist)
 
     return JsonResponse({"message": f"Playlist {favouriteplaylist_id}", "data": serializer.data}, status=200)    
 
+@api_view(['GET'])
+@permission_classes([IsAdminOrArtistOrUser])
+def get_user_favourite_playlist(request, user_id):
+    favourite_playlist = FavouritePlaylist.objects.get(user_id=user_id)
+    serializer = FavouritePlaylistSerializer(favourite_playlist)
+
+    return JsonResponse({"message": f"Favourite Playlist ", "data": serializer.data}, status=200)    
 
 
 @api_view(['POST'])
@@ -299,6 +353,14 @@ def create_favourite_playlist(request):
     playlist_id = dict_data.get("playlist")
 
     del dict_data["playlist"]
+    try:
+        favouriteplaylist = FavouritePlaylist.objects.get(user_id=user_id)
+        favouriteplaylist.playlist.add(playlist_id)
+        favouriteplaylist.save()
+        favouriteplaylist = FavouritePlaylistSerializer(favouriteplaylist)
+        return JsonResponse({"message":"new playlist added","data":favouriteplaylist.data},status=200)
+    except FavouritePlaylist.DoesNotExist:
+        pass
 
     try:
         print(user_id)
@@ -323,16 +385,71 @@ def create_favourite_playlist(request):
 
 
 
-@api_view(['DELETE'])
-@permission_classes([IsUserOrArtist])
-def delete_favourite_playlist(request, favourite_playlist_id):
-    try:
-        favourite_playlist = FavouritePlaylist.objects.get(pk=favourite_playlist_id)
-    except FavouritePlaylist.DoesNotExist:
-        return JsonResponse({"message": "Favourite playlist not Found"}, status=404)  
-    if request.user.id != favourite_playlist.user.id:
-        raise PermissionDenied("You do not have permission to perform this action.") 
-    favourite_playlist.soft_delete()
 
-    favourite_playlist = FavouritePlaylistSerializer(favourite_playlist).data
-    return JsonResponse({"message": "Favourite playlist deleted successfully", "data": favourite_playlist}, status=200)
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])  
+def delete_favourite_playlist(request, playlist_id):
+    try:
+        favourite_playlist = FavouritePlaylist.objects.get(pk=playlist_id, user=request.user)
+        favourite_playlist.delete()
+        return JsonResponse({"message": "Favourite playlist deleted successfully"}, status=204)
+    except FavouritePlaylist.DoesNotExist:
+        return JsonResponse({"message": "Favourite playlist not found"}, status=404)
+    except PermissionDenied:
+        return JsonResponse({"message": "You do not have permission to perform this action."}, status=403)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])  
+def remove_playlist_from_favourite_playlist(request,user_id,playlist_id):
+    favourite_playlist = FavouritePlaylist.objects.get(user_id=user_id)
+    favourite_playlist.playlist.remove(playlist_id)
+    favourite_playlist.save()
+    favourite_playlist=FavouritePlaylistSerializer(favourite_playlist)
+    return JsonResponse({"message":"Remove playlist from favourite playlist","data":favourite_playlist.data},status=200)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])  
+def check_favourite_playlist(request,user_id,playlist_id):
+    try:
+        favourite_playlist = FavouritePlaylist.objects.get(user_id=user_id)
+        favourite_playlist.playlist.get(pk=playlist_id)
+        return JsonResponse({"is_favourite":True},status=200)
+    except:
+        return JsonResponse({"is_favourite":False},status=200)
+
+
+
+@api_view(['PUT', 'PATCH'])
+@permission_classes([IsUserOrArtist])
+def update_privacy_playlist(request, playlist_id):
+    try:
+        playlist = Playlist.objects.get(pk=playlist_id)
+    except Playlist.DoesNotExist:
+        return JsonResponse({"message": f"Playlist with id {playlist_id} does not exist"}, status=404)
+
+    if request.user.id != playlist.user.id:
+        raise PermissionDenied("You do not have permission to perform this action.")
+
+    dict_data = json.loads(request.body)
+    
+    print(dict_data)
+
+    if 'playlist_type' in dict_data:
+        playlist.playlist_type = dict_data['playlist_type']
+
+    serializer = PlayListSerializer(playlist, data=dict_data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return JsonResponse(serializer.data, status=200)
+    return JsonResponse(serializer.errors, status=400)
+
+
+
+
+
+
+
+
+
+
