@@ -109,8 +109,11 @@ def ban_track(request, track_id):
 def unban_track(request, track_id):
     try:
         track_to_unban = RandBTrack.objects.get(track_id=track_id)
-    except: 
-        return JsonResponse({"message": f"Something went wrong while unbanning the track: {track_id}"}, status=500)
+    except:
+        try:
+            track_to_unban = RandBTrack.objects.create(track_id=track_id)
+        except: 
+            return JsonResponse({"message": f"Something went wrong while unbanning the track: {track_id}"}, status=500)
     
     unbanned_track = unban(track_to_unban)
     unbanned_track = RandBTrackSerializer(unbanned_track)
