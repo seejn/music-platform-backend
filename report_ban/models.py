@@ -17,4 +17,5 @@ class RandBTrack(models.Model):
     def reset_ban_status(self):
         if self.ban_time and self.ban_time < time.time():
             self.track.is_banned = False
+            self.save()
             self.delete()
