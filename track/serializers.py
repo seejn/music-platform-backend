@@ -20,9 +20,12 @@ class TrackOnlySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+
 class PlayListSerializer(serializers.ModelSerializer):
-    user = CustomUserSerializer(read_only = True)
+    user = CustomUserSerializer(read_only=True)
     track = TrackSerializer(read_only=True, many=True)
+    playlist_type = serializers.ChoiceField(choices=Playlist.PLAYLIST_TYPES, default=1)
+
     class Meta:
         model = Playlist
         fields = '__all__'
