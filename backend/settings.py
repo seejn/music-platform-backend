@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     "Cusers",
     "track",
     "album",
+    "tour",
+    "report_ban"
     
 ]
 

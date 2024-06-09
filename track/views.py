@@ -168,12 +168,21 @@ def delete_track(request, track_id):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_playlist(request, playlist_id):
-    playlist = Playlist.objects.get(pk=playlist_id)
-    serializer = PlayListSerializer(playlist)
+    try:
+        playlist = Playlist.objects.get(pk=playlist_id)
+    except Playlist.DoesNotExist:
+        return JsonResponse({"message": f"No Playlist Available"}, status=404) 
 
+    serializer = PlayListSerializer(playlist)
     return JsonResponse({"message": f"Playlist {playlist_id}", "data": serializer.data}, status=200)    
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_user_playlists(request, user_id):
+    playlist = Playlist.objects.filter(user_id=user_id)
+    serializer = PlayListSerializer(playlist, many=True)
 
+    return JsonResponse({"message": f"User {user_id}", "data": serializer.data}, status=200)  
 
 @api_view(['GET'])
 @permission_classes([AllowAny])  
@@ -383,8 +392,16 @@ def create_favourite_playlist(request):
 
     return JsonResponse({"message": f"create favourite playlist for user", "data": serializer.data}, status=200)
 
-
-
+@api_view(['DELETE'])
+@permission_classes([IsUserOrArtist])
+def delete_favourite_playlist(request, favourite_playlist_id):
+    try:
+        favourite_playlist = FavouritePlaylist.objects.get(pk=favourite_playlist_id)
+    except FavouritePlaylist.DoesNotExist:
+        return JsonResponse({"message": "Favourite playlist not Found"}, status=404)  
+    if request.user.id != favourite_playlist.user.id:
+        raise PermissionDenied("You do not have permission to perform this action.") 
+    favourite_playlist.soft_delete()
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])  

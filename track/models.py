@@ -15,8 +15,15 @@ class Music(models.Model):
     deleted_at = models.DateTimeField(null=True,blank=True)
     image = models.ImageField(upload_to=save_to_track_media, blank=True, null=True)  
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE, null=True)
+
+    is_banned = models.BooleanField(default=False)
     
-    objects = SoftDeleteManager()
+    class SoftDeleteAndBannedManager(SoftDeleteManager):
+        def get_queryset(self):
+            return super().get_queryset().filter(is_deleted=False).filter(is_banned=False)
+
+
+    objects = SoftDeleteAndBannedManager()
 
     def __str__(self):
         return f"{self.id} {self.title}"

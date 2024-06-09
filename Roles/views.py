@@ -78,7 +78,17 @@ def get_current_artist(request, artist_id):
     serializer = ArtistSerializer(artist)
     return JsonResponse({"message": "Artist's Data", "data": serializer.data}, status=200)
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_current_user(request, user_id):
+    try:
+        user = CustomUser.objects.get(pk=user_id)
+        
+    except CustomUser.DoesNotExist:
+        return JsonResponse({"message": "Artist not available"}, status=404)
 
+    serializer = CustomUserSerializer(user)
+    return JsonResponse({"message": "user's Data", "data": serializer.data}, status=200)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -217,8 +227,8 @@ def update_personal_artist_info(request, artist_id):
 
     required_fields = list(artist.__dict__.keys())
 
-    if not does_field_exist(input_fields, required_fields):
-        return JsonResponse({"message": "Field not Available"}, status=404)
+    # if not does_field_exist(input_fields, required_fields):
+    #     return JsonResponse({"message": "Field not Available"}, status=404)
         
     if request.user != artist:
         raise PermissionDenied("You do not have permission to perform this action.")
