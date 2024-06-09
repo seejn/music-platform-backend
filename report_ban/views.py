@@ -1,5 +1,9 @@
 from django.shortcuts import render
 from django.utils import timezone
+from django.http import JsonResponse
+from .serializers import RandBTrackSerializer
+from .models import RandBTrack
+from track.models import Music
 import time, math
 # Create your views here.
 def report_track(request, track_id):
@@ -10,7 +14,7 @@ def report_track(request, track_id):
             track = Music.objects.get(pk=track_id)
             reported_track = RandBTrack.objects.create(track=track)
         except Music.DoesNotExist:
-            return JsonResponse({"message": "Track isnot Available"}, status=200)
+            return JsonResponse({"message": "Track is not Available"}, status=200)
     
     if reported_track.report_count >= 5:
         CURR_TIME = time.time()
@@ -18,14 +22,18 @@ def report_track(request, track_id):
         DEFALULT_BAN_TIME_IN_HOURS = 60/3600
         
         reported_track.track.is_banned = True
-        reported_track.ban_time = math.floor() + DEFAULT_BAN_TIME
+        reported_track.ban_time = math.floor(CURR_TIME) + DEFAULT_BAN_TIME
         reported_track.banned_at = timezone.now()
         reported_track.save()
 
         reported_track = RandBTrackSerializer(reported_track)
         return JsonResponse({"message": f"Track Banned for {DEFALULT_BAN_TIME_IN_HOURS}", "data": reported_track.data}, status=200)
 
-    reported_track += 1
+    reported_track.report_count += 1
+    reported_track.save()
+    
+    reported_track = RandBTrack.objects.get(track_id=track_id)
+
     reported_track = RandBTrackSerializer(reported_track)
     return JsonResponse({"message": "Track reported Successfully", "data": reported_track.data}, status=200)
     
