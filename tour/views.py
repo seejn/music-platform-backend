@@ -50,16 +50,17 @@ def get_artist_tour(request,artist_id):
 def create_tour(request):
     dict_data = json.loads(request.body)
     input_fields = list(dict_data.keys())
+    print(dict_data)
     
     required_fields=['title','artist','date','time','location','venue']
 
-    if not check_required_fields(input_fields, required_fields):
-        return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)    
+    # if not check_required_fields(input_fields, required_fields):
+    #     return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)    
 
-    artist_id = dict_data.get('artist')
+    artist_id = dict_data.get('artist_id')
     artist=None
     
-    dict_data.pop('artist')
+    dict_data.pop('artist_id')
     try:
         artist =CustomUser.objects.get(pk=artist_id)
     except CustomUser.DoesNotExist:
@@ -93,7 +94,7 @@ def update_tour(request,tour_id):
     
     # if 'time' in dict_data:
     #     dict_data['time'] = format_time_to_12hr(dict_data['time'])
-
+        
     tour.__dict__.update(dict_data)
     try:
         tour.save()

@@ -262,35 +262,3 @@ def logout(request):
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-
-# @csrf_exempt
-# def update_artist_info(request, artist_id):
-
-#     dict_data = json.loads(request.body)
-#     input_fields = list(dict_data.keys())
-
-#     try:
-#         artist = ArtistDetail.objects.get(artist_id=artist_id)
-#     except ArtistDetail.DoesNotExist:
-#         return JsonResponse({"message": "Artist not Available"}, status=404)
-
-#     required_fields = list(artist.__dict__.keys())
-
-#     print(input_fields)
-#     print(required_fields)
-#     if not does_field_exist(input_fields, required_fields):
-#         return JsonResponse({"message": "Field not Available"}, status=404)
-
-#     artist.__dict__.update(dict_data)
-#     try:
-#         artist.save()
-#     except IntegrityError:
-#         return JsonResponse({"message": "Already Exists"}, status=400)
-
-#     artist = ArtistDetail.objects.get(pk=artist_id)
-#     updated_artist = ArtistDetailSerializer(artist).data
-
-#     return JsonResponse({"message": "Artist Updated Successfully", "data": updated_artist}, status=200)
-
-
-

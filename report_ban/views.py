@@ -6,7 +6,32 @@ from .models import RandBTrack
 from track.models import Music
 import time, math
 
-# Create your views here.
+
+CURR_TIME = time.time()
+DEFAULT_BAN_TIME = 60
+DEFALULT_BAN_TIME_IN_HOURS = 60/3600
+# Create y
+# our views here.
+def ban(track):
+   
+    
+    track.track.is_banned = True
+    track.ban_time = math.floor(CURR_TIME) + DEFAULT_BAN_TIME
+    track.banned_at = timezone.now()
+    track.track.save()
+    track.save()
+    return track
+
+
+def unban(track):
+    track.track.is_banned = False
+    track.ban_time = None
+    track.banned_at = None
+    track.report_count = 0
+    track.track.save()
+    track.save()
+    return track
+
 def report_track(request, track_id):
     try: 
         reported_track = RandBTrack.objects.get(track_id=track_id)
@@ -18,17 +43,10 @@ def report_track(request, track_id):
             return JsonResponse({"message": "Track is not Available"}, status=200)
     
     if reported_track.report_count >= 5:
-        CURR_TIME = time.time()
-        DEFAULT_BAN_TIME = 60
-        DEFALULT_BAN_TIME_IN_HOURS = 60/3600
-        
-        reported_track.track.is_banned = True
-        reported_track.ban_time = math.floor(CURR_TIME) + DEFAULT_BAN_TIME
-        reported_track.banned_at = timezone.now()
-        reported_track.save()
+        banned_track = ban(reported_track)
 
-        reported_track = RandBTrackSerializer(reported_track)
-        return JsonResponse({"message": f"Track Banned for {DEFALULT_BAN_TIME_IN_HOURS} Hours", "data": reported_track.data}, status=200)
+        banned_track = RandBTrackSerializer(banned_track)
+        return JsonResponse({"message": f"Track Banned for {DEFALULT_BAN_TIME_IN_HOURS} Hours", "data": banned_track.data}, status=200)
 
     reported_track.report_count += 1
     reported_track.save()
@@ -47,15 +65,9 @@ def get_all_reported_tracks(request):
 
 
 def get_reported_tracks_of_artist(request, artist_id):
-    all_reported_tracks = RandBTrack.objects.all()    
-
-    reported_tracks_of_artist = []
-
-    for reported_track in all_reported_tracks:
-        if reported_track.track.artist.id == artist_id:
-            reported_tracks_of_artist.append(RandBTrackSerializer(reported_track))
-
-    return JsonResponse({"message": f"Reported songs of artist: {artist_id}", "data": reported_tracks_of_artist}, status=200)
+    reported_tracks = RandBTrack.objects.filter(track__artist_id=artist_id)
+    serialized_tracks = RandBTrackSerializer(reported_tracks, many=True).data
+    return JsonResponse({"message": f"Reported songs of artist: {artist_id}", "data": serialized_tracks}, status=200)
 
 
 
@@ -63,10 +75,12 @@ def get_all_banned_tracks(request):
     reported_tracks = RandBTrack.objects.all()
     all_banned_tracks = []
     for track in reported_tracks:
-        if track.report_count >= 5:
-            all_banned_tracks.append(RandBTrackSerializer(track))
+        if track.track.is_banned :
+            all_banned_tracks.append(RandBTrackSerializer(track).data)
 
-    return JsonResponse({"message": f"All banned songs", "data": all_banned_tracks.data}, status=200)
+    return JsonResponse({"message": f"All banned songs", "data": all_banned_tracks}, status=200)
+
+
 
 
 
@@ -80,3 +94,30 @@ def get_banned_tracks_of_artist(request, artist_id):
     return JsonResponse({"message": f"Banned songs of artist: {artist_id}", "data": banned_tracks_of_artist}, status=200)
     
         
+def ban_track(request, track_id):
+    try:
+        track_to_ban = RandBTrack.objects.get(track_id=track_id)
+    except:
+        try:
+            track_to_ban = RandBTrack.objects.create(track_id=track_id)
+        except: 
+            return JsonResponse({"message": f"Something went wrong while banning the track: {track_id}"}, status=500)
+    
+    banned_track = ban(track_to_ban)
+    banned_track = RandBTrackSerializer(banned_track)
+    return JsonResponse({"message": f"Track: {track_id} banned successfully", "data": banned_track.data}, status=200)
+
+
+def unban_track(request, track_id):
+    try:
+        track_to_unban = RandBTrack.objects.get(track_id=track_id)
+    except:
+        try:
+            track_to_unban = RandBTrack.objects.create(track_id=track_id)
+        except: 
+            return JsonResponse({"message": f"Something went wrong while unbanning the track: {track_id}"}, status=500)
+    
+    unbanned_track = unban(track_to_unban)
+    unbanned_track = RandBTrackSerializer(unbanned_track)
+
+    return JsonResponse({"message": f"Track: {track_id} unbanned successfully", "data": unbanned_track.data}, status=200)
