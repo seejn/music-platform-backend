@@ -4,7 +4,7 @@ import time
 # Create your models here.
 class RandBTrack(models.Model):
     track = models.OneToOneField(Music, on_delete=models.CASCADE, related_name="track")
-    ban_time = models.IntegerField(null=True, blank=True)
+    banned_until = models.IntegerField(null=True, blank=True)
     banned_at = models.DateTimeField(null=True, blank=True)
     report_count = models.IntegerField(default=0, blank=True)
     
