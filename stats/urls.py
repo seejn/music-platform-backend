@@ -1,10 +1,7 @@
 from django.urls import path
-from .views import user_stats_view, artist_stats_view, favorite_album_stats_view, favorite_playlist_stats_view, track_report_stats_view
+from . import views
 
 urlpatterns = [
-    path('users/', user_stats_view, name='user-stats'),
-    path('artists/', artist_stats_view, name='artist-stats'),
-    path('favorite-albums/', favorite_album_stats_view, name='favorite-album-stats'),
-    path('favorite-playlists/', favorite_playlist_stats_view, name='favorite-playlist-stats'),
-    path('track-reports/', track_report_stats_view, name='track-report-stats'),
+    path('artists/songs/playlist-counts/', views.all_artists_song_playlist_counts, name='all-artists-song-playlist-counts'),
+    path('artists/albums/favorites/', views.all_artists_album_favorites, name='all-artists-album-favorites'),
 ]
