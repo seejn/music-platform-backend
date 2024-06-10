@@ -3,8 +3,10 @@ from Cusers.models import CustomUser
 from django.utils import timezone
 from genre.models import Genre
 from managers.SoftDelete import SoftDeleteManager
-
 from utils.save_image import save_to_track_media, save_to_playlist_media
+from django.core.exceptions import ObjectDoesNotExist
+
+import time
 
 class Music(models.Model):
     title = models.CharField(max_length=100)
@@ -19,9 +21,16 @@ class Music(models.Model):
     is_banned = models.BooleanField(default=False)
     
     class SoftDeleteAndBannedManager(SoftDeleteManager):
-        def get_queryset(self):
-            return super().get_queryset().filter(is_deleted=False).filter(is_banned=False)
 
+        def get_queryset(self):
+            queryset = super().get_queryset().filter(is_deleted=False)
+            for music in queryset:
+                try:
+                    if hasattr(music, 'track'):
+                        music.track.reset_ban_status()
+                except ObjectDoesNotExist:
+                    pass
+            return queryset.filter(is_banned=False)
 
     objects = SoftDeleteAndBannedManager()
 
