@@ -204,10 +204,12 @@ def update_user(request, user_id):
     if request.user.id != user.id:
         raise PermissionDenied("You do not have permission to perform this action.")
 
-    for key, value in dict_data.items():
-        if key == 'role':
-            value = Role.objects.get(pk=value)
-        setattr(user, key, value)
+    # for key, value in dict_data.items():
+    #     if key == 'role':
+    #         value = Role.objects.get(pk=value)
+    #     setattr(user, key, value)
+
+    user.__dict__.update(dict_data)
     
     try:
         user.save()
