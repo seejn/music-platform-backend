@@ -25,7 +25,7 @@ def all_artists_song_playlist_counts(request):
 
 
 
-def all_artists_album_favourites(request):
+def all_artists_album_favorites(request):
     artist_role = Role.objects.get(pk=2)
     
     artists = artist_role.user.all()
