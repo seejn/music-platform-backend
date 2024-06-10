@@ -17,16 +17,15 @@ def all_artists_song_playlist_counts(request):
             'artist': artist.email,
             'songs': list(songs)
         }
+        
+        
         data.append(artist_data)
     
     return JsonResponse(data, safe=False)
 
 
-from django.http import JsonResponse
-from django.db.models import Count
-from Cusers.models import  CustomUser
 
-def all_artists_album_favorites(request):
+def all_artists_album_favourites(request):
     artist_role = Role.objects.get(pk=2)
     
     artists = artist_role.user.all()
@@ -35,20 +34,26 @@ def all_artists_album_favorites(request):
     for artist in artists:
         albums = artist.album_set.all()
         album_data = []
+        total_favourite_count=0
         
         for album in albums:
-            favorites = album.favourite_by.values('user__gender').annotate(count=Count('user__gender')).order_by('user__gender')
+            total_favourite_count+=album.favourite_by.count()
+            favourites = album.favourite_by.values('user__gender').annotate(count=Count('user__gender')).order_by('user__gender')
+
             album_info = {
                 'id': album.id,
                 'title': album.title,
-                'favorite_count': album.favourite_by.count(),
-                'favorites_by_gender': list(favorites)
+                'favourite_count': album.favourite_by.count(),
+                'favourites_by_gender': list(favourites)
             }
             album_data.append(album_info)
         
         artist_data = {
             'artist': artist.email,
-            'albums': album_data
+            'albums': album_data,
+            "total_favourite_count":total_favourite_count
+            
+
         }
         data.append(artist_data)
     
