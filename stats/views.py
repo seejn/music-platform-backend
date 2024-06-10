@@ -5,7 +5,6 @@ from Cusers.models import CustomUser
 
 
 def all_artists_song_playlist_counts(request):
-    # Get the artist role
     artist_role = Role.objects.get(pk=2)
     
     artists = artist_role.user.all()
@@ -23,6 +22,10 @@ def all_artists_song_playlist_counts(request):
     return JsonResponse(data, safe=False)
 
 
+from django.http import JsonResponse
+from django.db.models import Count
+from Cusers.models import  CustomUser
+
 def all_artists_album_favorites(request):
     artist_role = Role.objects.get(pk=2)
     
@@ -30,14 +33,27 @@ def all_artists_album_favorites(request):
     data = []
     
     for artist in artists:
-        albums = artist.album_set.annotate(favorite_count=Count('favourite_by')).values('id', 'title', 'favorite_count')
+        albums = artist.album_set.all()
+        album_data = []
+        
+        for album in albums:
+            favorites = album.favourite_by.values('user__gender').annotate(count=Count('user__gender')).order_by('user__gender')
+            album_info = {
+                'id': album.id,
+                'title': album.title,
+                'favorite_count': album.favourite_by.count(),
+                'favorites_by_gender': list(favorites)
+            }
+            album_data.append(album_info)
+        
         artist_data = {
             'artist': artist.email,
-            'albums': list(albums)
+            'albums': album_data
         }
         data.append(artist_data)
     
     return JsonResponse(data, safe=False)
+
 
 
 def artist_album_counts(request):
