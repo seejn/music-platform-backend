@@ -204,10 +204,8 @@ def get_all_playlists(request):
         return JsonResponse({"message": str(e)}, status=500)
 
 
-
-
 @api_view(['POST'])
-@permission_classes([IsUserOrArtist])  # Use IsAuthenticated for authentication
+@permission_classes([IsUserOrArtist])  
 def create_playlist(request):
     try:
         dict_data = json.loads(request.body)
@@ -250,7 +248,7 @@ def update_playlist(request, playlist_id):
         image_file = request.FILES['image']
         playlist.image.save(image_file.name, image_file, save=True)
     
-    # Handle updating playlist type
+  
     if 'playlist_type' in data:
         playlist.playlist_type = data['playlist_type']
 
@@ -275,7 +273,7 @@ def change_playlist_type(request, playlist_id):
 
     data = request.data.copy()
 
-    # Ensure only playlist_type is being updated
+   
     data = {'playlist_type': data.get('playlist_type', Playlist.PRIVATE)}
 
     serializer = PlayListSerializer(playlist, data=data, partial=True)

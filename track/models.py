@@ -33,25 +33,7 @@ class Music(models.Model):
         self.deleted_at = timezone.now()
         self.save()
 
-# class Playlist(models.Model):
-#     title = models.CharField(max_length=100)
-#     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
-#     track = models.ManyToManyField(Music)
-#     created_at = models.DateTimeField(default=timezone.now)
-#     is_deleted=models.BooleanField(default=False)
-#     deleted_at = models.DateTimeField(null=True,blank=True)
-#     image=models.ImageField(null=True, blank=True, upload_to=save_to_playlist_media)
-
-#     objects = SoftDeleteManager()
-
-#     def __str__(self):
-#         return f"{self.id} {self.title}"
-
-#     def soft_delete(self):
-#         self.is_deleted = True
-#         self.deleted_at = timezone.now()
-#         self.save()
 class Playlist(models.Model):
     title = models.CharField(max_length=100)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
