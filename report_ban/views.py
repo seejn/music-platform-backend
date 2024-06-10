@@ -78,7 +78,9 @@ def get_all_banned_tracks(request):
         if track.report_count >= 5:
             all_banned_tracks.append(RandBTrackSerializer(track))
 
-    return JsonResponse({"message": f"All banned songs", "data": all_banned_tracks.data}, status=200)
+    return JsonResponse({"message": f"All banned songs", "data": all_banned_tracks}, status=200)
+
+
 
 
 
