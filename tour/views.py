@@ -52,7 +52,7 @@ def create_tour(request):
     input_fields = list(dict_data.keys())
     print(dict_data)
     
-    required_fields=['title','artist','date','time','location','venue']
+    # required_fields=['title','artist','date','time','location','venue']
 
     # if not check_required_fields(input_fields, required_fields):
     #     return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)    
@@ -166,7 +166,7 @@ def get_user_favorite_playlist_tours(request, user_id):
     
         artist_ids = []
         for favourite_playlist in favourite_playlists:
-            playlists = favourite_playlist.playlist.all()  # Get all playlists related to this favourite playlist
+            playlists = favourite_playlist.playlist.all() 
             for playlist in playlists:
                 tracks = Music.objects.filter(playlist=playlist)
                 for track in tracks:
@@ -175,6 +175,10 @@ def get_user_favorite_playlist_tours(request, user_id):
  
         tours = Tour.objects.filter(artist_id__in=artist_ids)
 
+        if not tours.exists():
+            random_tours = Tour.objects.order_by("?")
+            random_tour_data = TourSerializer(random_tours, many=True).data
+            return JsonResponse({"data": random_tour_data}, status=200)
      
         tours_data = TourSerializer(tours, many=True).data
         return JsonResponse({"data": tours_data}, status=200)
