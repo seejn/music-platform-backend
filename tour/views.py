@@ -46,13 +46,13 @@ def get_artist_tour(request,artist_id):
 
 
 @api_view(['POST'])
-@permission_classes([IsAdmin])
+@permission_classes([IsAdmin,IsAuthenticated])
 def create_tour(request):
     dict_data = json.loads(request.body)
     input_fields = list(dict_data.keys())
     print(dict_data)
     
-    required_fields=['title','artist','date','time','location','venue']
+
 
     # if not check_required_fields(input_fields, required_fields):
     #     return JsonResponse({"message": f"Required Fields: {required_fields}"}, safe=False, status=400)    
