@@ -58,8 +58,8 @@ class Playlist(models.Model):
 
 
     PLAYLIST_TYPES = [
-        (0, 'Public'),
-        (1, 'Private'),
+        ("0", 'Public'),
+        ("1", 'Private'),
     ]
     playlist_type = models.CharField(max_length=2, choices=PLAYLIST_TYPES, default=1)
 
