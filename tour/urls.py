@@ -7,4 +7,5 @@ urlpatterns = [
     path('create/', views.create_tour, name="create_tour"),
     path('update/<int:tour_id>/', views.update_tour, name="update_tour"),
     path('delete/<int:tour_id>/', views.delete_tour, name="delete_tour"),
+    path('get_favorite_tour/<int:user_id>/',views.get_user_favorite_playlist_tours, name="user_playlist")
 ]

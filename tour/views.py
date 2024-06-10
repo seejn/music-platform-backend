@@ -3,14 +3,19 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from .models import Tour,CustomUser
 from django.db import IntegrityError
-from .serializers import TourSerializer
+from .serializers import TourSerializer 
 from utils.fields import check_required_fields, does_field_exist
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from backend.permission import IsArtist, IsAdmin,IsAdminOrArtist,IsUser,IsAdminOrArtistOrUser,IsUserOrArtist
 import json,datetime
+from rest_framework.response import Response
+from django.http import HttpRequest
+from track.models import Playlist
+from track.models import FavouritePlaylist,Music
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
+
 def get_all_tours(request):
     all_tours=Tour.objects.all()
     if not all_tours:
@@ -35,9 +40,9 @@ def get_artist_tour(request,artist_id):
     return JsonResponse({"message":f"Artist {artist_id} Tours","data":serializer.data}, status=200)
 
 
-def format_time_to_12hr(time_str):
-    time_obj = datetime.strptime(time_str, '%H:%M')
-    return time_obj.strftime('%I:%M %p')
+# def format_time_to_12hr(time_str):
+#     time_obj = datetime.strptime(time_str, '%H:%M')
+#     return time_obj.strftime('%I:%M %p')
 
 
 @api_view(['POST'])
@@ -60,7 +65,7 @@ def create_tour(request):
     except CustomUser.DoesNotExist:
         return JsonResponse({"message":"Artist not available"}, status=404)
     
-    dict_data['time'] = format_time_to_12hr(dict_data['time'])
+    # dict_data['time'] = format_time_to_12hr(dict_data['time'])
     new_tour = Tour.objects.create(**dict_data,artist=artist)
     new_tour = TourSerializer(new_tour).data
 
@@ -83,12 +88,12 @@ def update_tour(request,tour_id):
     print(input_fields)
     print(required_fields)
 
-    if not does_field_exist(input_fields,required_fields):
-        return JsonResponse({"message": "Field not Available"}, status=400)  
+    # if not does_field_exist(input_fields,required_fields):
+    #     return JsonResponse({"message": "Field not Available"}, status=400)  
     
-    if 'time' in dict_data:
-        dict_data['time'] = format_time_to_12hr(dict_data['time'])
-        
+    # if 'time' in dict_data:
+    #     dict_data['time'] = format_time_to_12hr(dict_data['time'])
+
     tour.__dict__.update(dict_data)
     try:
         tour.save()
@@ -116,3 +121,78 @@ def delete_tour(request, tour_id):
     deleted_tour = TourSerializer(tour).data
 
     return JsonResponse({"message": "Tour Deleted Successfully", "data": deleted_tour}, status=200)
+
+
+# @api_view(['GET'])
+# @permission_classes([AllowAny])
+# def get_user_favorite_playlist_tours(request: HttpRequest, user_id):
+#     try:
+#         favourite_playlist = FavouritePlaylist.objects.filter(user_id=user_id)
+
+#         if not favourite_playlist.exists():
+#             random_tour=Tour.objects.order_by("?")
+#             random_tour_data=TourSerializer(random_tour,many=True).data
+#             return JsonResponse({"data": random_tour_data}, status=200)
+        
+#         playlist_id=favourite_playlist.objects.filter(playlist_id)
+#         tours = Tour.objects.filter(user_id=artist_ids)
+#         tours_data = TourSerializer(tours, many=True).data
+#         return JsonResponse({"data":tours_data},status=200)
+
+#         tours=Tour.objects.get()
+#     except FavouritePlaylist.DoesNotExist:
+#         return JsonResponse({"message": "Favourite playlists not found for the user"}, status=404)
+#     except Exception as e:
+#         return JsonResponse({"message": f"Error in fetching the favourite playlist: {str(e)}"}, status=500)
+
+
+
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_user_favorite_playlist_tours(request, user_id):
+    try:
+      
+        favourite_playlists = FavouritePlaylist.objects.filter(user_id=user_id)
+
+        if not favourite_playlists.exists():
+           
+            random_tours = Tour.objects.order_by("?")
+            random_tour_data = TourSerializer(random_tours, many=True).data
+            return JsonResponse({"data": random_tour_data}, status=200)
+        
+    
+        artist_ids = []
+        for favourite_playlist in favourite_playlists:
+            playlists = favourite_playlist.playlist.all()  # Get all playlists related to this favourite playlist
+            for playlist in playlists:
+                tracks = Music.objects.filter(playlist=playlist)
+                for track in tracks:
+                    artist_ids.append(track.artist_id)
+
+ 
+        tours = Tour.objects.filter(artist_id__in=artist_ids)
+
+     
+        tours_data = TourSerializer(tours, many=True).data
+        return JsonResponse({"data": tours_data}, status=200)
+
+    except FavouritePlaylist.DoesNotExist:
+        return JsonResponse({"message": "Favourite playlists not found for the user"}, status=404)
+    except Exception as e:
+        return JsonResponse({"message": f"Error in fetching the favourite playlist: {str(e)}"}, status=500)
+    
+
+
+# @api_view(['GET'])
+# @permission_classes([AllowAny])
+# def get_user_favorite_playlist_tours(request: HttpRequest, user_id):
+#     try:
+#         response = FavouritePlaylist.objects.get(user_id=user_id)
+#         tours=Tour.objects.get()
+#     except:
+#         tours=Tour.objects.order_by("?")
+#         tours=TourSerializer(tours,many=True)
+#         return JsonResponse({"data": tours.data}, status=200)
+#     return JsonResponse({"data": "success"}, status=200)
