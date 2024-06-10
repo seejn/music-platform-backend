@@ -12,6 +12,7 @@ from rest_framework.decorators import api_view,permission_classes
 from backend.permission import IsAdmin,IsAdminOrArtist,IsArtist,IsUser,IsAdminOrArtistOrUser,IsUserOrArtist
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny,IsAuthenticated
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -211,18 +212,23 @@ def create_favourite_album(request):
     album_id = dict_data.get("album")
 
     dict_data.pop("album")
+    try:
+        favouritealbum = FavouriteAlbum.objects.get(user_id=user_id)
+        favouritealbum.album.add(album_id)
+        favouritealbum.save()
+        favouritealbum = FavouriteAlbumSerializer(favouritealbum)
+        return JsonResponse({"message":"new album added","data":favouritealbum.data},status=200)
+    except FavouriteAlbum.DoesNotExist:
+        pass
 
     try:
+        print(user_id)
         user = CustomUser.objects.get(pk=user_id)
     except CustomUser.DoesNotExist:
         return JsonResponse({"message": "User not Found"}, status=404)  
-    
-    if request.user.id != user.id:
-        raise PermissionDenied("You do not have permission to perform this action.") 
-    
+
+    print("dict_data", dict_data)
     new_favourite_album = FavouriteAlbum.objects.create(**dict_data)
-
-
     try:
         Album.objects.get(pk=album_id)
     except Album.DoesNotExist:
@@ -236,6 +242,13 @@ def create_favourite_album(request):
 
     return JsonResponse({"message": f"create favourite album for user", "data": serializer.data}, status=200)
 
+@api_view(['GET'])
+@permission_classes([IsAdminOrArtistOrUser])
+def get_user_favourite_album(request, user_id):
+    favourite_album = FavouriteAlbum.objects.get(user_id=user_id)
+    serializer = FavouriteAlbumSerializer(favourite_album)
+
+    return JsonResponse({"message": f"Favourite Album ", "data": serializer.data}, status=200)    
 
 
 @api_view(['DELETE'])
@@ -253,3 +266,22 @@ def delete_favourite_album(request, favouritealbum_id):
     favouritealbum = FavouriteAlbumSerializer(favouritealbum).data
     return JsonResponse({"message": "Favourite Album deleted successfully", "data": favouritealbum}, status=200)
 
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])  
+def remove_album_from_favourite_album(request,user_id,album_id):
+    favourite_album = FavouriteAlbum.objects.get(user_id=user_id)
+    favourite_album.album.remove(album_id)
+    favourite_album.save()
+    favourite_album=FavouriteAlbumSerializer(favourite_album)
+    return JsonResponse({"message":"Remove playlist from favourite playlist","data":favourite_album.data},status=200)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])  
+def check_favourite_album(request,user_id,album_id):
+    try:
+        favourite_album = FavouriteAlbum.objects.get(user_id=user_id)
+        favourite_album.album.get(pk=album_id)
+        return JsonResponse({"is_favourite":True},status=200)
+    except:
+        return JsonResponse({"is_favourite":False},status=200)
