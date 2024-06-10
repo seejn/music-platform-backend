@@ -23,14 +23,18 @@ class Music(models.Model):
     class SoftDeleteAndBannedManager(SoftDeleteManager):
 
         def get_queryset(self):
-            queryset = super().get_queryset().filter(is_deleted=False)
-            for music in queryset:
+            all_tracks = super().get_queryset().filter(is_deleted=False)
+            for track in all_tracks:
+                if track.is_banned:
+                    print("inside get_queryset models.py track")
+                    print("ban_until", track.track.ban_time)
+                    print("CURR_TIME", time.time())
                 try:
-                    if hasattr(music, 'track'):
-                        music.track.reset_ban_status()
+                    if track.is_banned and track.track.ban_time < time.time():
+                        track.track.reset_ban_status()
                 except ObjectDoesNotExist:
                     pass
-            return queryset.filter(is_banned=False)
+            return all_tracks.filter(is_banned=False)
 
     objects = SoftDeleteAndBannedManager()
 
