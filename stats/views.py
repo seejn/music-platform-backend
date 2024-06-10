@@ -10,7 +10,6 @@ def all_artists_song_playlist_counts(request):
     
     artists = artist_role.user.all()
     
-    # Prepare the data
     data = []
     
     for artist in artists:
@@ -39,3 +38,33 @@ def all_artists_album_favorites(request):
         data.append(artist_data)
     
     return JsonResponse(data, safe=False)
+
+
+def artist_album_counts(request):
+    artist_role = Role.objects.get(pk=2)
+    
+    artists = artist_role.user.annotate(total_albums=Count('album')).values('email', 'total_albums')
+    
+    data = list(artists)
+    
+    return JsonResponse(data, safe=False)
+
+def total_artists(request):
+    artist_role = Role.objects.get(pk=2)
+    
+    total_artists = artist_role.user.count()
+    
+    data = {
+        'total_artists': total_artists
+    }
+    
+    return JsonResponse(data)
+
+def total_users(request):
+    total_users = CustomUser.objects.count()
+    
+    data = {
+        'total_users': total_users
+    }
+    
+    return JsonResponse(data)
