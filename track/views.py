@@ -319,7 +319,6 @@ def delete_playlist(request, playlist_id):
 
 # favourite playlist
 
-
 @api_view(['GET'])
 @permission_classes([IsAdminOrArtist])
 def get_all_users_favourite_playlists(request):

@@ -14,6 +14,9 @@ urlpatterns = [
     path('delete_tracks_from_album/<int:album_id>/', views.delete_tracks_from_album, name='delete_tracks_from_album'),
   
     path('favourite_album/get_all/', views.get_all_users_favourite_albums, name="get_all_users_favourite_albums"),
+    path('user_favourite_album/<int:user_id>/', views.get_user_favourite_album, name="get_user_favourite_albums"),
     path('favourite_album/create/', views.create_favourite_album, name="create_favourite_album"),
     path('favourite_album/delete/<int:favouritealbum_id>/', views.delete_favourite_album, name="delete_favourite_album"),
+    path('remove_album_from_favourite_album/user/<int:user_id>/album/<int:album_id>/', views.remove_album_from_favourite_album, name="remove_album_from_favourite_album"),
+    path('check_favourite_album/user/<int:user_id>/album/<int:album_id>/', views.check_favourite_album, name="check_favourite_album"),
 ]
