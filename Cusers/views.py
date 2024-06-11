@@ -5,10 +5,11 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from backend.permission import IsAdmin,IsAdminOrArtist,IsArtist,IsUser
 import json
+from rest_framework.permissions import AllowAny
 
 
 @api_view(['GET'])
-@permission_classes([IsAdmin])
+@permission_classes([AllowAny])
 def get_all_users(request):
     all_users = CustomUser.objects.all()
     serializer = CustomUserSerializer(all_users, many=True)
@@ -18,7 +19,7 @@ def get_all_users(request):
 
 
 @api_view(['GET'])
-@permission_classes([IsAdmin])
+@permission_classes([AllowAny])
 def get_user(request, user_id):
     user= CustomUser.objects.get(pk=user_id)
     serializer = CustomUserSerializer(user)

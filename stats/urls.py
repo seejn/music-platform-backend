@@ -9,4 +9,6 @@ urlpatterns = [
     path('artists/total/', views.total_artists, name='total-artists'),
     path('users/total/', views.total_users, name='total-users'),
     path('tracks/total/', views.total_tracks, name='total-tracks'),
+    path('artist/<int:artist_id>/album-count/',views.artist_album, name='total-artist-album'),
+    path('artist/<int:artist_id>/track-count/',views.artist_total_tracks, name='total-artist-track')
 ]

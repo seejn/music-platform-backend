@@ -65,6 +65,18 @@ def get_all_artist(request):
     return JsonResponse({"message": "All Artists", "data": serializer.data}, status=200)
 
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_all_userrr(request):
+    user_role = Role.objects.get(pk=1)
+    all_user = user_role.user.all()
+    # all_artist = ArtistDetail.objects.all()
+    
+    if not all_user:
+        return JsonResponse({"message": "No artists available"}, status=404)
+
+    serializer = CustomUserSerializer(all_user, many=True)
+    return JsonResponse({"message": "All Artists", "data": serializer.data}, status=200)
 
 @api_view(['GET'])
 @permission_classes([AllowAny])

@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import get_all_artist,get_current_artist,create_user,create_artist,update_user,update_personal_artist_info,login,logout,get_current_user
+from .views import get_all_artist,get_current_artist,create_user,create_artist,update_user,update_personal_artist_info,login,logout,get_current_user,get_all_userrr
 urlpatterns = [
     path('artists/', get_all_artist, name='get_all_artist'),
+    path('users/', get_all_userrr, name='get_all_artist'),
     path('artist/<int:artist_id>/', get_current_artist, name='current_artist_detail'),
     path('user/<int:user_id>/',get_current_user,name='current_user_detail'),
     path('create/', create_user, name="create_user"),
