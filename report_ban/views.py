@@ -3,6 +3,10 @@ from django.utils import timezone
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count, Case, When, BooleanField, F
+from backend.permission import IsArtist, IsAdmin,IsAdminOrArtist,IsUser,IsAdminOrArtistOrUser,IsUserOrArtist
+
+from rest_framework.decorators import api_view, permission_classes
+
 
 from track.serializers import TrackSerializer
 from Cusers.serializers import CustomUserSerializer
@@ -69,9 +73,12 @@ def unban(track):
 #     reported_track = RandBTrackSerializer(reported_track)
 #     return JsonResponse({"message": "Track reported Successfully", "data": reported_track.data}, status=200)
     
+@api_view(['POST'])
+@permission_classes([IsAdminOrArtistOrUser])
+def report_track(request, track_id, user_id):
+    if ReportTrack.objects.filter(user_id=user_id, track_id=track_id).exists():
+        return JsonResponse({"message": "Your complain has already been submitted"}, status=400)
 
-def report_track(request, user_id, track_id):
-    reason_to_report = "Racist comment"
     if bool(request.body):
         dict_data = json.loads(request.body)
         reason_to_report = dict_data.get("reason")
