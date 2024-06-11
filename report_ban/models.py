@@ -34,7 +34,12 @@ class ReportTrack(models.Model):
     def __str__(self):
         return f"Track {self.track.id}: {self.track.title} reported by user {self.user.id}: {self.user.first_name}_{self.user.last_name}"
 
+
 class BannedTrack(models.Model):
     track = models.OneToOneField(Music, on_delete=models.CASCADE, related_name="banned")
     banned_at = models.DateTimeField(default=timezone.now)
     banned_until = models.IntegerField()
+
+    def __str__(self):
+        banned_until_in_datetime = timezone.datetime.fromtimestamp(self.banned_until)
+        return f"Track {self.track.id}: {self.track.title} banned at {self.banned_at} for {banned_until_in_datetime}"
