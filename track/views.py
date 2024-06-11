@@ -282,27 +282,39 @@ def change_playlist_type(request, playlist_id):
         return JsonResponse(serializer.data, status=200)
     return JsonResponse(serializer.errors, status=400)
 
-    
-@api_view(['PUT','PATCH'])
-@permission_classes([IsUserOrArtist])
-def add_remove_track_to_playlist(request, playlist_id):
-    print("from update_playlist",request.body)
-    dict_data = json.loads(request.body)
 
-    playlist = Playlist.objects.get(pk=playlist_id)
+
+
+@api_view(['PUT', 'PATCH'])
+@permission_classes([IsUserOrArtist])  # Adjust as per your permission classes
+def add_remove_track_to_playlist(request, playlist_id):
+    try:
+        playlist = Playlist.objects.get(pk=playlist_id)
+    except Playlist.DoesNotExist:
+        return JsonResponse({"message": "Playlist does not exist"}, status=404)
+
     if request.user.id != playlist.user.id:
         raise PermissionDenied("You do not have permission to perform this action.") 
+
+    try:
+        dict_data = json.loads(request.body)
+        track_ids = dict_data.get("track", [])
+        if not isinstance(track_ids, list):
+            track_ids = [track_ids] 
         
-    playlist.track.clear()
-    playlist.track.add(*dict_data.get("track"))
-    print(playlist.track)
-    
-    playlist.save()
-    playlist = Playlist.objects.get(pk=playlist_id)
-    updated_playlist = PlayListSerializer(playlist).data
-    
-    return JsonResponse({"message": "Playlist Updated Successfully", "data": updated_playlist}, status=200)
-    
+        # Add the new tracks to the playlist without clearing existing tracks
+        for track_id in track_ids:
+            playlist.track.add(track_id)
+        
+        playlist.save()
+        updated_playlist = PlayListSerializer(playlist).data
+        
+        return JsonResponse({"message": "Playlist Updated Successfully", "data": updated_playlist}, status=200)
+    except json.JSONDecodeError:
+        return JsonResponse({"message": "Invalid JSON format in request body"}, status=400)
+    except Exception as e:
+        return JsonResponse({"message": str(e)}, status=500)
+
 
 
 @api_view(['DELETE'])
