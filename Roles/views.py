@@ -220,6 +220,35 @@ def update_user(request, user_id):
     return JsonResponse({"message": "User Updated Successfully", "data": updated_user}, status=200)
 
 
+
+
+
+@api_view(['PUT'])
+@permission_classes([IsUser])
+def update_user_profile_image(request, user_id):
+    try:
+        user = CustomUser.objects.get(pk=user_id)
+    except CustomUser.DoesNotExist:
+        return JsonResponse({"message": "User not Available"}, status=404)
+
+    if request.user != user:
+        raise PermissionDenied("You do not have permission to perform this action.")
+
+    uploaded_image = request.FILES['image']
+    user.__dict__.update(image=uploaded_image)
+    try:
+        user.save()
+    except IntegrityError:
+        return JsonResponse({"message": "Already Exists"}, status=400)
+
+    updated_user = CustomUserSerializer(user).data
+    return JsonResponse({"message": "User Picture Updated Successfully", "data": updated_user}, status=200)
+
+from rest_framework.permissions import IsAuthenticated
+
+
+
+
 @api_view(['PUT'])
 @permission_classes([IsArtist])
 def update_personal_artist_info(request, artist_id):
@@ -251,6 +280,29 @@ def update_personal_artist_info(request, artist_id):
 from rest_framework.permissions import IsAuthenticated
 
 
+
+@api_view(['PUT'])
+@permission_classes([IsArtist])
+def update_artist_profile_image(request, artist_id):
+    try:
+        artist = CustomUser.objects.get(pk=artist_id)
+    except CustomUser.DoesNotExist:
+        return JsonResponse({"message": "Artist not Available"}, status=404)
+
+    if request.user != artist:
+        raise PermissionDenied("You do not have permission to perform this action.")
+
+    uploaded_image = request.FILES['image']
+    artist.__dict__.update(image=uploaded_image)
+    try:
+        artist.save()
+    except IntegrityError:
+        return JsonResponse({"message": "Already Exists"}, status=400)
+
+    updated_artist = CustomUserSerializer(artist).data
+    return JsonResponse({"message": "Artist Updated Successfully", "data": updated_artist}, status=200)
+
+from rest_framework.permissions import IsAuthenticated
 
 
 @api_view(['POST'])
