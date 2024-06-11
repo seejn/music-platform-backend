@@ -27,13 +27,10 @@ class Music(models.Model):
             for track in all_tracks:
                 if track.is_banned:
                     print("inside get_queryset models.py track")
-                    print("ban_until", track.track.ban_time)
+                    print("ban_until", track.track.banned_until)
                     print("CURR_TIME", time.time())
-                try:
-                    if track.is_banned and track.track.ban_time < time.time():
-                        track.track.reset_ban_status()
-                except ObjectDoesNotExist:
-                    pass
+                if track.is_banned and track.track.banned_until < time.time():
+                    track.track.reset_ban_status()
             return all_tracks.filter(is_banned=False)
 
     objects = SoftDeleteAndBannedManager()

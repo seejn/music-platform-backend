@@ -14,7 +14,7 @@ DEFALULT_BAN_TIME_IN_HOURS = 60/3600
 def ban(track):
     CURR_TIME = time.time()
     track.track.is_banned = True
-    track.ban_time = math.floor(CURR_TIME) + DEFAULT_BAN_TIME
+    track.banned_until = math.floor(CURR_TIME) + DEFAULT_BAN_TIME
     track.banned_at = timezone.now()
     track.track.save()
     track.save()
@@ -24,7 +24,7 @@ def ban(track):
 
 def unban(track):
     track.track.is_banned = False
-    track.ban_time = None
+    track.banned_until = None
     track.banned_at = None
     track.report_count = 0
     track.track.save()
@@ -40,6 +40,8 @@ def report_track(request, track_id):
             reported_track = RandBTrack.objects.create(track=track)
         except Music.DoesNotExist:
             return JsonResponse({"message": "Track is not Available"}, status=200)
+
+    reported_track.report_count += 1
     
     if reported_track.report_count >= 5:
         banned_track = ban(reported_track)
@@ -47,7 +49,6 @@ def report_track(request, track_id):
         banned_track = RandBTrackSerializer(banned_track)
         return JsonResponse({"message": f"Track Banned for {DEFALULT_BAN_TIME_IN_HOURS} Hours", "data": banned_track.data}, status=200)
 
-    reported_track.report_count += 1
     reported_track.save()
 
     reported_track = RandBTrackSerializer(reported_track)

@@ -196,14 +196,20 @@ def update_user(request, user_id):
 
     required_fields = list(user.__dict__.keys())
 
-    if not all(field in required_fields for field in input_fields):
-        return JsonResponse({"message": "Field not Available"}, status=404)
+    print("required_fields", required_fields)
+
+    # if not all(field in required_fields for field in input_fields):
+    #     return JsonResponse({"message": "Field not Available"}, status=404)
 
     if request.user.id != user.id:
         raise PermissionDenied("You do not have permission to perform this action.")
 
-    for key, value in dict_data.items():
-        setattr(user, key, value)
+    # for key, value in dict_data.items():
+    #     if key == 'role':
+    #         value = Role.objects.get(pk=value)
+    #     setattr(user, key, value)
+
+    user.__dict__.update(dict_data)
     
     try:
         user.save()
