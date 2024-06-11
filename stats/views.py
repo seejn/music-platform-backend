@@ -86,6 +86,15 @@ def artist_album_counts(request):
     
     return JsonResponse(data, safe=False)
 
+def artist_album(request,artist_id):
+    artist_role = Role.objects.get(pk=2)
+    
+    artist = artist_role.user.filter(pk=artist_id).annotate(total_albums=Count('album')).values('total_albums').first()
+    if not artist:
+        return JsonResponse({'error': 'Artist not found'}, status=404)
+    
+    return JsonResponse(artist, safe=False)
+
 def total_artists(request):
     artist_role = Role.objects.get(pk=2)
     
@@ -96,6 +105,7 @@ def total_artists(request):
     }
     
     return JsonResponse(data)
+
 
 def total_users(request):
     total_users = CustomUser.objects.count()
@@ -114,3 +124,13 @@ def total_tracks(request):
     }
     
     return JsonResponse(data)
+
+def artist_total_tracks(request,artist_id):
+    artist_total_tracks = Music.objects.filter(artist=artist_id).count()
+    
+    data = {
+        'total_tracks': artist_total_tracks
+    }
+    
+    return JsonResponse(data)
+

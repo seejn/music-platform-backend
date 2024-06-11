@@ -11,6 +11,7 @@ import json,datetime
 from rest_framework.response import Response
 from django.http import HttpRequest
 from track.models import Playlist
+from album.models import FavouriteAlbum
 from track.models import FavouritePlaylist,Music
 
 @api_view(['GET'])
@@ -155,9 +156,9 @@ def delete_tour(request, tour_id):
 def get_user_favorite_playlist_tours(request, user_id):
     try:
       
-        favourite_playlists = FavouritePlaylist.objects.filter(user_id=user_id)
+        favourite_albums = FavouriteAlbum.objects.filter(user_id=user_id)
 
-        if not favourite_playlists.exists():
+        if not favourite_albums.exists():
            
             random_tours = Tour.objects.order_by("?")
             random_tour_data = TourSerializer(random_tours, many=True).data
@@ -165,10 +166,10 @@ def get_user_favorite_playlist_tours(request, user_id):
         
     
         artist_ids = []
-        for favourite_playlist in favourite_playlists:
-            playlists = favourite_playlist.playlist.all() 
-            for playlist in playlists:
-                tracks = Music.objects.filter(playlist=playlist)
+        for favourite_album in favourite_albums:
+            albums = favourite_album.album.all() 
+            for album in albums:
+                tracks = Music.objects.filter(album=album)
                 for track in tracks:
                     artist_ids.append(track.artist_id)
 
