@@ -231,8 +231,8 @@ def update_user_profile_image(request, user_id):
     except CustomUser.DoesNotExist:
         return JsonResponse({"message": "User not Available"}, status=404)
 
-    if request.user != user:
-        raise PermissionDenied("You do not have permission to perform this action.")
+    # if request.user != user:
+    #     raise PermissionDenied("You do not have permission to perform this action.")
 
     uploaded_image = request.FILES['image']
     user.__dict__.update(image=uploaded_image)
@@ -319,4 +319,5 @@ def logout(request):
         return Response({'message': 'Logout successful'}, status=status.HTTP_205_RESET_CONTENT)
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
 
