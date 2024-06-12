@@ -90,3 +90,10 @@ class FavouritePlaylist(models.Model):
         self.deleted_at = timezone.now()
         self.save()
 
+class SharedPlaylist(models.Model):
+    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name='shared_with_users')
+    shared_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='shared_playlists')
+    shared_with = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='shared_with_by')
+
+    def __str__(self):
+        return f"{self.playlist.title} shared by {self.shared_by.email} with {self.shared_with.email}"
