@@ -265,6 +265,7 @@ from rest_framework.permissions import IsAuthenticated
 @permission_classes([IsArtist])
 def update_personal_artist_info(request, artist_id):
     dict_data = json.loads(request.body)
+
     input_fields = list(dict_data.keys())
 
     try:
@@ -279,8 +280,11 @@ def update_personal_artist_info(request, artist_id):
         
     if request.user != artist:
         raise PermissionDenied("You do not have permission to perform this action.")
-
-    artist.__dict__.update(dict_data)
+    
+    artist.first_name = dict_data.get("first_name")
+    artist.last_name = dict_data.get("last_name")
+    artist.dob = dict_data.get("dob")
+    artist.gender = dict_data.get("gender")
     try:
         artist.save()
     except IntegrityError:
