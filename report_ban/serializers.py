@@ -16,7 +16,7 @@ class ReportTrackSerializer(serializers.ModelSerializer):
     track = TrackSerializer(read_only=True)
     user = CustomUserSerializer(read_only=True)
     class Meta:
-        model = ReportTrack
+        model = ReportTrack 
         fields = '__all__'
 
 
