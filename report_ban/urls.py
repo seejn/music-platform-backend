@@ -11,6 +11,7 @@ urlpatterns = [
     # path('get_reported_tracks_of_artist/<int:artist_id>/', views.get_reported_tracks_of_artist, name="get_reported_tracks_of_artist"),
     path('get_reported_track/<int:track_id>/', views.get_reported_track, name="get_reported_track"),
 
+    path('remove/<int:report_id>/', views.remove_reported_track, name="remove_reported_track"),
     
     path('get_all_banned_tracks/', views.get_all_banned_tracks, name="get_all_banned_tracks"),
     path('get_banned_tracks_of_artist/<int:artist_id>/', views.get_banned_tracks_of_artist, name="get_banned_tracks_of_artist"),

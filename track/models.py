@@ -1,10 +1,12 @@
 from django.db import models
 from Cusers.models import CustomUser
-from django.utils import timezone
+# from django.utils import timezone
 from genre.models import Genre
 from managers.SoftDelete import SoftDeleteManager
 from utils.save_image import save_to_track_media, save_to_playlist_media
 from django.core.exceptions import ObjectDoesNotExist
+
+from datetime import datetime
 
 import time
 
@@ -18,20 +20,35 @@ class Music(models.Model):
     image = models.ImageField(upload_to=save_to_track_media, blank=True, null=True)  
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE, null=True)
 
-    is_banned = models.BooleanField(default=False)
-    
     class SoftDeleteAndBannedManager(SoftDeleteManager):
 
         def get_queryset(self):
             all_tracks = super().get_queryset().filter(is_deleted=False)
+            checked_tracks = []
+
+            banned_tracks = all_tracks.filter(banned__isnull=False)
+            
             for track in all_tracks:
-                if track.is_banned:
-                    print("inside get_queryset models.py track")
-                    print("ban_until", track.track.banned_until)
-                    print("CURR_TIME", time.time())
-                if track.is_banned and track.track.banned_until < time.time():
-                    track.track.reset_ban_status()
-            return all_tracks.filter(is_banned=False)
+                if track.id in checked_tracks:
+                    continue
+
+                checked_tracks.append(track.id)
+
+                if track not in banned_tracks and track.reported.count() >= 5:
+                    print("from manager",track)
+                    track.ban()
+
+                elif track in banned_tracks and track.reported.count() < 5:
+                    track.unban()
+            
+            
+            expired_banned_tracks = banned_tracks.filter(banned__banned_until__lt=time.time())
+            for track in expired_banned_tracks:
+                track.reported.all().delete()
+                track.unban()
+
+
+            return all_tracks.filter(banned__isnull=True)
 
     objects = SoftDeleteAndBannedManager()
 
@@ -43,12 +60,34 @@ class Music(models.Model):
         self.deleted_at = timezone.now()
         self.save()
 
+    # def check_reported_status_to_ban_unban(self):
+    #     if self.filter(banned__isnull=False).count() and self.reported.count() < 5:
+    #         self.unban()  
+    #     elif self.filter(banned_isnull=True).count() and self.reported.count() >= 5:
+    #         self.ban()
+    #     else:
+    #         pass
+
+    def unban(self):
+        self.banned.delete()
+    
+    def ban(self):
+        from report_ban.models import BannedTrack
+        
+        CURR_TIMESTAMP=time.time()
+        DEFAULT_BAN_TIME_IN_SECONDS=60
+        
+        BannedTrack.objects.create(
+            track_id=self.id,
+            banned_until=CURR_TIMESTAMP+DEFAULT_BAN_TIME_IN_SECONDS
+        )
+
 
 class Playlist(models.Model):
     title = models.CharField(max_length=100)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     track = models.ManyToManyField(Music)
-    created_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(default=datetime.now)
     is_deleted = models.BooleanField(default=False)
     deleted_at = models.DateTimeField(null=True, blank=True)
     image = models.ImageField(null=True, blank=True, upload_to=save_to_playlist_media)
@@ -73,7 +112,7 @@ class Playlist(models.Model):
 class FavouritePlaylist(models.Model):
     playlist = models.ManyToManyField(Playlist, related_name="favourite_by")
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="favourite_playlist")
-    created_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(default=datetime.now)
     deleted_at = models.DateTimeField(null=True, blank=True)
     is_deleted = models.BooleanField(default=False)
     
@@ -87,6 +126,6 @@ class FavouritePlaylist(models.Model):
 
     def soft_delete(self):
         self.is_deleted = True
-        self.deleted_at = timezone.now()
+        self.deleted_at = datetime.now()
         self.save()
 
