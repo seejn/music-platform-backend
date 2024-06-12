@@ -223,6 +223,7 @@ def get_all_banned_tracks(request):
     tracks = []
 
     for banned_track in banned_tracks:
+        Music.objects.all()
         track = TrackOnlySerializer(banned_track.track).data
         artist = ArtistSerializer(banned_track.track.artist).data
         track = {
