@@ -184,6 +184,7 @@ def get_user_playlists(request, user_id):
 
     return JsonResponse({"message": f"User {user_id}", "data": serializer.data}, status=200)  
 
+
 @api_view(['GET'])
 @permission_classes([AllowAny])  
 def get_all_playlists(request):
@@ -283,6 +284,8 @@ def change_playlist_type(request, playlist_id):
     return JsonResponse(serializer.errors, status=400)
 
 
+
+
 @api_view(['PUT','PATCH'])
 @permission_classes([IsUserOrArtist])
 def add_remove_track_to_playlist(request, playlist_id):
@@ -307,7 +310,7 @@ def add_remove_track_to_playlist(request, playlist_id):
 
 
 @api_view(['PUT', 'PATCH'])
-@permission_classes([IsUserOrArtist])  # Adjust as per your permission classes
+@permission_classes([IsUserOrArtist])  
 def add_track_to_playlist(request, playlist_id):
     try:
         playlist = Playlist.objects.get(pk=playlist_id)
@@ -321,9 +324,9 @@ def add_track_to_playlist(request, playlist_id):
         dict_data = json.loads(request.body)
         track_ids = dict_data.get("track", [])
         if not isinstance(track_ids, list):
-            track_ids = [track_ids]  # Ensure track_ids is a list of integers
+            track_ids = [track_ids]  
         
-        # Add the new tracks to the playlist without clearing existing tracks
+ 
         for track_id in track_ids:
             playlist.track.add(track_id)
         
@@ -350,8 +353,6 @@ def delete_playlist(request, playlist_id):
 
 
 
-# favourite playlist
-
 @api_view(['GET'])
 @permission_classes([IsAdminOrArtist])
 def get_all_users_favourite_playlists(request):
@@ -374,6 +375,8 @@ def get_specific_favourite_playlist(request, favouriteplaylist_id):
 
     return JsonResponse({"message": f"Playlist {favouriteplaylist_id}", "data": serializer.data}, status=200)    
 
+
+
 @api_view(['GET'])
 @permission_classes([IsAdminOrArtistOrUser])
 def get_user_favourite_playlist(request, user_id):
@@ -381,6 +384,7 @@ def get_user_favourite_playlist(request, user_id):
     serializer = FavouritePlaylistSerializer(favourite_playlist)
 
     return JsonResponse({"message": f"Favourite Playlist ", "data": serializer.data}, status=200)    
+
 
 
 @api_view(['POST'])
@@ -422,6 +426,8 @@ def create_favourite_playlist(request):
 
     return JsonResponse({"message": f"create favourite playlist for user", "data": serializer.data}, status=200)
 
+
+
 @api_view(['DELETE'])
 @permission_classes([IsUserOrArtist])
 def delete_favourite_playlist(request, favourite_playlist_id):
@@ -432,6 +438,8 @@ def delete_favourite_playlist(request, favourite_playlist_id):
     if request.user.id != favourite_playlist.user.id:
         raise PermissionDenied("You do not have permission to perform this action.") 
     favourite_playlist.soft_delete()
+
+
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])  
@@ -446,6 +454,7 @@ def delete_favourite_playlist(request, playlist_id):
         return JsonResponse({"message": "You do not have permission to perform this action."}, status=403)
 
 
+
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])  
 def remove_playlist_from_favourite_playlist(request,user_id,playlist_id):
@@ -454,6 +463,8 @@ def remove_playlist_from_favourite_playlist(request,user_id,playlist_id):
     favourite_playlist.save()
     favourite_playlist=FavouritePlaylistSerializer(favourite_playlist)
     return JsonResponse({"message":"Remove playlist from favourite playlist","data":favourite_playlist.data},status=200)
+
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])  
@@ -490,6 +501,7 @@ def update_privacy_playlist(request, playlist_id):
         serializer.save()
         return JsonResponse(serializer.data, status=200)
     return JsonResponse(serializer.errors, status=400)
+
 
 
 

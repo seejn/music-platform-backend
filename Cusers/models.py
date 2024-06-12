@@ -27,6 +27,8 @@ class ArtistDetail(models.Model):
         self.save()
 
 
+
+
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(max_length=50, unique=True)
@@ -38,7 +40,10 @@ class CustomUser(AbstractUser):
     is_deleted = models.BooleanField(default=False)
     deleted_at = models.DateTimeField(null=True, blank=True)
 
+
+
     details = models.OneToOneField(ArtistDetail, on_delete=models.SET_NULL, null=True, blank=True)
+
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -54,3 +59,13 @@ class CustomUser(AbstractUser):
     def soft_delete(self):
         self.is_deleted = True
         self.save()
+
+
+class Follow(models.Model):
+    followed_by = models.ForeignKey(CustomUser, related_name='follow', null=True, on_delete=models.CASCADE)
+    followed_to = models.ForeignKey(CustomUser, related_name='following', null=True, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    
+    def __str__(self):
+        return f"{self.followed_by} follows {self.followed_to}"
