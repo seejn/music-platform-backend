@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
+    "django_cron",
     "Roles",
     "genre",
     "Cusers",
@@ -68,6 +69,10 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+CRON_CLASSES = [
+    "report_ban.cron.CheckBannedExpiry",
 ]
 
 ROOT_URLCONF = "backend.urls"

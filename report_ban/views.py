@@ -16,65 +16,20 @@ from .models import RandBTrack, ReportTrack, BannedTrack
 from Cusers.models import CustomUser
 from track.models import Music
 
+from . import tasks
+
+
 from datetime import datetime
 
 
 import time, math, json
 
 
-DEFAULT_BAN_TIME = 60
-DEFALULT_BAN_TIME_IN_HOURS = 60/3600
-# Create y
-# our views here.
-def ban(track):
-    CURR_TIME = time.time()
-    track.track.is_banned = True
-    track.banned_until = math.floor(CURR_TIME) + DEFAULT_BAN_TIME
-    track.banned_at = timezone.now()
-    track.track.save()
-    track.save()
-
-    return track
-
-
-def unban(track):
-    track.track.is_banned = False
-    track.banned_until = None
-    track.banned_at = None
-    track.report_count = 0
-    track.track.save()
-    track.save()
-    return track
 
 
 
 
 
-
-
-# def report_track(request, track_id):
-#     try: 
-#         reported_track = RandBTrack.objects.get(track_id=track_id)
-#     except RandBTrack.DoesNotExist:
-#         try:
-#             track = Music.objects.get(pk=track_id)
-#             reported_track = RandBTrack.objects.create(track=track)
-#         except Music.DoesNotExist:
-#             return JsonResponse({"message": "Track is not Available"}, status=200)
-
-#     reported_track.report_count += 1
-    
-#     if reported_track.report_count >= 5:
-#         banned_track = ban(reported_track)
-
-#         banned_track = RandBTrackSerializer(banned_track)
-#         return JsonResponse({"message": f"Track Banned for {DEFALULT_BAN_TIME_IN_HOURS} Hours", "data": banned_track.data}, status=200)
-
-#     reported_track.save()
-
-#     reported_track = RandBTrackSerializer(reported_track)
-#     return JsonResponse({"message": "Track reported Successfully", "data": reported_track.data}, status=200)
-    
 @api_view(['POST'])
 @permission_classes([IsAdminOrArtistOrUser])
 def report_track(request, track_id, user_id):
@@ -111,19 +66,6 @@ def report_track(request, track_id, user_id):
 
 
 
-
-
-# def get_all_reported_tracks(request):
-#     all_reported_tracks = RandBTrack.objects.all()
-
-#     all_reported_tracks = RandBTrackSerializer(all_reported_tracks, many=True)
-#     return JsonResponse({"message": "All reported Tracks", "data": all_reported_tracks.data}, status=200)
-
-
-
-
-
-
 def get_all_reported_tracks(request):
     all_reported_tracks_summary = ReportTrack.objects.values(
         'track__id',
@@ -148,12 +90,6 @@ def get_all_reported_tracks(request):
 
 
 
-
-
-# def get_reported_tracks_of_artist(request, artist_id):
-#     reported_tracks = RandBTrack.objects.filter(track__artist_id=artist_id)
-#     serialized_tracks = RandBTrackSerializer(reported_tracks, many=True).data
-#     return JsonResponse({"message": f"Reported songs of artist: {artist_id}", "data": serialized_tracks}, status=200)
 
 
 
@@ -184,6 +120,24 @@ def get_reported_track(request, track_id):
     return JsonResponse({"message": f"Reported Track","is_banned": is_banned,"artist": artist, "track": serialized_track, "data": serialized_reported_track}, status=200)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @api_view(['DELETE'])
 @permission_classes([IsAdmin])
 def remove_reported_track(request, report_id):
@@ -207,14 +161,12 @@ def remove_reported_track(request, report_id):
 
 
 
-# def get_all_banned_tracks(request):
-#     reported_tracks = RandBTrack.objects.all()
-#     all_banned_tracks = []
-#     for track in reported_tracks:
-#         if track.track.is_banned :
-#             all_banned_tracks.append(RandBTrackSerializer(track).data)
 
-#     return JsonResponse({"message": f"All banned songs", "data": all_banned_tracks}, status=200)
+
+
+
+
+
 
 
 def get_all_banned_tracks(request):
@@ -240,6 +192,12 @@ def get_all_banned_tracks(request):
 
 
 
+
+
+
+
+
+
 def get_banned_tracks_of_artist(request, artist_id):
     reported_tracks = RandBTrack.objects.all()
     banned_tracks_of_artist = []
@@ -248,7 +206,16 @@ def get_banned_tracks_of_artist(request, artist_id):
             banned_tracks_of_artist.append(RandBTrackSerializer(track))
 
     return JsonResponse({"message": f"Banned songs of artist: {artist_id}", "data": banned_tracks_of_artist}, status=200)
-    
+
+
+
+
+
+
+
+
+
+  
         
 def ban_track(request, track_id):
     try:
@@ -262,6 +229,20 @@ def ban_track(request, track_id):
     banned_track = ban(track_to_ban)
     banned_track = RandBTrackSerializer(banned_track)
     return JsonResponse({"message": f"Track: {track_id} banned successfully", "data": banned_track.data}, status=200)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @api_view(['DELETE'])
 @permission_classes([IsAdmin])
