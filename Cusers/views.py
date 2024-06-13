@@ -12,6 +12,7 @@ from rest_framework.permissions import IsAuthenticated
 from .models import CustomUser, Follow
 from track.models import Playlist
 from backend.permission import IsAdmin, IsUserOrArtist
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_all_users(request):
@@ -135,14 +136,27 @@ def get_shared_playlists(request, user_id):
     except CustomUser.DoesNotExist:
         return JsonResponse({"message": "User not found"}, status=404)
     
-    except Exception as e:
-
-        import logging
-        logger = logging.getLogger(__name__)
-        logger.error(f"Error fetching shared playlists for user_id {user_id}: {e}")
-        
+    except Exception as e:    
         return JsonResponse({"message": "Internal Server Error"}, status=500)
 
 
 
+@api_view(['GET'])
+@permission_classes([IsAdminOrArtistOrUser])
+def get_specific_shared_playlist(request, playlist_id, user_id):
+    try:
+        user = get_object_or_404(CustomUser, id=user_id)
+        shared_playlist = get_object_or_404(SharedPlaylist, playlist_id=playlist_id, shared_with=user)
+        
+        serialized_playlist = SharedPlaylistSerializer(shared_playlist).data
+        return JsonResponse(serialized_playlist, status=200, safe=False)
+    
+    except SharedPlaylist.DoesNotExist:
+        return JsonResponse({"message": "Shared playlist not found"}, status=404)
+    
+    except CustomUser.DoesNotExist:
+        return JsonResponse({"message": "User not found"}, status=404)
+    
+    except Exception as e: 
+        return JsonResponse({"message": "Internal Server Error"}, status=500)
 
