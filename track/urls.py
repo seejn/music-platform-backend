@@ -15,6 +15,7 @@ urlpatterns = [
     path('playlist/<int:playlist_id>/', views.get_playlist, name="get_playlist"),
     path('create_playlist/', views.create_playlist, name="create_playlist"),
     path('update_playlist/<int:playlist_id>/', views.update_playlist, name="update_playlist"),
+    path('update_playlist_image/<int:playlist_id>/', views.update_playlist_image, name="update_playlist_image"),
     path('update_privacy_playlist/<int:playlist_id>/', views.update_privacy_playlist, name="update_privacy_playlist"),
     path('add_remove_track_to_playlist/<int:playlist_id>/', views.add_remove_track_to_playlist, name="add_remove_track_to_playlist"),
     path('add_track_to_playlist/<int:playlist_id>/', views.add_track_to_playlist, name="add_remove_track_to_playlist"),
