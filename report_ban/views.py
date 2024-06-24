@@ -17,7 +17,7 @@ from .models import RandBTrack, ReportTrack, BannedTrack
 from Cusers.models import CustomUser
 from track.models import Music
 
-from . import tasks
+from . import task
 
 
 from datetime import datetime
@@ -90,6 +90,7 @@ def report_track(request, track_id, user_id):
     except (Music.DoesNotExist, CustomUser.DoesNotExist):
         return JsonResponse({"message": "Something went wrong"}, status=400)    
 
+    print(ReportTrack.objects.filter(track=track).count())
     if ReportTrack.objects.filter(track=track).count() > 4:
         track = Music.objects.filter(pk=track_id).first()
         ban(track)
