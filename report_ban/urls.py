@@ -18,4 +18,20 @@ urlpatterns = [
     
     path('ban_track/<int:track_id>/', views.ban_track, name="ban_track"),
     path('unban_track/<int:track_id>/', views.unban_track, name="unban_track"),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    path("ban_track_view/<int:track_id>/", views.ban_track_view, name="ban_track_view"),
+    path("unban_track_view/<int:track_id>/", views.unban_track_view, name="unban_track_view"),
 ]

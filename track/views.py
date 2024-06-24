@@ -231,6 +231,7 @@ def create_playlist(request):
         return JsonResponse({"message": str(e)}, status=500)
 
 
+
 @api_view(['PUT', 'PATCH'])
 @permission_classes([IsUserOrArtist])
 def update_playlist(request, playlist_id):
@@ -242,21 +243,35 @@ def update_playlist(request, playlist_id):
     if request.user.id != playlist.user.id:
         raise PermissionDenied("You do not have permission to perform this action.")
 
-    data = request.data.copy()
+    dict_data = json.loads(request.body)
+
+    playlist.__dict__.update(dict_data)
+    playlist.save()
+
+    serializer = PlayListSerializer(playlist)
+
+    return JsonResponse(serializer.data, status=200)
+
+
+@api_view(['PUT', 'PATCH'])
+@permission_classes([IsUserOrArtist])
+def update_playlist_image(request, playlist_id):
+    try:
+        playlist = Playlist.objects.get(pk=playlist_id)
+    except Playlist.DoesNotExist:
+        return JsonResponse({"message": f"Playlist with id {playlist_id} does not exist"}, status=404)
+
+    if request.user.id != playlist.user.id:
+        raise PermissionDenied("You do not have permission to perform this action.")
 
     if 'image' in request.FILES:
         image_file = request.FILES['image']
         playlist.image.save(image_file.name, image_file, save=True)
-    
-  
-    if 'playlist_type' in data:
-        playlist.playlist_type = data['playlist_type']
 
-    serializer = PlayListSerializer(playlist, data=data, partial=True)
-    if serializer.is_valid():
-        serializer.save()
-        return JsonResponse(serializer.data, status=200)
-    return JsonResponse(serializer.errors, status=400)
+
+    serializer = PlayListSerializer(playlist)
+
+    return JsonResponse(serializer.data, status=200)
 
 
 
