@@ -23,32 +23,7 @@ class Music(models.Model):
     class SoftDeleteAndBannedManager(SoftDeleteManager):
 
         def get_queryset(self):
-            all_tracks = super().get_queryset().filter(is_deleted=False)
-            checked_tracks = []
-
-            banned_tracks = all_tracks.filter(banned__isnull=False)
-            
-            for track in all_tracks:
-                if track.id in checked_tracks:
-                    continue
-
-                checked_tracks.append(track.id)
-
-                if track not in banned_tracks and track.reported.count() >= 5:
-                    print("from manager",track)
-                    track.ban()
-
-                elif track in banned_tracks and track.reported.count() < 5:
-                    track.unban()
-            
-            
-            expired_banned_tracks = banned_tracks.filter(banned__banned_until__lt=time.time())
-            for track in expired_banned_tracks:
-                track.reported.all().delete()
-                track.unban()
-
-
-            return all_tracks.filter(banned__isnull=True)
+            return super().get_queryset().filter(is_deleted=False).filter(banned__isnull=True)
 
     objects = SoftDeleteAndBannedManager()
 

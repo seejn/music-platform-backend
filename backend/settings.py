@@ -26,12 +26,14 @@ SECRET_KEY = "django-insecure-x9b5!++4hzaf$ei77ciu+zg8lz$7yet4atfxnk2u3$@8&1y7z&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://localhost:5174",
-]
+CORS_ALLOW_ALL_ORIGINS = True
+
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:5173",
+#     "http://localhost:5174",
+# ]
 
 AUTH_USER_MODEL = 'Cusers.CustomUser'
 
