@@ -1,7 +1,7 @@
 version: '3.8'
 services:
 
-   backend:
+   frontend:
     build: .
     container_name: backend-container
     command: gunicorn --bind 0.0.0.0:8000 backend.wsgi:application
