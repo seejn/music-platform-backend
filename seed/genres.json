@@ -1,0 +1,51 @@
+[
+{
+    "model": "genre.genre",
+    "pk": 1,
+    "fields": {
+        "name": "Pop"
+    }
+},
+{
+    "model": "genre.genre",
+    "pk": 2,
+    "fields": {
+        "name": "Rock"
+    }
+},
+{
+    "model": "genre.genre",
+    "pk": 3,
+    "fields": {
+        "name": "Metal"
+    }
+},
+{
+    "model": "genre.genre",
+    "pk": 4,
+    "fields": {
+        "name": "Indie pop"
+    }
+},
+{
+    "model": "genre.genre",
+    "pk": 5,
+    "fields": {
+        "name": "R&B"
+    }
+},
+{
+    "model": "genre.genre",
+    "pk": 6,
+    "fields": {
+        "name": "Dance-pop"
+    }
+},
+{
+    "model": "genre.genre",
+    "pk": 7,
+    "fields": {
+        "name": "Hip Hop"
+    }
+}
+]
