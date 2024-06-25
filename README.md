@@ -5,30 +5,30 @@
 git clone https://github.com/seejn/music-platform-backend.git
 cd music-platform-backend
 ```
-# Craete .env file
+# Create .env file
 .env.sample exists for reference
 
-# start db
+# Start DB
 ```
 make start_db
 ```
 
-# project setup
+# Project Setup
 ```
 make
 ```
 
-# run project
+# Run Project
 ```
 make run
 ```
 
-# stop project
+# Stop Project
 ```
 make stop
 ```
 
-# stop db
+# Stop DB
 ```
 make stop_db
 ```
