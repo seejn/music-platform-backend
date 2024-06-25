@@ -11,6 +11,7 @@ import json,datetime
 from rest_framework.response import Response
 from django.http import HttpRequest
 from track.models import Playlist
+from album.models import FavouriteAlbum
 from track.models import FavouritePlaylist,Music
 
 @api_view(['GET'])
@@ -155,9 +156,10 @@ def delete_tour(request, tour_id):
 def get_user_favorite_playlist_tours(request, user_id):
     try:
       
+        favourite_albums = FavouriteAlbum.objects.filter(user_id=user_id)
         favourite_playlists = FavouritePlaylist.objects.filter(user_id=user_id)
 
-        if not favourite_playlists.exists():
+        if not favourite_albums.exists() and not favourite_playlists.exists():
            
             random_tours = Tour.objects.order_by("?")
             random_tour_data = TourSerializer(random_tours, many=True).data
@@ -165,15 +167,24 @@ def get_user_favorite_playlist_tours(request, user_id):
         
     
         artist_ids = []
-        for favourite_playlist in favourite_playlists:
-            playlists = favourite_playlist.playlist.all() 
-            for playlist in playlists:
-                tracks = Music.objects.filter(playlist=playlist)
-                for track in tracks:
-                    artist_ids.append(track.artist_id)
+        if favourite_albums.exists():
+            for favourite_album in favourite_albums:
+                albums = favourite_album.album.all() 
+                for album in albums:
+                    tracks = Music.objects.filter(album=album)
+                    for track in tracks:
+                        artist_ids.append(track.artist_id)
+        
+        if favourite_playlists.exists():
+            for favourite_playlist in favourite_playlists:
+                playlists = favourite_playlist.playlist.all()
+                for playlist in playlists:
+                    tracks = Music.objects.filter(playlist=playlist)
+                    for track in tracks:
+                        artist_ids.append(track.artist_id)
 
  
-        tours = Tour.objects.filter(artist_id__in=artist_ids)
+        tours = Tour.objects.filter(artist_id__in=artist_ids).distinct()
 
         if not tours.exists():
             random_tours = Tour.objects.order_by("?")
@@ -182,7 +193,9 @@ def get_user_favorite_playlist_tours(request, user_id):
      
         tours_data = TourSerializer(tours, many=True).data
         return JsonResponse({"data": tours_data}, status=200)
-
+    
+    except FavouriteAlbum.DoesNotExist:
+        return JsonResponse({"message": "Favorite albums not found for the user"}, status=404)
     except FavouritePlaylist.DoesNotExist:
         return JsonResponse({"message": "Favourite playlists not found for the user"}, status=404)
     except Exception as e:

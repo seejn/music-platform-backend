@@ -15,8 +15,10 @@ urlpatterns = [
     path('playlist/<int:playlist_id>/', views.get_playlist, name="get_playlist"),
     path('create_playlist/', views.create_playlist, name="create_playlist"),
     path('update_playlist/<int:playlist_id>/', views.update_playlist, name="update_playlist"),
+    path('update_playlist_image/<int:playlist_id>/', views.update_playlist_image, name="update_playlist_image"),
     path('update_privacy_playlist/<int:playlist_id>/', views.update_privacy_playlist, name="update_privacy_playlist"),
     path('add_remove_track_to_playlist/<int:playlist_id>/', views.add_remove_track_to_playlist, name="add_remove_track_to_playlist"),
+    path('add_track_to_playlist/<int:playlist_id>/', views.add_track_to_playlist, name="add_remove_track_to_playlist"),
     path('delete_playlist/<int:playlist_id>/', views.delete_playlist, name="delete_playlist"),
 
     path('favourite_playlist/get_all/', views.get_all_users_favourite_playlists, name="get_all_users_favourite_playlists"),
@@ -26,4 +28,5 @@ urlpatterns = [
     path('favourite_playlist/delete/<int:playlist_id>/', views.delete_favourite_playlist, name="delete_favourite_playlist"),
     path('remove_playlist_from_favourite_playlist/user/<int:user_id>/playlist/<int:playlist_id>/', views.remove_playlist_from_favourite_playlist, name="remove_playlist_from_favourite_playlist"),
     path('check_favourite_playlist/user/<int:user_id>/playlist/<int:playlist_id>/', views.check_favourite_playlist, name="check_favourite_playlist"),
+  
 ]

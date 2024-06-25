@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Music
-from .models import Playlist, FavouritePlaylist
+from .models import Playlist, FavouritePlaylist,SharedPlaylist
 
 from Cusers.serializers import ArtistSerializer, ArtistDetailSerializer, CustomUserSerializer
 from genre.serializers import GenreSerializer
@@ -36,3 +36,13 @@ class FavouritePlaylistSerializer(serializers.ModelSerializer):
     class Meta:
         model = FavouritePlaylist
         fields = '__all__'
+
+class SharedPlaylistSerializer(serializers.ModelSerializer):
+    playlist = PlayListSerializer(read_only=True)
+    shared_by = CustomUserSerializer(read_only=True)
+    shared_with = CustomUserSerializer(read_only=True)
+
+    class Meta:
+        model = SharedPlaylist
+        fields = '__all__'
+
