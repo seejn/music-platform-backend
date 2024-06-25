@@ -32,6 +32,12 @@ COPY . .
 
 RUN python manage.py migrate
 
+RUN python manage.py loaddata seed/roles.json 
+RUN python manage.py loaddata seed/genres.json 
+RUN python manage.py loaddata seed/users.json 
+RUN python manage.py loaddata seed/tracks.json 
+RUN python manage.py loaddata seed/albums.json 
+
 RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
