@@ -1,0 +1,1181 @@
+[
+{
+    "model": "Cusers.artistdetail",
+    "pk": 1,
+    "fields": {
+        "stagename": "harrystyles",
+        "biography": "hi i am harry",
+        "nationality": "American",
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 2,
+    "fields": {
+        "stagename": "swiftie",
+        "biography": "",
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 3,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 4,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 5,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 6,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 7,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 8,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 9,
+    "fields": {
+        "stagename": "dyo",
+        "biography": "hi",
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 10,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 11,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 12,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 13,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 14,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 15,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 16,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 17,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 18,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 19,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 20,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 21,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 22,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 23,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 24,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.artistdetail",
+    "pk": 25,
+    "fields": {
+        "stagename": null,
+        "biography": null,
+        "nationality": null,
+        "twitter_link": null,
+        "facebook_link": null,
+        "instagram_link": null
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$207s3zNlET9wBHKaOOLgFy$xZOFcVQ8y9/+q07eW0VxbgDrKPqc45izLDJoKMRtupE=",
+        "last_login": "2024-06-11T05:20:30.702Z",
+        "is_superuser": true,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2024-06-06T09:39:39Z",
+        "email": "diya@gmail.com",
+        "image": "",
+        "dob": "2001-07-25",
+        "gender": "female",
+        "role": 3,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 2,
+    "fields": {
+        "password": "harry",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Harry",
+        "last_name": "Styles",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-06T09:40:12Z",
+        "email": "harry@styles.com",
+        "image": "user_images/6f4eaa251f51d52b.jpeg",
+        "dob": "2000-06-06",
+        "gender": "male",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$82xB3y6XpDjo1WzGw5vGSi$FaMpApvdhJT3GxkXjNbEDm+azyM/VEvMGpj+T5K5DAo=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Taylor",
+        "last_name": "Swiftt",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-06T09:41:49Z",
+        "email": "taylor@swift.com",
+        "image": "/media/media/user_images/52c6f8e8df9bf098.jpeg",
+        "dob": "2024-06-01",
+        "gender": "female",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$T9qmmGqNsOsNtJuHPSLW3Y$IF1V89230Zqqmw/7psgrF0PQyUvkxb6PjrU8ovXoBe4=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Zayn",
+        "last_name": "Malik",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-06T09:42:10Z",
+        "email": "zayn@malik.com",
+        "image": "user_images/579fc84b14a2941c.webp",
+        "dob": "2024-06-01",
+        "gender": "male",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$4AviHzSLyt0B2Cslqb1JiF$rW1WWRg2tuxK25r6AfQfq/TJ6ym6jsbWbPGjjecKfEY=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Selena",
+        "last_name": "Gomez",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-06T09:42:29Z",
+        "email": "selena@gomez.com",
+        "image": "user_images/dd0121f01b5a5841.jpg",
+        "dob": "2024-06-01",
+        "gender": "female",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$j2upGLVlrjuACl6BkMZ6g7$W5CSqaDo4SrT4jKITPMmszFjAYkPRC3tsxwhHVkljN8=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Billie",
+        "last_name": "Eilish",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-06T09:43:59Z",
+        "email": "billie@eillish.com",
+        "image": "user_images/20b91245f26b2409.jpg",
+        "dob": "2024-02-28",
+        "gender": "female",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 9,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$QwSRplPaG4dRmHRoF63k2f$KPUxSvSu3SWYJ5QCzMFTYjPTFHsgfr4vttMlFFbEXcA=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Diya ",
+        "last_name": "Maharjan",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-06T09:56:54.708Z",
+        "email": "maharjan.diyaa@gmail.com",
+        "image": "",
+        "dob": "2024-06-01",
+        "gender": "female",
+        "role": 1,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$bX0LqWxcoRQIP6cV1tvhZF$1Vwm5xlM9ko5gxhJ/rp5oFmS37+vGTVgFGuI4TS4x58=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Dyo",
+        "last_name": "Maharjan",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-06T09:57:46.897Z",
+        "email": "diya1@gmail.com",
+        "image": "",
+        "dob": "2024-06-01",
+        "gender": "female",
+        "role": 1,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 11,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$PJLokxqV0Sgzk5LYG3HTQ9$Sq8JV0nDW525qgz52/m4Cv2SE8KGkVM9waJOwyEcvHo=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "hi",
+        "last_name": "maharjan",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-06T09:58:08.183Z",
+        "email": "diya2@gmail.com",
+        "image": "",
+        "dob": "2024-06-01",
+        "gender": "female",
+        "role": 1,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 12,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$kNb0aZ8pJl7DZKzH3nChjN$tIdKC6PDTYLP/KmELsMhpFqM3xp2BFmwD+xcgRbBx4g=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Nicki",
+        "last_name": "Minaj",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-06T10:44:34Z",
+        "email": "Nicki@minaj.com",
+        "image": "user_images/5588080ac465afd2.jpeg",
+        "dob": "2024-05-27",
+        "gender": "female",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 13,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$64WkH3DOY2PKws44wvtOAs$EgFP/QWYMgd08ruDMk3TxDFsz8T2rNs+coRXFDERaO0=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Nial",
+        "last_name": "Horan",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-08T10:17:10Z",
+        "email": "nial@horan.com",
+        "image": "user_images/1f2a09f8f4ca2cb9.jpeg",
+        "dob": "2024-06-01",
+        "gender": "male",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 14,
+    "fields": {
+        "password": "Saloni@1",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "saloni",
+        "last_name": "shrestha",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T10:03:42Z",
+        "email": "saloni@gmail.com",
+        "image": "",
+        "dob": "2001-12-04",
+        "gender": "female",
+        "role": 1,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 15,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$dzbRkWOGs11gZzQxjiSB77$9mBPcmDsfsfVYmShKnJ5V5kITQI4DV24XxuxZaSvWiI=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "seejan",
+        "last_name": "maharjan",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T10:54:04.669Z",
+        "email": "seejan@gmail.com",
+        "image": "",
+        "dob": "2024-06-01",
+        "gender": "male",
+        "role": 1,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 16,
+    "fields": {
+        "password": "ramila",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "ramila",
+        "last_name": "shahi",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T10:54:12Z",
+        "email": "ramila@gmail.com",
+        "image": "user_images/f2a5029d066ee517.jpg",
+        "dob": "2004-06-04",
+        "gender": "female",
+        "role": 1,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 18,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$yscQy0X1WVyqxV4o04WNdk$7/Ruqy4i3MBqj9pv69ksHYSMwDXjhUQiGjLffeihQx8=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Conan",
+        "last_name": "Gray",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T10:58:25Z",
+        "email": "conan@gray.com",
+        "image": "user_images/c6418fe4bde36c62.jpeg",
+        "dob": "2002-06-01",
+        "gender": "male",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 19,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$PFxGmSu72WJAM5nXnyrzXF$ri+pXpCJJhXy+a1jROAvGEZkeZssspjzJY2aNmN8xVw=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Prateek",
+        "last_name": "Kuhad",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T10:59:07Z",
+        "email": "Prateek@kuhad.com",
+        "image": "user_images/dc1ae922c59a48b5.jpeg",
+        "dob": "1999-04-24",
+        "gender": "male",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 20,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$TjMw5t4O1dPZ0KtyhyCrg9$fBpYA/UjnV0DMaec9YictzdJq29podealz7UJ0u+Q4g=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Ed",
+        "last_name": "Sheeran",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T11:03:48Z",
+        "email": "Ed@sheeran.com",
+        "image": "user_images/29d856a93bc1e8b9.jpg",
+        "dob": "2024-06-01",
+        "gender": "male",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 21,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$gdHPK99qarzdZgZw32Rc8N$OcoVs9JYY7uaxFBYC2ZEr0E8+64W6e3d9DJopf054n8=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Ariana",
+        "last_name": "Grande",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T11:04:34Z",
+        "email": "ariana@grande.com",
+        "image": "user_images/0d691d4185f402d9.jpg",
+        "dob": "2001-01-01",
+        "gender": "female",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 22,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$J9ccsCdBnvccrspAu0wsDF$8CSRBxFnjhb6B/yTFosGra/Z2HyGaZonteF1lJS2GkM=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Kanye",
+        "last_name": "West",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T11:05:06Z",
+        "email": "kanye@west.com",
+        "image": "user_images/a0bd3e4d23c0cd4a.jpeg",
+        "dob": "2024-06-01",
+        "gender": "male",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 23,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$MXhkYiOwDETkym2X0lM8Ml$U23yslpV5fYP60Z7hSmZDH7cluaNRm0iIunrk7dBius=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Jennifer",
+        "last_name": "Lopez",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T11:06:06Z",
+        "email": "Jennifer@lopez.com",
+        "image": "user_images/8827cb60f6151eb6.jpeg",
+        "dob": "1998-12-12",
+        "gender": "female",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 24,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$L7I79niouFTONQx8WlIIGc$kEfEOsQo6f8B5ZqR0pv8nXtIEQEE/kHVT1K8xapOulU=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "travis",
+        "last_name": "scott",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T11:06:45Z",
+        "email": "travis@scott.com",
+        "image": "user_images/2adbbe9f9579d392.jpeg",
+        "dob": "1998-10-10",
+        "gender": "male",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 25,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$ZeeApqYOUslrKVzeRq8kP1$cO4YxJPGUWdc3PqAfCzg/IBe2aUJ3vAzcGeCEw8HbdQ=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Miley",
+        "last_name": "Cyrus",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T11:09:33Z",
+        "email": "miley@cyrus.com",
+        "image": "user_images/0ba5ed16ff539cc8.jpg",
+        "dob": "1999-02-04",
+        "gender": "female",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 26,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$LljbnBQvXYAqEJOV2FEAcy$roLkm9k8A/DVZWsdV8HTQp2Dky8I+NZxuWVz/NmgzQU=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Lady",
+        "last_name": "Gaga",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T11:10:17Z",
+        "email": "Lady@gaga.com",
+        "image": "user_images/94b2578d93534f73.jpg",
+        "dob": "2001-01-01",
+        "gender": "female",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 27,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$ahr0ViYa0mNP36vJAgF2sh$56icgozLFy2u0hy5Fl67Q8CSWJFBc7z02qW2xEucjAM=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Kelly",
+        "last_name": "Clarkson",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T11:11:03Z",
+        "email": "kelly@clarkson.com",
+        "image": "user_images/0932028de4a6acd7.jpeg",
+        "dob": "1999-06-01",
+        "gender": "female",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 28,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$2UuN2Sl7lofb72QPcM7ZfF$rzF5drBXI8A0/aC9OLHzAPQcdbY3OYclMqV02BmRMb8=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Sabrina",
+        "last_name": "Carpenter",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T11:12:04Z",
+        "email": "sabrina@carpenter.com",
+        "image": "user_images/d4724d697799eb44.jpg",
+        "dob": "2000-02-24",
+        "gender": "female",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 29,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$uyLzeOKYf135NVtkBJ0m7K$mWB5J9r+oVEVhdNs8V/tUthvhEIO4NF2vhPgAA1XdjM=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Post",
+        "last_name": "Malone",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T11:12:27.842Z",
+        "email": "post@malone.com",
+        "image": "",
+        "dob": "2024-06-01",
+        "gender": "male",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 30,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$SzqmsXG49d4xdzFk58isMf$5V8MakxvdlwcnZxqMpYWcZQrZZeew0grZMvf3rLkRNI=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Cold",
+        "last_name": "Play",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T11:13:06Z",
+        "email": "cold@play.com",
+        "image": "user_images/7982a97ac87abf92.jpg",
+        "dob": "2024-06-01",
+        "gender": "male",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 31,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$lkBIzhdUEamiC9sYd58y3h$FQwG17qHTt072UPyu/QYTZfOrcYCF/U+/3M0WTPvEY0=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Tyla",
+        "last_name": "Tyla",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T11:13:58Z",
+        "email": "Tyla@tyla.com",
+        "image": "user_images/6c2273ea86d91e56.jpg",
+        "dob": "2000-05-27",
+        "gender": "female",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 32,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$X6CcCFkX8AHDEbeuNREPZo$xOFfIeAbGFip2iJveA6y7P0ohyWklm0JZy8W+R+5oQE=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Charlie",
+        "last_name": "Puth",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-09T11:14:36Z",
+        "email": "Charlie@puth.com",
+        "image": "user_images/82f11be48021df40.jpg",
+        "dob": "2024-06-01",
+        "gender": "male",
+        "role": 2,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 33,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$XaEy5A3mtfhMhZ5znjsDDH$B0LncLt04vPfyBxki3DxVkvlq29aeq8ZMFxxeAjWKDM=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Random",
+        "last_name": "User",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-10T06:47:47Z",
+        "email": "random@gmail.com",
+        "image": "user_images/129e6c76e2ac8fad.jpeg",
+        "dob": "2002-02-02",
+        "gender": "female",
+        "role": 1,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 34,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$QebjkUT7FUNVo7v6pZJXBX$DH0JHKm7lzse0LcPfwK2e6tdXtt3bY5qvLBJ2sff52Q=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Random",
+        "last_name": "User",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-10T06:49:46.846Z",
+        "email": "random1@gmail.com",
+        "image": "",
+        "dob": "2001-02-05",
+        "gender": "male",
+        "role": 1,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 35,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$n8A9JV3pJYlOmvDzjzJYTZ$4j2M6dIq2Pl7j9BB+5U+9YyH5vSnl/vP2jCRjhtMKu0=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Random2",
+        "last_name": "user",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-21T10:42:04.027Z",
+        "email": "random2@gmail.com",
+        "image": "",
+        "dob": "2001-02-22",
+        "gender": "other",
+        "role": 1,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 36,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$3RKsfQxTLTb58OijmCqB09$vWYzFBDFWwobN3sbrcYKqFQWbuzhWbKUq8vp7vXaGT8=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Shyam",
+        "last_name": "Thapa",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-21T15:26:36.095Z",
+        "email": "shyam@gmail.com",
+        "image": "/media/user_images/dceedef040a2e276.webp",
+        "dob": "2001-02-25",
+        "gender": "male",
+        "role": 1,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.customuser",
+    "pk": 37,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$YoOy36swsvh00FHifkQxjK$BvnS0gkGkHi8qYXTLdNyHSIIRFX4mWuKHLnKEIXTaV4=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Ram",
+        "last_name": "Kc",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-06-21T15:27:25.060Z",
+        "email": "ram@gmail.com",
+        "image": "user_images/a3749835d0f158e9.jpeg",
+        "dob": "2000-02-29",
+        "gender": "male",
+        "role": 1,
+        "is_deleted": false,
+        "deleted_at": null,
+        "details": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "Cusers.follow",
+    "pk": 3,
+    "fields": {
+        "followed_by": 33,
+        "followed_to": 15,
+        "created_at": "2024-06-13T06:32:26.083Z"
+    }
+},
+{
+    "model": "Cusers.follow",
+    "pk": 4,
+    "fields": {
+        "followed_by": 33,
+        "followed_to": 16,
+        "created_at": "2024-06-13T12:02:05.658Z"
+    }
+},
+{
+    "model": "Cusers.follow",
+    "pk": 6,
+    "fields": {
+        "followed_by": 35,
+        "followed_to": 34,
+        "created_at": "2024-06-21T10:43:31.631Z"
+    }
+},
+{
+    "model": "Cusers.follow",
+    "pk": 7,
+    "fields": {
+        "followed_by": 33,
+        "followed_to": 35,
+        "created_at": "2024-06-21T10:44:24.829Z"
+    }
+},
+{
+    "model": "Cusers.follow",
+    "pk": 8,
+    "fields": {
+        "followed_by": 35,
+        "followed_to": 33,
+        "created_at": "2024-06-21T10:49:35.972Z"
+    }
+},
+{
+    "model": "Cusers.follow",
+    "pk": 9,
+    "fields": {
+        "followed_by": 36,
+        "followed_to": 37,
+        "created_at": "2024-06-21T15:28:43.905Z"
+    }
+},
+{
+    "model": "Cusers.follow",
+    "pk": 10,
+    "fields": {
+        "followed_by": 37,
+        "followed_to": 36,
+        "created_at": "2024-06-21T15:28:56.951Z"
+    }
+}
+]

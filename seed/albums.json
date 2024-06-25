@@ -1,0 +1,411 @@
+[
+{
+    "model": "album.album",
+    "pk": 1,
+    "fields": {
+        "title": "Fine Line",
+        "artist": 2,
+        "released_date": "2024-06-06",
+        "image": "album_images/d703fce1590bf16e.png",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            1,
+            2
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 2,
+    "fields": {
+        "title": "Lovers",
+        "artist": 3,
+        "released_date": "2024-06-06",
+        "image": "/media/album_images/daf4e6c38541ea38.jpg",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            18
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 3,
+    "fields": {
+        "title": "Rare",
+        "artist": 5,
+        "released_date": "2024-06-06",
+        "image": "album_images/fb2b7298a733ed09.jpeg",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            5,
+            6,
+            7
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 4,
+    "fields": {
+        "title": "Nobody's Listening",
+        "artist": 4,
+        "released_date": "2024-06-06",
+        "image": "/media/media/media/media/album_images/294231b7f6fb5be4.jpg",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            10
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 5,
+    "fields": {
+        "title": "Mind of Mine",
+        "artist": 4,
+        "released_date": "2024-06-06",
+        "image": "/media/album_images/de55f9045f89c897.png",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            11,
+            12,
+            13
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 6,
+    "fields": {
+        "title": "Happier Than Ever",
+        "artist": 8,
+        "released_date": "2024-06-06",
+        "image": "album_images/e032ada08a649eab.jpg",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            14,
+            15
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 8,
+    "fields": {
+        "title": "Folklore",
+        "artist": 3,
+        "released_date": "2023-10-20",
+        "image": "album_images/5b33a09c0df5e75c.png",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            20,
+            22,
+            23,
+            24,
+            26
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 9,
+    "fields": {
+        "title": "Testings ook",
+        "artist": 3,
+        "released_date": "2024-06-01",
+        "image": "/media/media/album_images/7619d7c5f7bea711.jpg",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": []
+    }
+},
+{
+    "model": "album.album",
+    "pk": 10,
+    "fields": {
+        "title": "testing",
+        "artist": 3,
+        "released_date": "2024-06-02",
+        "image": "album_images/5989ac12c7be1a8a.jpg",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": []
+    }
+},
+{
+    "model": "album.album",
+    "pk": 11,
+    "fields": {
+        "title": "sijan",
+        "artist": 3,
+        "released_date": "2024-06-01",
+        "image": "album_images/526e46c07e828424.jpeg",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            41
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 12,
+    "fields": {
+        "title": "Nine Track Mind",
+        "artist": 32,
+        "released_date": "2014-05-03",
+        "image": "album_images/d36fd9bc9c135359.jpeg",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            46,
+            47,
+            48
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 13,
+    "fields": {
+        "title": "See you Again",
+        "artist": 32,
+        "released_date": "2012-02-01",
+        "image": "album_images/277f7c6cbc5179e8.jpeg",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            42
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 14,
+    "fields": {
+        "title": "Tyla",
+        "artist": 31,
+        "released_date": "2004-01-01",
+        "image": "album_images/4326c491923ebd83.jpg",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            56,
+            57,
+            59
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 15,
+    "fields": {
+        "title": "Hymn For the Weekend",
+        "artist": 30,
+        "released_date": "2012-02-02",
+        "image": "album_images/45c830bc07f3e551.jpeg",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            62
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 16,
+    "fields": {
+        "title": "Parachutes",
+        "artist": 30,
+        "released_date": "2012-02-03",
+        "image": "album_images/220d890fe4b3417d.jpeg",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            64
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 17,
+    "fields": {
+        "title": "Stronger",
+        "artist": 27,
+        "released_date": "2010-01-01",
+        "image": "album_images/5322d638b6ce30fe.jpeg",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            74
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 18,
+    "fields": {
+        "title": "Because of You",
+        "artist": 27,
+        "released_date": "2001-01-01",
+        "image": "album_images/bc2b06006f7411b4.jpeg",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            76
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 19,
+    "fields": {
+        "title": "The Fame",
+        "artist": 26,
+        "released_date": "2008-01-01",
+        "image": "album_images/e161e1bb358f6672.jpeg",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            79,
+            80,
+            81,
+            83
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 20,
+    "fields": {
+        "title": "Joanne",
+        "artist": 26,
+        "released_date": "2016-03-04",
+        "image": "album_images/1042e88432ce369e.jpeg",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            85,
+            86,
+            87
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 21,
+    "fields": {
+        "title": "X",
+        "artist": 20,
+        "released_date": "2014-06-23",
+        "image": "album_images/64543b7488e318e6.webp",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            50,
+            51,
+            52,
+            53,
+            54,
+            55
+        ]
+    }
+},
+{
+    "model": "album.album",
+    "pk": 22,
+    "fields": {
+        "title": "Thank U, Next",
+        "artist": 21,
+        "released_date": "2019-02-08",
+        "image": "",
+        "is_deleted": false,
+        "deleted_at": null,
+        "track": [
+            60,
+            61,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99
+        ]
+    }
+},
+{
+    "model": "album.favouritealbum",
+    "pk": 21,
+    "fields": {
+        "user": 33,
+        "created_at": "2024-06-11T09:33:41.154Z",
+        "deleted_at": null,
+        "is_deleted": false,
+        "album": [
+            3,
+            6
+        ]
+    }
+},
+{
+    "model": "album.favouritealbum",
+    "pk": 22,
+    "fields": {
+        "user": 3,
+        "created_at": "2024-06-11T15:06:41.643Z",
+        "deleted_at": null,
+        "is_deleted": false,
+        "album": [
+            2
+        ]
+    }
+},
+{
+    "model": "album.favouritealbum",
+    "pk": 23,
+    "fields": {
+        "user": 4,
+        "created_at": "2024-06-12T06:21:13.932Z",
+        "deleted_at": null,
+        "is_deleted": false,
+        "album": [
+            3
+        ]
+    }
+},
+{
+    "model": "album.favouritealbum",
+    "pk": 24,
+    "fields": {
+        "user": 35,
+        "created_at": "2024-06-21T10:48:32.529Z",
+        "deleted_at": null,
+        "is_deleted": false,
+        "album": [
+            5,
+            8
+        ]
+    }
+},
+{
+    "model": "album.favouritealbum",
+    "pk": 25,
+    "fields": {
+        "user": 36,
+        "created_at": "2024-06-21T15:30:29.064Z",
+        "deleted_at": null,
+        "is_deleted": false,
+        "album": [
+            3
+        ]
+    }
+}
+]
