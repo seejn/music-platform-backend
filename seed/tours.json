@@ -1,0 +1,86 @@
+[
+{
+    "model": "tour.tour",
+    "pk": 3,
+    "fields": {
+        "title": "aabb",
+        "artist": 4,
+        "date": "2024-06-13",
+        "location": "a",
+        "time": "23:36:00",
+        "venue": "aaa",
+        "is_deleted": false,
+        "deleted_at": null
+    }
+},
+{
+    "model": "tour.tour",
+    "pk": 11,
+    "fields": {
+        "title": "Cold Tour",
+        "artist": 19,
+        "date": "2024-06-27",
+        "location": "Kathmandu",
+        "time": "14:00:00",
+        "venue": "Super club",
+        "is_deleted": false,
+        "deleted_at": null
+    }
+},
+{
+    "model": "tour.tour",
+    "pk": 13,
+    "fields": {
+        "title": "Gray",
+        "artist": 18,
+        "date": "2024-06-27",
+        "location": "Kathmandu",
+        "time": "12:00:00",
+        "venue": "Sofi Stadiu",
+        "is_deleted": false,
+        "deleted_at": null
+    }
+},
+{
+    "model": "tour.tour",
+    "pk": 14,
+    "fields": {
+        "title": "Thank you ",
+        "artist": 21,
+        "date": "2024-06-21",
+        "location": "Kathmandu",
+        "time": "11:50:00",
+        "venue": "Tudikhel",
+        "is_deleted": false,
+        "deleted_at": null
+    }
+},
+{
+    "model": "tour.tour",
+    "pk": 15,
+    "fields": {
+        "title": "Astroworld",
+        "artist": 24,
+        "date": "2024-06-25",
+        "location": "Kathmandu",
+        "time": "22:00:00",
+        "venue": "Super club",
+        "is_deleted": false,
+        "deleted_at": null
+    }
+},
+{
+    "model": "tour.tour",
+    "pk": 16,
+    "fields": {
+        "title": "Expresso",
+        "artist": 28,
+        "date": "2024-06-29",
+        "location": "Kathmandu",
+        "time": "15:00:00",
+        "venue": "LOD",
+        "is_deleted": false,
+        "deleted_at": null
+    }
+}
+]
