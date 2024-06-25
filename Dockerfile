@@ -6,10 +6,7 @@ ENV DJANGO_ENV=${DJANGO_ENV} \
   PYTHONHASHSEED=random \
   PIP_NO_CACHE_DIR=off \
   PIP_DISABLE_PIP_VERSION_CHECK=on \
-  PIP_DEFAULT_TIMEOUT=100 \
-  POETRY_VERSION=1.0.5 \
-  POETRY_VIRTUALENVS_CREATE=false \
-  POETRY_CACHE_DIR='/var/cache/pypoetry'
+  PIP_DEFAULT_TIMEOUT=100
 
 RUN apt-get update \
   && apt-get install --no-install-recommends -y \
@@ -30,9 +27,9 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-RUN python manage.py migrate
+# RUN python manage.py migrate
 
-RUN python manage.py loaddata seed/* 
+# RUN python manage.py loaddata seed/* 
 
 RUN python manage.py collectstatic --noinput
 
