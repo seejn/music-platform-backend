@@ -27,11 +27,11 @@ SECRET_KEY = "django-insecure-x9b5!++4hzaf$ei77ciu+zg8lz$7yet4atfxnk2u3$@8&1y7z&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS')
+ALLOWED_HOSTS = [os.getenv('ALLOWED_HOSTS')]
 
 # CORS_ALLOW_ALL_ORIGINS = 
 
-CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS')
+CORS_ALLOWED_ORIGINS = [os.getenv('CORS_ALLOWED_ORIGINS')]
 
 AUTH_USER_MODEL = 'Cusers.CustomUser'
 
