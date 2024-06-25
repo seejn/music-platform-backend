@@ -1,0 +1,1632 @@
+[
+{
+    "model": "track.music",
+    "pk": 1,
+    "fields": {
+        "title": "Golden",
+        "duration": "3:28",
+        "artist": 2,
+        "released_date": "2024-05-07",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/314c5feab8bb4312.png",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 2,
+    "fields": {
+        "title": "Adore you",
+        "duration": "3:20",
+        "artist": 2,
+        "released_date": "2024-06-06",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/76f34d2fa009cb79.png",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 5,
+    "fields": {
+        "title": "Rare",
+        "duration": "3:15",
+        "artist": 5,
+        "released_date": "2024-06-06",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/bfafa2667c6d79d1.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 6,
+    "fields": {
+        "title": "Ring",
+        "duration": "2:50",
+        "artist": 5,
+        "released_date": "2024-06-06",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/77e4595e05412ddb.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 7,
+    "fields": {
+        "title": "Kinda Crazy",
+        "duration": "3:15",
+        "artist": 5,
+        "released_date": "2024-06-06",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/337f7ac92682c0eb.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 10,
+    "fields": {
+        "title": "Calamity",
+        "duration": "2:31",
+        "artist": 4,
+        "released_date": "2024-06-06",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "/media/media/%257B%257D",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 11,
+    "fields": {
+        "title": "Mind of Mind",
+        "duration": "3:45",
+        "artist": 4,
+        "released_date": "2024-06-06",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "{}",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 12,
+    "fields": {
+        "title": "Its You",
+        "duration": "3:20",
+        "artist": 4,
+        "released_date": "2024-06-04",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "/media/media/media/track_images/0e95086d90e642f6.png",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 13,
+    "fields": {
+        "title": "befour",
+        "duration": "3:15",
+        "artist": 4,
+        "released_date": "2024-06-06",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/03db775ec738c891.png",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 14,
+    "fields": {
+        "title": "Happier Than Ever",
+        "duration": "3:45",
+        "artist": 8,
+        "released_date": "2024-06-06",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/3ac856b29892d96b.jpg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 15,
+    "fields": {
+        "title": "Oxytoxin",
+        "duration": "3:20",
+        "artist": 8,
+        "released_date": "2024-06-06",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/655d1d8f54569ae7.jpg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 18,
+    "fields": {
+        "title": "Loverss",
+        "duration": "5:45",
+        "artist": 3,
+        "released_date": "2024-05-10",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "/media/media/track_images/c0a5a2119d4094e6.jpg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 20,
+    "fields": {
+        "title": "the 1",
+        "duration": "2:15",
+        "artist": 3,
+        "released_date": "2024-02-29",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/8e343cdd9cae0dca.png",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 22,
+    "fields": {
+        "title": "exile",
+        "duration": "4:15",
+        "artist": 3,
+        "released_date": "2024-06-01",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/c3a8f8c84856648b.png",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 23,
+    "fields": {
+        "title": "seven",
+        "duration": "2:15",
+        "artist": 3,
+        "released_date": "2024-06-01",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/78a4a4a7738c6e56.png",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 24,
+    "fields": {
+        "title": "peace ",
+        "duration": "4:41",
+        "artist": 3,
+        "released_date": "2024-06-01",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/ecf6e873eea50332.png",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 26,
+    "fields": {
+        "title": "betty",
+        "duration": "3:15",
+        "artist": 3,
+        "released_date": "2024-06-05",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/34c4d4cad629cc5c.png",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 35,
+    "fields": {
+        "title": "hi ",
+        "duration": "3:15",
+        "artist": 3,
+        "released_date": "2024-06-01",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/0bf05023109ad70a.jpg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 41,
+    "fields": {
+        "title": "an",
+        "duration": "10:00",
+        "artist": 3,
+        "released_date": "2024-06-01",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/545e56792226e25f.jpg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 42,
+    "fields": {
+        "title": "See you Again",
+        "duration": "3:15",
+        "artist": 32,
+        "released_date": "2012-01-01",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/e7522e7dcceb9457.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 43,
+    "fields": {
+        "title": "Kasoor",
+        "duration": "3:50",
+        "artist": 19,
+        "released_date": "2013-04-23",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "genre": 4
+    }
+},
+{
+    "model": "track.music",
+    "pk": 44,
+    "fields": {
+        "title": "cold/mess",
+        "duration": "3:55",
+        "artist": 19,
+        "released_date": "2018-06-13",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/966ec89d39694f11.webp",
+        "genre": 4
+    }
+},
+{
+    "model": "track.music",
+    "pk": 45,
+    "fields": {
+        "title": "Kho Gaya Hum Kaha",
+        "duration": "3:15",
+        "artist": 19,
+        "released_date": "2016-03-18",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/0755f7b58022c783.webp",
+        "genre": 4
+    }
+},
+{
+    "model": "track.music",
+    "pk": 46,
+    "fields": {
+        "title": "One Call Away",
+        "duration": "3:15",
+        "artist": 32,
+        "released_date": "2020-02-02",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/5b5c47493823843b.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 47,
+    "fields": {
+        "title": "We Don't Talk Anymore",
+        "duration": "4:30",
+        "artist": 32,
+        "released_date": "2013-02-11",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/d56548302b607ff8.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 48,
+    "fields": {
+        "title": "Up All Night",
+        "duration": "3:45",
+        "artist": 32,
+        "released_date": "2013-02-02",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/a57169cb6f136c80.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 49,
+    "fields": {
+        "title": "Yeh Pal",
+        "duration": "3:15",
+        "artist": 19,
+        "released_date": "2017-04-10",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/3af86c7421b4b199.webp",
+        "genre": 4
+    }
+},
+{
+    "model": "track.music",
+    "pk": 50,
+    "fields": {
+        "title": "Shape of You",
+        "duration": "3:50",
+        "artist": 20,
+        "released_date": "2017-01-06",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/4e6968045d581ee6.webp",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 51,
+    "fields": {
+        "title": "Photograph",
+        "duration": "4:18",
+        "artist": 20,
+        "released_date": "2015-05-11",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/b95cdb49ce66aa59.webp",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 52,
+    "fields": {
+        "title": "Thinking Out Loud",
+        "duration": "4:40",
+        "artist": 20,
+        "released_date": "2014-11-24",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/fe7bb5eda0869e0b.webp",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 53,
+    "fields": {
+        "title": "One",
+        "duration": "4:12",
+        "artist": 20,
+        "released_date": "2014-05-16",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/f6dc1371b245e0e1.webp",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 54,
+    "fields": {
+        "title": "I'm a Mess",
+        "duration": "4:00",
+        "artist": 20,
+        "released_date": "2014-06-20",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/7d42cfad8c8fa11c.webp",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 55,
+    "fields": {
+        "title": "Don't",
+        "duration": "3:40",
+        "artist": 20,
+        "released_date": "2014-08-24",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/038d908f1d12caaa.webp",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 56,
+    "fields": {
+        "title": "Truth and Dare",
+        "duration": "3:15",
+        "artist": 31,
+        "released_date": "2024-01-09",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/d71dc55e409472b0.jpg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 57,
+    "fields": {
+        "title": "Water",
+        "duration": "3:15",
+        "artist": 31,
+        "released_date": "2024-01-09",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/3582cd74589ec4af.jpg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 58,
+    "fields": {
+        "title": "Runaway",
+        "duration": "3:25",
+        "artist": 20,
+        "released_date": "2014-06-20",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/6976962334f3600b.webp",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 59,
+    "fields": {
+        "title": "Art",
+        "duration": "4:20",
+        "artist": 31,
+        "released_date": "2024-01-09",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/3a0e0d85d8b63fce.jpg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 60,
+    "fields": {
+        "title": "Thank U, Next",
+        "duration": "3:30",
+        "artist": 21,
+        "released_date": "2018-11-03",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/dd669a758834abbc.webp",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 61,
+    "fields": {
+        "title": "7 rings",
+        "duration": "2:58",
+        "artist": 21,
+        "released_date": "2019-01-18",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/e903ef4047650924.webp",
+        "genre": 6
+    }
+},
+{
+    "model": "track.music",
+    "pk": 62,
+    "fields": {
+        "title": "Hymn for the Weekend",
+        "duration": "3:45",
+        "artist": 30,
+        "released_date": "2013-02-02",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/d9ce56ee35ab79a1.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 63,
+    "fields": {
+        "title": "Into You",
+        "duration": "4:04",
+        "artist": 21,
+        "released_date": "2016-05-06",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/5e68e062ea3e5461.webp",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 64,
+    "fields": {
+        "title": "Parachutes",
+        "duration": "3:15",
+        "artist": 30,
+        "released_date": "2012-02-02",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/91e3383a08aa3f3a.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 65,
+    "fields": {
+        "title": "Side to Side",
+        "duration": "3:46",
+        "artist": 21,
+        "released_date": "2016-08-30",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/45429a80b4db1587.webp",
+        "genre": 6
+    }
+},
+{
+    "model": "track.music",
+    "pk": 66,
+    "fields": {
+        "title": "Stronger",
+        "duration": "5:11",
+        "artist": 22,
+        "released_date": "2007-07-31",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/d59c7670c9b71834.webp",
+        "genre": 7
+    }
+},
+{
+    "model": "track.music",
+    "pk": 67,
+    "fields": {
+        "title": "Sunflower",
+        "duration": "3:45",
+        "artist": 29,
+        "released_date": "2019-02-02",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/4852b7f333d93d5c.png",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 68,
+    "fields": {
+        "title": "Gold Digger",
+        "duration": "3:28",
+        "artist": 22,
+        "released_date": "2005-07-05",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/92fa6fa90e5e3a27.webp",
+        "genre": 7
+    }
+},
+{
+    "model": "track.music",
+    "pk": 69,
+    "fields": {
+        "title": "Congratulations",
+        "duration": "4:20",
+        "artist": 29,
+        "released_date": "2019-09-09",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/76cd776a9ef5e191.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 70,
+    "fields": {
+        "title": "Jesus Walks",
+        "duration": "3:13",
+        "artist": 22,
+        "released_date": "2004-05-25",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/a013b23528230f19.webp",
+        "genre": 7
+    }
+},
+{
+    "model": "track.music",
+    "pk": 71,
+    "fields": {
+        "title": "Espresso",
+        "duration": "3:20",
+        "artist": 28,
+        "released_date": "2024-02-02",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/3b9fd41bc3efbf3a.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 72,
+    "fields": {
+        "title": "Nonsense",
+        "duration": "3:15",
+        "artist": 28,
+        "released_date": "0024-01-02",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/f6721654e8bc3d13.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 73,
+    "fields": {
+        "title": "Sicko Mode",
+        "duration": "5:12",
+        "artist": 24,
+        "released_date": "2018-08-17",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/1356adf1f4abb883.webp",
+        "genre": 7
+    }
+},
+{
+    "model": "track.music",
+    "pk": 74,
+    "fields": {
+        "title": "Stronger",
+        "duration": "4:25",
+        "artist": 27,
+        "released_date": "2010-06-05",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/4e5fea3f778b74dd.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 75,
+    "fields": {
+        "title": "Goosebumps",
+        "duration": "4:00",
+        "artist": 24,
+        "released_date": "2016-12-13",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/c57d55f028428d94.jpg",
+        "genre": 7
+    }
+},
+{
+    "model": "track.music",
+    "pk": 76,
+    "fields": {
+        "title": "Because of You",
+        "duration": "3:15",
+        "artist": 27,
+        "released_date": "2010-01-01",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/179a39fb3fe066d7.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 77,
+    "fields": {
+        "title": "Highest in the Room",
+        "duration": "2:55",
+        "artist": 24,
+        "released_date": "2019-10-04",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "genre": 7
+    }
+},
+{
+    "model": "track.music",
+    "pk": 78,
+    "fields": {
+        "title": "Stargazing",
+        "duration": "4:30",
+        "artist": 24,
+        "released_date": "2018-08-03",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/68656932782de20f.webp",
+        "genre": 7
+    }
+},
+{
+    "model": "track.music",
+    "pk": 79,
+    "fields": {
+        "title": "Just Dance",
+        "duration": "4:10",
+        "artist": 26,
+        "released_date": "2008-01-01",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/82c4d1e85cf031dc.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 80,
+    "fields": {
+        "title": "Poker Face",
+        "duration": "5:37",
+        "artist": 26,
+        "released_date": "2008-01-01",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/0c3526ea99fd6f9f.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 81,
+    "fields": {
+        "title": "Papparazzi",
+        "duration": "4:15",
+        "artist": 26,
+        "released_date": "2008-02-01",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/d9653f1b373b9eb8.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 82,
+    "fields": {
+        "title": "On the Floor",
+        "duration": "3:50",
+        "artist": 23,
+        "released_date": "2011-02-08",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/edf4295fe3a6076d.jpeg",
+        "genre": 6
+    }
+},
+{
+    "model": "track.music",
+    "pk": 83,
+    "fields": {
+        "title": "Money Honey",
+        "duration": "4:10",
+        "artist": 26,
+        "released_date": "2008-01-01",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/9214b4f52bc1137a.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 84,
+    "fields": {
+        "title": "Ain't Your Mama",
+        "duration": "3:40",
+        "artist": 23,
+        "released_date": "2016-04-07",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/e324f717d7ed3f57.webp",
+        "genre": 6
+    }
+},
+{
+    "model": "track.music",
+    "pk": 85,
+    "fields": {
+        "title": "Joanne",
+        "duration": "4:15",
+        "artist": 26,
+        "released_date": "2016-03-03",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/3d629e9f58525af5.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 86,
+    "fields": {
+        "title": "Diamond Heart",
+        "duration": "3:15",
+        "artist": 26,
+        "released_date": "2016-02-02",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/05ab5c83fd5105d7.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 87,
+    "fields": {
+        "title": "Perfect Illusion",
+        "duration": "4:10",
+        "artist": 26,
+        "released_date": "2016-03-03",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "track_images/faf6f8209dd029a6.jpeg",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 88,
+    "fields": {
+        "title": "Get Right",
+        "duration": "3:45",
+        "artist": 23,
+        "released_date": "2004-11-30",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "genre": 5
+    }
+},
+{
+    "model": "track.music",
+    "pk": 89,
+    "fields": {
+        "title": "Dance again",
+        "duration": "4:00",
+        "artist": 23,
+        "released_date": "2012-04-02",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "genre": 6
+    }
+},
+{
+    "model": "track.music",
+    "pk": 90,
+    "fields": {
+        "title": "Party in the USA",
+        "duration": "3:50",
+        "artist": 25,
+        "released_date": "2009-08-11",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 91,
+    "fields": {
+        "title": "Wrecking Ball",
+        "duration": "3:40",
+        "artist": 25,
+        "released_date": "2013-08-05",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 92,
+    "fields": {
+        "title": "Malibu",
+        "duration": "3:50",
+        "artist": 25,
+        "released_date": "2017-05-11",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 93,
+    "fields": {
+        "title": "Nothing Breaks Like a Heart",
+        "duration": "3:40",
+        "artist": 25,
+        "released_date": "2018-11-29",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 94,
+    "fields": {
+        "title": "Needy",
+        "duration": "2:50",
+        "artist": 21,
+        "released_date": "2019-02-03",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 95,
+    "fields": {
+        "title": "NASA",
+        "duration": "3:02",
+        "artist": 21,
+        "released_date": "2019-02-08",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "genre": 1
+    }
+},
+{
+    "model": "track.music",
+    "pk": 96,
+    "fields": {
+        "title": "Bloodline",
+        "duration": "3:30",
+        "artist": 21,
+        "released_date": "2019-02-08",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "genre": 6
+    }
+},
+{
+    "model": "track.music",
+    "pk": 97,
+    "fields": {
+        "title": "Make up",
+        "duration": "2:20",
+        "artist": 21,
+        "released_date": "2019-02-08",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "genre": 6
+    }
+},
+{
+    "model": "track.music",
+    "pk": 98,
+    "fields": {
+        "title": "ghostin",
+        "duration": "4:30",
+        "artist": 21,
+        "released_date": "2019-02-08",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "genre": 6
+    }
+},
+{
+    "model": "track.music",
+    "pk": 99,
+    "fields": {
+        "title": "Fake Smile",
+        "duration": "3:30",
+        "artist": 21,
+        "released_date": "2019-02-08",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "genre": 5
+    }
+},
+{
+    "model": "track.playlist",
+    "pk": 1,
+    "fields": {
+        "title": "1d",
+        "user": 9,
+        "created_at": "2024-06-06T15:53:11Z",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "playlist_images/6dcf55822813dd2a.jpeg",
+        "playlist_type": "1",
+        "track": [
+            1,
+            2,
+            5,
+            6,
+            7
+        ]
+    }
+},
+{
+    "model": "track.playlist",
+    "pk": 2,
+    "fields": {
+        "title": "Mood",
+        "user": 3,
+        "created_at": "2024-06-09T07:37:44.759Z",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "playlist_images/7b9f5dac7fc26a4e.webp",
+        "playlist_type": "1",
+        "track": [
+            1,
+            2,
+            7,
+            11
+        ]
+    }
+},
+{
+    "model": "track.playlist",
+    "pk": 3,
+    "fields": {
+        "title": "My Playlist",
+        "user": 26,
+        "created_at": "2024-06-09T12:36:50.818Z",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "playlist_type": "1",
+        "track": []
+    }
+},
+{
+    "model": "track.playlist",
+    "pk": 4,
+    "fields": {
+        "title": "Study Mix",
+        "user": 14,
+        "created_at": "2024-06-09T12:46:54Z",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "playlist_images/67c7357a69e7f749.jpg",
+        "playlist_type": "1",
+        "track": [
+            5,
+            6,
+            7,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            18,
+            20,
+            22,
+            23,
+            24,
+            26,
+            35,
+            41,
+            42
+        ]
+    }
+},
+{
+    "model": "track.playlist",
+    "pk": 5,
+    "fields": {
+        "title": "Hindi Mix",
+        "user": 14,
+        "created_at": "2024-06-09T12:49:26Z",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "playlist_images/ea0045dbafca59be.webp",
+        "playlist_type": "1",
+        "track": [
+            43,
+            44,
+            45
+        ]
+    }
+},
+{
+    "model": "track.playlist",
+    "pk": 6,
+    "fields": {
+        "title": "Mood",
+        "user": 14,
+        "created_at": "2024-06-09T12:50:31Z",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "playlist_images/34634fa23062fc99.jpeg",
+        "playlist_type": "1",
+        "track": [
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77
+        ]
+    }
+},
+{
+    "model": "track.playlist",
+    "pk": 7,
+    "fields": {
+        "title": "Mood",
+        "user": 34,
+        "created_at": "2024-06-10T06:50:08.528Z",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "playlist_type": "0",
+        "track": [
+            7,
+            45,
+            47,
+            52,
+            62,
+            70
+        ]
+    }
+},
+{
+    "model": "track.playlist",
+    "pk": 8,
+    "fields": {
+        "title": "My Playlist",
+        "user": 3,
+        "created_at": "2024-06-10T09:11:25.518Z",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "playlist_type": "0",
+        "track": [
+            1,
+            2,
+            7,
+            10,
+            11,
+            12,
+            15,
+            26,
+            45,
+            52
+        ]
+    }
+},
+{
+    "model": "track.playlist",
+    "pk": 9,
+    "fields": {
+        "title": "Dhun",
+        "user": 33,
+        "created_at": "2024-06-11T09:08:34.842Z",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "playlist_images/25663158ddbc7ff2.jpg",
+        "playlist_type": "0",
+        "track": [
+            1,
+            2,
+            6,
+            7,
+            12,
+            18,
+            23,
+            42,
+            43,
+            50
+        ]
+    }
+},
+{
+    "model": "track.playlist",
+    "pk": 12,
+    "fields": {
+        "title": "My Playlist",
+        "user": 33,
+        "created_at": "2024-06-13T06:32:34.952Z",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "playlist_type": "1",
+        "track": [
+            12,
+            18,
+            23,
+            43
+        ]
+    }
+},
+{
+    "model": "track.playlist",
+    "pk": 13,
+    "fields": {
+        "title": "My Playlist",
+        "user": 3,
+        "created_at": "2024-06-13T07:29:03.178Z",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "playlist_type": "1",
+        "track": []
+    }
+},
+{
+    "model": "track.playlist",
+    "pk": 14,
+    "fields": {
+        "title": "Night Changes",
+        "user": 4,
+        "created_at": "2024-06-18T06:44:33.734Z",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "playlist_images/05559a17c6ab0860.jpeg",
+        "playlist_type": "1",
+        "track": []
+    }
+},
+{
+    "model": "track.playlist",
+    "pk": 15,
+    "fields": {
+        "title": "Mix",
+        "user": 35,
+        "created_at": "2024-06-21T10:43:39.910Z",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "playlist_images/377a991e8f7fb57d.webp",
+        "playlist_type": "1",
+        "track": []
+    }
+},
+{
+    "model": "track.playlist",
+    "pk": 16,
+    "fields": {
+        "title": "Mix",
+        "user": 36,
+        "created_at": "2024-06-21T15:29:06.255Z",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "playlist_type": "0",
+        "track": []
+    }
+},
+{
+    "model": "track.playlist",
+    "pk": 17,
+    "fields": {
+        "title": "mood",
+        "user": 37,
+        "created_at": "2024-06-21T15:31:28.543Z",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "playlist_images/94eb2e6f0642c850.webp",
+        "playlist_type": "1",
+        "track": [
+            2,
+            5,
+            10
+        ]
+    }
+},
+{
+    "model": "track.playlist",
+    "pk": 18,
+    "fields": {
+        "title": "MMM",
+        "user": 4,
+        "created_at": "2024-06-24T04:33:31.990Z",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "",
+        "playlist_type": "0",
+        "track": [
+            2
+        ]
+    }
+},
+{
+    "model": "track.playlist",
+    "pk": 19,
+    "fields": {
+        "title": "Study mix",
+        "user": 4,
+        "created_at": "2024-06-24T06:59:07.003Z",
+        "is_deleted": false,
+        "deleted_at": null,
+        "image": "playlist_images/825d0e1b40b105e3.jpg",
+        "playlist_type": "0",
+        "track": [
+            51
+        ]
+    }
+},
+{
+    "model": "track.favouriteplaylist",
+    "pk": 1,
+    "fields": {
+        "user": 34,
+        "created_at": "2024-06-10T06:53:26.607Z",
+        "deleted_at": null,
+        "is_deleted": false,
+        "playlist": [
+            7
+        ]
+    }
+},
+{
+    "model": "track.favouriteplaylist",
+    "pk": 2,
+    "fields": {
+        "user": 3,
+        "created_at": "2024-06-11T05:22:34.914Z",
+        "deleted_at": null,
+        "is_deleted": false,
+        "playlist": [
+            8
+        ]
+    }
+},
+{
+    "model": "track.favouriteplaylist",
+    "pk": 3,
+    "fields": {
+        "user": 33,
+        "created_at": "2024-06-11T09:13:10.580Z",
+        "deleted_at": null,
+        "is_deleted": false,
+        "playlist": []
+    }
+},
+{
+    "model": "track.favouriteplaylist",
+    "pk": 4,
+    "fields": {
+        "user": 4,
+        "created_at": "2024-06-12T10:44:47.891Z",
+        "deleted_at": null,
+        "is_deleted": false,
+        "playlist": []
+    }
+},
+{
+    "model": "track.favouriteplaylist",
+    "pk": 5,
+    "fields": {
+        "user": 35,
+        "created_at": "2024-06-21T10:47:38.185Z",
+        "deleted_at": null,
+        "is_deleted": false,
+        "playlist": [
+            15
+        ]
+    }
+},
+{
+    "model": "track.favouriteplaylist",
+    "pk": 6,
+    "fields": {
+        "user": 36,
+        "created_at": "2024-06-21T15:29:36.130Z",
+        "deleted_at": null,
+        "is_deleted": false,
+        "playlist": [
+            16
+        ]
+    }
+},
+{
+    "model": "track.favouriteplaylist",
+    "pk": 7,
+    "fields": {
+        "user": 37,
+        "created_at": "2024-06-21T15:31:45.675Z",
+        "deleted_at": null,
+        "is_deleted": false,
+        "playlist": []
+    }
+},
+{
+    "model": "track.sharedplaylist",
+    "pk": 1,
+    "fields": {
+        "playlist": 9,
+        "shared_by": 33,
+        "shared_with": 10
+    }
+},
+{
+    "model": "track.sharedplaylist",
+    "pk": 2,
+    "fields": {
+        "playlist": 9,
+        "shared_by": 33,
+        "shared_with": 15
+    }
+},
+{
+    "model": "track.sharedplaylist",
+    "pk": 3,
+    "fields": {
+        "playlist": 12,
+        "shared_by": 33,
+        "shared_with": 15
+    }
+},
+{
+    "model": "track.sharedplaylist",
+    "pk": 4,
+    "fields": {
+        "playlist": 12,
+        "shared_by": 33,
+        "shared_with": 15
+    }
+},
+{
+    "model": "track.sharedplaylist",
+    "pk": 5,
+    "fields": {
+        "playlist": 9,
+        "shared_by": 33,
+        "shared_with": 15
+    }
+},
+{
+    "model": "track.sharedplaylist",
+    "pk": 6,
+    "fields": {
+        "playlist": 9,
+        "shared_by": 33,
+        "shared_with": 15
+    }
+},
+{
+    "model": "track.sharedplaylist",
+    "pk": 7,
+    "fields": {
+        "playlist": 12,
+        "shared_by": 33,
+        "shared_with": 15
+    }
+},
+{
+    "model": "track.sharedplaylist",
+    "pk": 8,
+    "fields": {
+        "playlist": 12,
+        "shared_by": 33,
+        "shared_with": 16
+    }
+},
+{
+    "model": "track.sharedplaylist",
+    "pk": 9,
+    "fields": {
+        "playlist": 15,
+        "shared_by": 35,
+        "shared_with": 34
+    }
+},
+{
+    "model": "track.sharedplaylist",
+    "pk": 10,
+    "fields": {
+        "playlist": 15,
+        "shared_by": 35,
+        "shared_with": 34
+    }
+},
+{
+    "model": "track.sharedplaylist",
+    "pk": 11,
+    "fields": {
+        "playlist": 16,
+        "shared_by": 36,
+        "shared_with": 37
+    }
+},
+{
+    "model": "track.sharedplaylist",
+    "pk": 12,
+    "fields": {
+        "playlist": 17,
+        "shared_by": 37,
+        "shared_with": 36
+    }
+},
+{
+    "model": "track.sharedplaylist",
+    "pk": 13,
+    "fields": {
+        "playlist": 17,
+        "shared_by": 37,
+        "shared_with": 36
+    }
+}
+]
