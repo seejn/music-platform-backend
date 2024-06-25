@@ -1,0 +1,23 @@
+[
+{
+    "model": "Roles.role",
+    "pk": 1,
+    "fields": {
+        "role": "User"
+    }
+},
+{
+    "model": "Roles.role",
+    "pk": 2,
+    "fields": {
+        "role": "Artist"
+    }
+},
+{
+    "model": "Roles.role",
+    "pk": 3,
+    "fields": {
+        "role": "Admin"
+    }
+}
+]
