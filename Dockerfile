@@ -20,18 +20,37 @@ RUN apt-get update \
     git \
     libpq-dev \
     wget \
-  && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
-  && pip install poetry && poetry --version
+  && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /backend
 
-COPY pyproject.toml poetry.lock ./
+COPY requirements.txt ./
 
-RUN poetry lock
-RUN poetry install
-
-EXPOSE 8000
+RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+RUN python manage.py makemigrations Roles
+RUN python manage.py makemigrations genre
+RUN python manage.py makemigrations Cusers
+RUN python manage.py makemigrations track
+RUN python manage.py makemigrations album
+RUN python manage.py makemigrations tour
+RUN python manage.py makemigrations report_ban
+RUN python manage.py makemigrations
+
+
+RUN python manage.py migrate Roles
+RUN python manage.py migrate genre
+RUN python manage.py migrate Cusers
+RUN python manage.py migrate track
+RUN python manage.py migrate album
+RUN python manage.py migrate tour
+RUN python manage.py migrate report_ban
+RUN python manage.py migrate
+
+RUN python manage.py collectstatic --noinput
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "backend.wsgi:application"]
