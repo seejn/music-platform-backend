@@ -27,10 +27,6 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-# RUN python manage.py migrate
-
-# RUN python manage.py loaddata seed/* 
-
 RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
