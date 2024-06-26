@@ -1,6 +1,13 @@
-start:
+build:
 	docker compose build web
-	docker compose run web python manage.py migrate
+
+start:
+	docker compose up web
+
+stop:
+	docker compose down web
+
+seed_db:
 	docker compose run web python manage.py loaddata seed/*
 
 start_db:
@@ -8,9 +15,3 @@ start_db:
 
 stop_db:
 	docker compose down db
-
-run:
-	docker compose up
-
-stop:
-	docker compose down
