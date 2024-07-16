@@ -8,27 +8,22 @@ cd music-platform-backend
 # Create .env file
 .env.sample exists for reference
 
-# Start DB
+# build
 ```
-make start_db
+make build
 ```
 
-# Project Setup
+# seed_db
 ```
-make
+make seed_db
 ```
 
 # Run Project
 ```
-make run
+make start
 ```
 
 # Stop Project
 ```
 make stop
-```
-
-# Stop DB
-```
-make stop_db
 ```
